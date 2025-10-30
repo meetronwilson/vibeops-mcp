@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "tech-debt.schema.json",
+  "title": "Tech Debt",
+  "description": "Technical debt item with impact and effort assessment",
+  "type": "object",
+  "required": ["id", "title", "description", "featureId", "status", "impact", "effort", "metadata"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the tech debt item",
+      "pattern": "^DEBT-[0-9]{4}$"
+    },
+    "title": {
+      "type": "string",
+      "description": "Brief title of the tech debt",
+      "minLength": 5,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the technical debt",
+      "minLength": 20
+    },
+    "featureId": {
+      "type": "string",
+      "description": "Parent feature ID",
+      "pattern": "^FEAT-[0-9]{4}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["identified", "prioritized", "in-progress", "completed", "deferred"],
+      "description": "Current status of the tech debt item"
+    },
+    "impact": {
+      "type": "object",
+      "required": ["severity", "areas", "description"],
+      "description": "Assessment of the impact of this technical debt",
+      "properties": {
+        "severity": {
+          "type": "string",
+          "enum": ["critical", "high", "medium", "low"],
+          "description": "Impact severity level"
+        },
+        "areas": {
+          "type": "array",
+          "description": "Areas affected by this tech debt",
+          "items": {
+            "type": "string",
+            "enum": ["performance", "maintainability", "scalability", "security", "reliability", "developer-experience"]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed description of the impact",
+          "minLength": 20
+        },
+        "metrics": {
+          "type": "array",
+          "description": "Measurable impacts",
+          "items": {
+            "type": "object",
+            "required": ["metric", "currentValue", "targetValue"],
+            "properties": {
+              "metric": {
+                "type": "string"
+              },
+              "currentValue": {
+                "type": "string"
+              },
+              "targetValue": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "effort": {
+      "type": "object",
+      "required": ["estimate", "complexity"],
+      "description": "Effort estimation for addressing this tech debt",
+      "properties": {
+        "estimate": {
+          "type": "string",
+          "enum": ["xs", "small", "medium", "large", "xl"],
+          "description": "T-shirt size estimation"
+        },
+        "complexity": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "description": "Complexity level"
+        },
+        "storyPoints": {
+          "type": "number",
+          "description": "Story points estimation",
+          "minimum": 0
+        },
+        "dependencies": {
+          "type": "array",
+          "description": "Dependencies that must be addressed first",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "proposedSolution": {
+      "type": "string",
+      "description": "Proposed approach to address the tech debt"
+    },
+    "assignee": {
+      "type": "string",
+      "description": "Person assigned to address the tech debt"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"]
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["createdAt", "updatedAt"],
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

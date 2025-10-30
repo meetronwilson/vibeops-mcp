@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "module.schema.json",
+  "title": "Module",
+  "description": "A top-level theme or initiative that groups related features",
+  "type": "object",
+  "required": ["id", "name", "description", "type", "status", "features", "metadata"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the module",
+      "pattern": "^MOD-[0-9]{4}$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the module",
+      "minLength": 3,
+      "maxLength": 100
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the module's purpose and scope",
+      "minLength": 10,
+      "maxLength": 1000
+    },
+    "type": {
+      "type": "string",
+      "enum": ["theme", "initiative"],
+      "description": "Type of module"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["planning", "active", "on-hold", "completed", "archived"],
+      "description": "Current status of the module"
+    },
+    "features": {
+      "type": "array",
+      "description": "List of feature IDs belonging to this module",
+      "items": {
+        "type": "string",
+        "pattern": "^FEAT-[0-9]{4}$"
+      },
+      "uniqueItems": true
+    },
+    "owner": {
+      "type": "string",
+      "description": "Person or team responsible for the module"
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Module start date"
+    },
+    "targetDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Target completion date"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["createdAt", "updatedAt"],
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

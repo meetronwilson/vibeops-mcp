@@ -1,0 +1,50 @@
+{
+  "id": "FEAT-0001",
+  "name": "Example Feature",
+  "description": "This is an example feature that demonstrates the feature contract structure.",
+  "moduleId": "MOD-0001",
+  "status": "draft",
+  "prd": {
+    "problemStatement": "Users currently face challenges with [specific problem]. This impacts their ability to [describe impact].",
+    "goals": [
+      "Enable users to accomplish [specific goal]",
+      "Improve [specific metric] by [target amount]"
+    ],
+    "successMetrics": [
+      {
+        "metric": "User satisfaction score",
+        "target": "4.5/5.0"
+      },
+      {
+        "metric": "Task completion rate",
+        "target": "85%"
+      }
+    ],
+    "scope": {
+      "inScope": [
+        "Core functionality for [feature description]",
+        "Integration with [system/component]"
+      ],
+      "outOfScope": [
+        "Advanced customization options (future phase)",
+        "Mobile app version (separate initiative)"
+      ]
+    },
+    "userStories": [
+      "As a user, I want to [action] so that I can [benefit]"
+    ],
+    "dependencies": [
+      "Authentication system must be completed",
+      "API endpoints need to be available"
+    ]
+  },
+  "issues": [],
+  "owner": "Product Manager",
+  "priority": "high",
+  "metadata": {
+    "createdAt": "2025-01-01T00:00:00Z",
+    "updatedAt": "2025-01-01T00:00:00Z",
+    "createdBy": "system",
+    "tags": ["example"]
+  }
+}
