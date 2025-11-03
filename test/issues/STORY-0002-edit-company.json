@@ -1,0 +1,86 @@
+{
+  "id": "STORY-0002",
+  "title": "Edit existing company profile information",
+  "description": "As a sales representative, I want to edit company profile information, so that I can keep company records up-to-date as businesses evolve.",
+  "featureId": "FEAT-0001",
+  "status": "ready",
+  "acceptanceCriteria": [
+    {
+      "criterion": "Given I am viewing a company profile, when I click the 'Edit' button, then the profile fields become editable",
+      "verified": false
+    },
+    {
+      "criterion": "Given I am editing a company profile, when I modify fields and click 'Save', then the changes are persisted and displayed",
+      "verified": false
+    },
+    {
+      "criterion": "Given I am editing a company profile, when I click 'Cancel', then my changes are discarded and original values are restored",
+      "verified": false
+    },
+    {
+      "criterion": "Given I am editing a company profile, when another user has modified the same company, then I see a conflict warning before saving",
+      "verified": false
+    }
+  ],
+  "definitionOfDone": [
+    {
+      "item": "Edit mode UI implemented with inline editing",
+      "completed": false
+    },
+    {
+      "item": "Save and cancel functionality working",
+      "completed": false
+    },
+    {
+      "item": "Optimistic locking for concurrent edits",
+      "completed": false
+    },
+    {
+      "item": "API endpoint for company updates implemented",
+      "completed": false
+    },
+    {
+      "item": "Unit tests written and passing",
+      "completed": false
+    },
+    {
+      "item": "Integration tests written and passing",
+      "completed": false
+    },
+    {
+      "item": "Code reviewed and approved",
+      "completed": false
+    }
+  ],
+  "definitionOfReady": [
+    {
+      "item": "User story is clearly defined",
+      "ready": true
+    },
+    {
+      "item": "Acceptance criteria documented",
+      "ready": true
+    },
+    {
+      "item": "Edit mode design approved",
+      "ready": true
+    },
+    {
+      "item": "Story is estimated",
+      "ready": true
+    },
+    {
+      "item": "STORY-0001 must be completed first",
+      "ready": false
+    }
+  ],
+  "assignee": "",
+  "storyPoints": 3,
+  "priority": "medium",
+  "metadata": {
+    "createdAt": "2025-01-26T10:30:00Z",
+    "updatedAt": "2025-01-26T10:30:00Z",
+    "createdBy": "sarah.chen",
+    "tags": ["companies", "edit", "update"]
+  }
+}

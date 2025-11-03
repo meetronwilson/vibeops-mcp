@@ -1,0 +1,55 @@
+{
+  "id": "FEAT-0002",
+  "name": "Company Hierarchy Visualization",
+  "description": "Display parent-subsidiary relationships and organizational structures for enterprise accounts.",
+  "moduleId": "MOD-0001",
+  "status": "ready",
+  "prd": {
+    "problemStatement": "Enterprise sales teams struggle to understand complex organizational structures when dealing with large corporations that have multiple subsidiaries, divisions, and regional offices, leading to missed opportunities and account conflicts.",
+    "goals": [
+      "Visualize parent-child company relationships clearly",
+      "Enable navigation through company hierarchies",
+      "Prevent account conflicts by showing company ownership"
+    ],
+    "successMetrics": [
+      {
+        "metric": "Account conflict reduction",
+        "target": "80% reduction in duplicate account creation"
+      },
+      {
+        "metric": "Enterprise account coverage",
+        "target": "100% of enterprise accounts have hierarchy mapped"
+      }
+    ],
+    "scope": {
+      "inScope": [
+        "Define parent-child company relationships",
+        "Visual hierarchy tree display",
+        "Navigate between related companies",
+        "Hierarchy depth indicators"
+      ],
+      "outOfScope": [
+        "Automated hierarchy detection from external sources",
+        "Complex org chart with multiple relationship types",
+        "Historical hierarchy tracking"
+      ]
+    },
+    "userStories": [
+      "As an enterprise sales rep, I want to see company hierarchies so that I can understand the complete account structure",
+      "As a sales manager, I want to prevent duplicate accounts so that we avoid internal competition"
+    ],
+    "dependencies": [
+      "Company profile feature must be completed",
+      "Graph visualization library selection"
+    ]
+  },
+  "issues": ["STORY-0003", "DEBT-0001"],
+  "owner": "Michael Torres",
+  "priority": "medium",
+  "metadata": {
+    "createdAt": "2025-01-22T09:00:00Z",
+    "updatedAt": "2025-01-28T15:45:00Z",
+    "createdBy": "michael.torres",
+    "tags": ["companies", "hierarchy", "enterprise"]
+  }
+}

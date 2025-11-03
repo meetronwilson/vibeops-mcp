@@ -1,0 +1,43 @@
+{
+  "id": "BUG-0002",
+  "title": "System allows duplicate contact emails across different companies",
+  "description": "The CRM currently allows creating multiple contact records with the same email address when associated with different companies. While this may be intentional in some cases (person works at multiple companies), it often leads to data fragmentation where the same person has multiple disconnected contact records.",
+  "featureId": "FEAT-0003",
+  "status": "open",
+  "severity": "medium",
+  "reproductionSteps": [
+    {
+      "step": "Create a contact with email 'john.doe@email.com' associated with Company A",
+      "expectedResult": "Contact created successfully",
+      "actualResult": "Contact created successfully"
+    },
+    {
+      "step": "Create another contact with the same email 'john.doe@email.com' but associated with Company B",
+      "expectedResult": "System should warn about existing contact with this email or allow linking the same person to multiple companies",
+      "actualResult": "System creates a completely separate contact record with no warning or connection to the first contact"
+    },
+    {
+      "step": "Search for 'john.doe@email.com' in the contacts list",
+      "expectedResult": "Should see one contact record or clear indication of multiple roles",
+      "actualResult": "Two separate contact records appear with no indication they represent the same person"
+    }
+  ],
+  "environment": {
+    "platform": "Web Application - All browsers",
+    "browser": "Chrome 121.0, Safari 17.2, Firefox 122.0",
+    "version": "v1.2.0",
+    "additionalDetails": {
+      "dataIntegrity": "Affects email-based contact lookups and email campaign targeting",
+      "impactedUsers": "Sales reps and marketing teams"
+    }
+  },
+  "attachments": [],
+  "assignee": "maria.garcia",
+  "rootCause": "Email uniqueness constraint is scoped to company_id + email combination rather than global email uniqueness. No duplicate detection or warning system exists for cross-company contact creation.",
+  "metadata": {
+    "createdAt": "2025-02-12T11:20:00Z",
+    "updatedAt": "2025-02-13T09:15:00Z",
+    "createdBy": "sales.team",
+    "tags": ["contacts", "duplicates", "data-quality", "email"]
+  }
+}

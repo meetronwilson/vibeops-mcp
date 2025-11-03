@@ -1,0 +1,82 @@
+{
+  "id": "STORY-0007",
+  "title": "Filter pipeline view by owner, value, and date range",
+  "description": "As a sales manager, I want to filter the pipeline view by deal owner, deal value, and date ranges, so that I can focus on specific segments of the pipeline for analysis and coaching.",
+  "featureId": "FEAT-0005",
+  "status": "ready",
+  "acceptanceCriteria": [
+    {
+      "criterion": "Given I am viewing the pipeline, when I access the filter panel, then I see filter options for owner, deal value range, and created/close date",
+      "verified": false
+    },
+    {
+      "criterion": "Given I select multiple filters, when I apply them, then only deals matching all criteria are displayed",
+      "verified": false
+    },
+    {
+      "criterion": "Given I have active filters, when I view the pipeline, then I see a clear indication of active filters with the ability to clear them",
+      "verified": false
+    },
+    {
+      "criterion": "Given I apply filters, when I refresh the page, then my filter selections are preserved",
+      "verified": false
+    }
+  ],
+  "definitionOfDone": [
+    {
+      "item": "Filter UI panel implemented",
+      "completed": false
+    },
+    {
+      "item": "Multi-select owner filter working",
+      "completed": false
+    },
+    {
+      "item": "Deal value range slider implemented",
+      "completed": false
+    },
+    {
+      "item": "Date range picker integrated",
+      "completed": false
+    },
+    {
+      "item": "Filter state persistence (URL params or local storage)",
+      "completed": false
+    },
+    {
+      "item": "Backend API filtering logic implemented",
+      "completed": false
+    },
+    {
+      "item": "Tests written and passing",
+      "completed": false
+    }
+  ],
+  "definitionOfReady": [
+    {
+      "item": "User story clearly defined",
+      "ready": true
+    },
+    {
+      "item": "Filter UI design approved",
+      "ready": true
+    },
+    {
+      "item": "Story estimated",
+      "ready": true
+    },
+    {
+      "item": "Date picker library selected",
+      "ready": true
+    }
+  ],
+  "assignee": "",
+  "storyPoints": 5,
+  "priority": "high",
+  "metadata": {
+    "createdAt": "2025-03-01T13:00:00Z",
+    "updatedAt": "2025-03-01T13:00:00Z",
+    "createdBy": "amanda.rodriguez",
+    "tags": ["deals", "pipeline", "filters", "search"]
+  }
+}

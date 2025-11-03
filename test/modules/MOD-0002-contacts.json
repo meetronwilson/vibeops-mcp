@@ -1,0 +1,17 @@
+{
+  "id": "MOD-0002",
+  "name": "Contact Management",
+  "description": "Module for managing individual contacts, their relationships to companies, communication history, and engagement tracking.",
+  "type": "theme",
+  "status": "active",
+  "features": ["FEAT-0003", "FEAT-0004"],
+  "owner": "CRM Product Team",
+  "startDate": "2025-02-01",
+  "targetDate": "2025-07-15",
+  "metadata": {
+    "createdAt": "2025-02-01T09:00:00Z",
+    "updatedAt": "2025-02-01T09:00:00Z",
+    "createdBy": "product-manager",
+    "tags": ["crm", "contacts", "people"]
+  }
+}

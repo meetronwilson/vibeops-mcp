@@ -1,0 +1,17 @@
+{
+  "id": "MOD-0001",
+  "name": "Company Management",
+  "description": "Core module for managing company records, including company profiles, hierarchies, and relationships within the CRM system.",
+  "type": "theme",
+  "status": "active",
+  "features": ["FEAT-0001", "FEAT-0002"],
+  "owner": "CRM Product Team",
+  "startDate": "2025-01-15",
+  "targetDate": "2025-06-30",
+  "metadata": {
+    "createdAt": "2025-01-15T10:00:00Z",
+    "updatedAt": "2025-01-15T10:00:00Z",
+    "createdBy": "product-manager",
+    "tags": ["crm", "companies", "b2b"]
+  }
+}

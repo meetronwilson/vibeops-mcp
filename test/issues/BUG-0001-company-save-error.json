@@ -1,0 +1,49 @@
+{
+  "id": "BUG-0001",
+  "title": "Company profile fails to save with special characters in name",
+  "description": "When creating or editing a company profile with special characters (e.g., &, ®, ™) in the company name, the save operation fails with a 400 error. This prevents users from accurately recording company names that include these legal characters.",
+  "featureId": "FEAT-0001",
+  "status": "open",
+  "severity": "high",
+  "reproductionSteps": [
+    {
+      "step": "Navigate to the company creation form or edit an existing company",
+      "expectedResult": "Form loads successfully",
+      "actualResult": "Form loads successfully"
+    },
+    {
+      "step": "Enter a company name with special characters, e.g., 'Johnson & Johnson®'",
+      "expectedResult": "Field accepts the input and displays it correctly",
+      "actualResult": "Field accepts and displays the input correctly"
+    },
+    {
+      "step": "Fill in other required fields (industry, size, website)",
+      "expectedResult": "All fields validated successfully",
+      "actualResult": "All fields show as valid"
+    },
+    {
+      "step": "Click the 'Save' button to save the company profile",
+      "expectedResult": "Company profile is saved successfully and user sees confirmation",
+      "actualResult": "400 Bad Request error appears: 'Invalid characters in company name'. Company is not saved."
+    }
+  ],
+  "environment": {
+    "platform": "Web Application - Chrome 121.0, Firefox 122.0, Safari 17.2",
+    "browser": "Reproduced in all major browsers",
+    "version": "v1.2.0",
+    "additionalDetails": {
+      "apiVersion": "v2.1",
+      "affectedCharacters": ["&", "®", "™", "©", "–"],
+      "serverEnvironment": "Production and Staging"
+    }
+  },
+  "attachments": [],
+  "assignee": "alex.johnson",
+  "rootCause": "Backend API validation regex pattern does not allow certain special characters that are valid in company names. Frontend passes these characters but backend rejects them.",
+  "metadata": {
+    "createdAt": "2025-02-03T16:45:00Z",
+    "updatedAt": "2025-02-04T09:20:00Z",
+    "createdBy": "qa.team",
+    "tags": ["companies", "validation", "special-characters", "api"]
+  }
+}

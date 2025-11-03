@@ -1,0 +1,54 @@
+{
+  "id": "FEAT-0004",
+  "name": "Contact Activity Timeline",
+  "description": "Chronological timeline of all interactions and activities with a contact.",
+  "moduleId": "MOD-0002",
+  "status": "draft",
+  "prd": {
+    "problemStatement": "Team members cannot easily see the complete history of interactions with a contact, making it difficult to maintain context in conversations and coordinate team efforts effectively.",
+    "goals": [
+      "Display all contact interactions in chronological order",
+      "Provide quick context for upcoming conversations",
+      "Enable team coordination through shared activity visibility"
+    ],
+    "successMetrics": [
+      {
+        "metric": "Pre-call preparation time",
+        "target": "Reduce from 10 minutes to under 3 minutes"
+      },
+      {
+        "metric": "Timeline usage rate",
+        "target": "70% of users check timeline before contact interactions"
+      }
+    ],
+    "scope": {
+      "inScope": [
+        "Display emails, calls, meetings in timeline",
+        "Show notes and comments",
+        "Filter timeline by activity type",
+        "Add manual timeline entries"
+      ],
+      "outOfScope": [
+        "Automatic email parsing and import",
+        "Calendar integration (separate feature)",
+        "Sentiment analysis of interactions"
+      ]
+    },
+    "userStories": [
+      "As a sales rep, I want to see all past interactions with a contact so that I can prepare for our next conversation"
+    ],
+    "dependencies": [
+      "Contact profiles must be implemented",
+      "Activity logging service must be available"
+    ]
+  },
+  "issues": ["SPIKE-0001"],
+  "owner": "David Park",
+  "priority": "medium",
+  "metadata": {
+    "createdAt": "2025-02-08T13:30:00Z",
+    "updatedAt": "2025-02-08T13:30:00Z",
+    "createdBy": "david.park",
+    "tags": ["contacts", "timeline", "activities"]
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "id": "STORY-0001",
+  "title": "Create new company profile with essential business information",
+  "description": "As a sales representative, I want to create a new company profile with essential business details, so that I can start tracking potential customers in the CRM.",
+  "featureId": "FEAT-0001",
+  "status": "in-progress",
+  "acceptanceCriteria": [
+    {
+      "criterion": "Given I am on the companies page, when I click the 'New Company' button, then I see a company creation form",
+      "verified": true
+    },
+    {
+      "criterion": "Given I am on the company creation form, when I enter company name, industry, size, and website, then all fields are validated in real-time",
+      "verified": false
+    },
+    {
+      "criterion": "Given I have filled required fields, when I click 'Save', then the company is created and I am redirected to the company profile page",
+      "verified": false
+    },
+    {
+      "criterion": "Given I try to create a company with an existing name, when I click 'Save', then I see a warning about potential duplicates",
+      "verified": false
+    }
+  ],
+  "definitionOfDone": [
+    {
+      "item": "Company creation form UI implemented",
+      "completed": true
+    },
+    {
+      "item": "Form validation logic completed",
+      "completed": false
+    },
+    {
+      "item": "API endpoint for company creation implemented",
+      "completed": false
+    },
+    {
+      "item": "Unit tests written and passing",
+      "completed": false
+    },
+    {
+      "item": "Integration tests written and passing",
+      "completed": false
+    },
+    {
+      "item": "Code reviewed and approved",
+      "completed": false
+    },
+    {
+      "item": "Documentation updated",
+      "completed": false
+    }
+  ],
+  "definitionOfReady": [
+    {
+      "item": "User story is clearly defined with acceptance criteria",
+      "ready": true
+    },
+    {
+      "item": "Design mockups approved",
+      "ready": true
+    },
+    {
+      "item": "Database schema finalized",
+      "ready": true
+    },
+    {
+      "item": "Story is estimated",
+      "ready": true
+    },
+    {
+      "item": "Dependencies identified and resolved",
+      "ready": true
+    }
+  ],
+  "assignee": "alex.johnson",
+  "storyPoints": 5,
+  "priority": "high",
+  "metadata": {
+    "createdAt": "2025-01-25T09:00:00Z",
+    "updatedAt": "2025-02-01T14:30:00Z",
+    "createdBy": "sarah.chen",
+    "tags": ["companies", "create", "form"]
+  }
+}

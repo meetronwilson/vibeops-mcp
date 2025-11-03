@@ -1,0 +1,62 @@
+{
+  "id": "SPIKE-0002",
+  "title": "Investigate machine learning models for deal close probability prediction",
+  "description": "Explore whether machine learning models can improve forecast accuracy beyond simple stage-based probability. Research what data features are most predictive of deal closure, evaluate ML frameworks, and determine if we have sufficient historical data for training.",
+  "featureId": "FEAT-0006",
+  "status": "planned",
+  "questions": [
+    {
+      "question": "Do we have sufficient historical deal data (volume and quality) to train a reliable ML model?",
+      "answered": false,
+      "answer": ""
+    },
+    {
+      "question": "Which features are most predictive of deal closure (deal size, age, activity frequency, contact engagement, etc.)?",
+      "answered": false,
+      "answer": ""
+    },
+    {
+      "question": "What ML approaches are most suitable (logistic regression, random forest, gradient boosting, neural networks)?",
+      "answered": false,
+      "answer": ""
+    },
+    {
+      "question": "How much would ML-based forecasting improve accuracy compared to current stage-based method?",
+      "answered": false,
+      "answer": ""
+    },
+    {
+      "question": "What are the infrastructure and maintenance requirements for deploying an ML model in production?",
+      "answered": false,
+      "answer": ""
+    }
+  ],
+  "timebox": {
+    "duration": 2,
+    "unit": "weeks",
+    "startDate": "2025-03-10T09:00:00Z",
+    "endDate": "2025-03-24T17:00:00Z"
+  },
+  "objectives": [
+    "Analyze historical deal data to assess data quality and volume (need 1000+ closed deals minimum)",
+    "Perform feature engineering and correlation analysis to identify predictive features",
+    "Build prototype models using at least 3 different algorithms",
+    "Compare model accuracy against baseline stage-based probability method",
+    "Estimate infrastructure costs and ongoing maintenance effort",
+    "Provide go/no-go recommendation with detailed justification"
+  ],
+  "findings": {
+    "summary": "",
+    "recommendations": [],
+    "risks": [],
+    "nextSteps": []
+  },
+  "assignee": "",
+  "artifacts": [],
+  "metadata": {
+    "createdAt": "2025-03-07T14:00:00Z",
+    "updatedAt": "2025-03-07T14:00:00Z",
+    "createdBy": "robert.kim",
+    "tags": ["deals", "forecasting", "machine-learning", "research"]
+  }
+}

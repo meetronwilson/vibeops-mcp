@@ -1,0 +1,43 @@
+{
+  "id": "DEBT-0001",
+  "title": "Refactor company hierarchy to use adjacency list instead of nested set model",
+  "description": "Current company hierarchy implementation uses a nested set model which is efficient for reads but extremely slow for write operations (adding/moving companies in hierarchy). This is causing performance issues and complicating the codebase. Need to refactor to adjacency list model with materialized path for better write performance.",
+  "featureId": "FEAT-0002",
+  "status": "identified",
+  "impact": {
+    "severity": "medium",
+    "areas": ["performance", "maintainability"],
+    "description": "Write operations on company hierarchies take 3-5 seconds for medium-sized trees (50+ nodes), causing poor user experience. The nested set model also requires complex transaction logic that makes the code difficult to maintain and extend. This technical debt is blocking future features like bulk hierarchy imports and real-time collaboration.",
+    "metrics": [
+      {
+        "metric": "Hierarchy update latency",
+        "currentValue": "3-5 seconds for 50 node trees",
+        "targetValue": "Under 500ms for all operations"
+      },
+      {
+        "metric": "Code complexity",
+        "currentValue": "Cyclomatic complexity: 15 (high)",
+        "targetValue": "Cyclomatic complexity: under 8"
+      }
+    ]
+  },
+  "effort": {
+    "estimate": "large",
+    "complexity": "high",
+    "storyPoints": 13,
+    "dependencies": [
+      "Complete data migration strategy",
+      "Ensure backward compatibility during transition",
+      "Update all hierarchy query logic across the application"
+    ]
+  },
+  "proposedSolution": "Migrate to adjacency list model with materialized path for ancestor queries. Use recursive CTEs for tree traversal. Implement migration script to convert existing nested set data. Add database indexes on parent_id and path columns. Update all query logic to use new model. Maintain backward compatibility layer during transition period.",
+  "assignee": "",
+  "priority": "medium",
+  "metadata": {
+    "createdAt": "2025-01-30T14:00:00Z",
+    "updatedAt": "2025-01-30T14:00:00Z",
+    "createdBy": "tech-lead",
+    "tags": ["companies", "hierarchy", "database", "performance"]
+  }
+}

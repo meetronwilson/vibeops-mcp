@@ -1,0 +1,62 @@
+{
+  "id": "FEAT-0006",
+  "name": "Revenue Forecasting Dashboard",
+  "description": "Analytics dashboard for revenue forecasting based on pipeline data and historical close rates.",
+  "moduleId": "MOD-0003",
+  "status": "ready",
+  "prd": {
+    "problemStatement": "Sales leadership lacks accurate revenue forecasting tools, relying on manual spreadsheet calculations that are time-consuming, error-prone, and provide limited insight into forecast reliability and trends.",
+    "goals": [
+      "Automate revenue forecast calculations based on pipeline data",
+      "Provide confidence levels for forecasts",
+      "Enable scenario planning and what-if analysis",
+      "Track forecast accuracy over time"
+    ],
+    "successMetrics": [
+      {
+        "metric": "Forecast generation time",
+        "target": "Reduce from 4 hours to real-time"
+      },
+      {
+        "metric": "Forecast accuracy improvement",
+        "target": "Improve accuracy by 25% within 6 months"
+      },
+      {
+        "metric": "Leadership adoption",
+        "target": "100% of sales leadership using dashboard weekly"
+      }
+    ],
+    "scope": {
+      "inScope": [
+        "Weighted pipeline forecast by stage probability",
+        "Historical close rate analysis",
+        "Forecast by time period (monthly, quarterly, annual)",
+        "Trend visualization and reporting",
+        "Forecast vs actual tracking"
+      ],
+      "outOfScope": [
+        "Machine learning forecast models (spike required first)",
+        "External market data integration",
+        "Automated rep quota allocation"
+      ]
+    },
+    "userStories": [
+      "As a VP of Sales, I want to see real-time revenue forecasts so that I can make informed business decisions",
+      "As a sales operations analyst, I want to track forecast accuracy so that I can improve our forecasting methodology"
+    ],
+    "dependencies": [
+      "Deal pipeline feature must be complete",
+      "Historical sales data must be imported",
+      "Analytics platform must be operational"
+    ]
+  },
+  "issues": ["STORY-0008", "SPIKE-0002"],
+  "owner": "Robert Kim",
+  "priority": "high",
+  "metadata": {
+    "createdAt": "2025-02-25T09:30:00Z",
+    "updatedAt": "2025-03-01T11:00:00Z",
+    "createdBy": "robert.kim",
+    "tags": ["deals", "forecasting", "analytics", "revenue"]
+  }
+}

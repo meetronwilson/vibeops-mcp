@@ -1,0 +1,62 @@
+{
+  "id": "FEAT-0005",
+  "name": "Visual Deal Pipeline",
+  "description": "Kanban-style visual pipeline for managing deals through sales stages with drag-and-drop functionality.",
+  "moduleId": "MOD-0003",
+  "status": "in-progress",
+  "prd": {
+    "problemStatement": "Sales teams struggle with managing multiple deals across different stages, lacking visual clarity on pipeline health and deal progression, which impacts forecasting accuracy and deal velocity.",
+    "goals": [
+      "Provide visual representation of all deals in the pipeline",
+      "Enable easy deal stage progression with drag-and-drop",
+      "Give managers quick pipeline health visibility",
+      "Improve forecast accuracy through better stage management"
+    ],
+    "successMetrics": [
+      {
+        "metric": "Deal update frequency",
+        "target": "Deals updated at least weekly (90% compliance)"
+      },
+      {
+        "metric": "Forecast accuracy",
+        "target": "Within 15% of actual closed revenue"
+      },
+      {
+        "metric": "Pipeline visibility score",
+        "target": "Managers rate visibility 4.5/5 or higher"
+      }
+    ],
+    "scope": {
+      "inScope": [
+        "Kanban board view with customizable stages",
+        "Drag-and-drop deal progression",
+        "Deal cards with key information",
+        "Filter and search deals",
+        "Stage-based probability settings"
+      ],
+      "outOfScope": [
+        "AI-powered deal scoring (future enhancement)",
+        "Custom pipeline views per user (v2 feature)",
+        "Automated stage progression rules"
+      ]
+    },
+    "userStories": [
+      "As a sales rep, I want to drag deals between stages so that I can quickly update my pipeline",
+      "As a sales manager, I want to view the entire team's pipeline so that I can forecast accurately"
+    ],
+    "dependencies": [
+      "Deal entity data model must be finalized",
+      "Company and contact modules must be operational",
+      "Drag-and-drop UI library selection"
+    ]
+  },
+  "issues": ["STORY-0006", "STORY-0007", "BUG-0003", "DEBT-0002"],
+  "owner": "Amanda Rodriguez",
+  "priority": "critical",
+  "metadata": {
+    "createdAt": "2025-02-20T10:00:00Z",
+    "updatedAt": "2025-02-28T14:15:00Z",
+    "createdBy": "amanda.rodriguez",
+    "tags": ["deals", "pipeline", "sales", "kanban"]
+  }
+}

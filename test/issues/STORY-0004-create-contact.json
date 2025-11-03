@@ -1,0 +1,86 @@
+{
+  "id": "STORY-0004",
+  "title": "Create contact profile and associate with company",
+  "description": "As a sales representative, I want to create a contact profile and link it to a company, so that I can track the people I interact with at customer organizations.",
+  "featureId": "FEAT-0003",
+  "status": "in-progress",
+  "acceptanceCriteria": [
+    {
+      "criterion": "Given I am on the contacts page, when I click 'New Contact', then I see a contact creation form",
+      "verified": true
+    },
+    {
+      "criterion": "Given I am creating a contact, when I search for a company in the company field, then I see autocomplete suggestions",
+      "verified": false
+    },
+    {
+      "criterion": "Given I have filled required fields (name, email, company), when I click 'Save', then the contact is created and linked to the company",
+      "verified": false
+    },
+    {
+      "criterion": "Given I create a contact, when I navigate to the linked company profile, then I see the contact listed in the company's contacts section",
+      "verified": false
+    }
+  ],
+  "definitionOfDone": [
+    {
+      "item": "Contact creation form UI implemented",
+      "completed": true
+    },
+    {
+      "item": "Company autocomplete working",
+      "completed": false
+    },
+    {
+      "item": "Contact-company association logic implemented",
+      "completed": false
+    },
+    {
+      "item": "API endpoints for contact CRUD operations",
+      "completed": false
+    },
+    {
+      "item": "Email validation implemented",
+      "completed": false
+    },
+    {
+      "item": "Unit tests passing",
+      "completed": false
+    },
+    {
+      "item": "Integration tests passing",
+      "completed": false
+    }
+  ],
+  "definitionOfReady": [
+    {
+      "item": "User story clearly defined",
+      "ready": true
+    },
+    {
+      "item": "Contact schema finalized",
+      "ready": true
+    },
+    {
+      "item": "Company module operational",
+      "ready": true
+    },
+    {
+      "item": "Design approved",
+      "ready": true
+    },
+    {
+      "item": "Story estimated",
+      "ready": true
+    }
+  ],
+  "assignee": "maria.garcia",
+  "storyPoints": 5,
+  "priority": "high",
+  "metadata": {
+    "createdAt": "2025-02-10T10:00:00Z",
+    "updatedAt": "2025-02-15T13:45:00Z",
+    "createdBy": "jessica.liu",
+    "tags": ["contacts", "create", "associations"]
+  }
+}

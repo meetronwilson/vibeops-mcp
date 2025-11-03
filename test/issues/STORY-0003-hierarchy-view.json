@@ -1,0 +1,82 @@
+{
+  "id": "STORY-0003",
+  "title": "View company hierarchy in tree visualization",
+  "description": "As an enterprise sales representative, I want to view company hierarchies in a visual tree structure, so that I can understand parent-subsidiary relationships at a glance.",
+  "featureId": "FEAT-0002",
+  "status": "backlog",
+  "acceptanceCriteria": [
+    {
+      "criterion": "Given a company has parent or child relationships, when I view the company profile, then I see a 'View Hierarchy' button",
+      "verified": false
+    },
+    {
+      "criterion": "Given I click 'View Hierarchy', when the hierarchy loads, then I see a tree visualization with the current company highlighted",
+      "verified": false
+    },
+    {
+      "criterion": "Given I am viewing a hierarchy tree, when I click on any company node, then I navigate to that company's profile",
+      "verified": false
+    },
+    {
+      "criterion": "Given a hierarchy has more than 3 levels deep, when I view it, then I can expand/collapse branches",
+      "verified": false
+    }
+  ],
+  "definitionOfDone": [
+    {
+      "item": "Tree visualization component implemented",
+      "completed": false
+    },
+    {
+      "item": "Hierarchy data API endpoint created",
+      "completed": false
+    },
+    {
+      "item": "Expand/collapse functionality working",
+      "completed": false
+    },
+    {
+      "item": "Navigation between companies functional",
+      "completed": false
+    },
+    {
+      "item": "Responsive design for mobile views",
+      "completed": false
+    },
+    {
+      "item": "Unit and integration tests passing",
+      "completed": false
+    },
+    {
+      "item": "Performance tested with hierarchies of 100+ companies",
+      "completed": false
+    }
+  ],
+  "definitionOfReady": [
+    {
+      "item": "User story clearly defined",
+      "ready": true
+    },
+    {
+      "item": "Hierarchy visualization library selected",
+      "ready": false
+    },
+    {
+      "item": "Design mockups approved",
+      "ready": false
+    },
+    {
+      "item": "Story is estimated",
+      "ready": true
+    }
+  ],
+  "assignee": "",
+  "storyPoints": 8,
+  "priority": "medium",
+  "metadata": {
+    "createdAt": "2025-01-28T11:00:00Z",
+    "updatedAt": "2025-01-28T11:00:00Z",
+    "createdBy": "michael.torres",
+    "tags": ["companies", "hierarchy", "visualization"]
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "id": "STORY-0008",
+  "title": "Display weighted revenue forecast dashboard by quarter",
+  "description": "As a VP of Sales, I want to view a weighted revenue forecast dashboard broken down by quarter, so that I can predict revenue and make informed business decisions.",
+  "featureId": "FEAT-0006",
+  "status": "ready",
+  "acceptanceCriteria": [
+    {
+      "criterion": "Given I access the forecast dashboard, when it loads, then I see current quarter and next 3 quarters forecast data",
+      "verified": false
+    },
+    {
+      "criterion": "Given I view a quarterly forecast, when deals are in different stages, then the forecast is calculated using stage-based probability weights",
+      "verified": false
+    },
+    {
+      "criterion": "Given I view the forecast, when I see the total, then it shows both weighted forecast and best-case scenario (100% probability)",
+      "verified": false
+    },
+    {
+      "criterion": "Given I click on a forecast amount, when the detail view opens, then I see the list of deals contributing to that forecast",
+      "verified": false
+    }
+  ],
+  "definitionOfDone": [
+    {
+      "item": "Dashboard UI with quarterly breakdown implemented",
+      "completed": false
+    },
+    {
+      "item": "Weighted forecast calculation logic implemented",
+      "completed": false
+    },
+    {
+      "item": "Best-case scenario calculation implemented",
+      "completed": false
+    },
+    {
+      "item": "Drill-down to deal list functionality",
+      "completed": false
+    },
+    {
+      "item": "API endpoints for forecast data",
+      "completed": false
+    },
+    {
+      "item": "Chart visualizations implemented",
+      "completed": false
+    },
+    {
+      "item": "Tests written and passing",
+      "completed": false
+    }
+  ],
+  "definitionOfReady": [
+    {
+      "item": "User story clearly defined",
+      "ready": true
+    },
+    {
+      "item": "Forecast calculation methodology approved",
+      "ready": true
+    },
+    {
+      "item": "Dashboard design mockups approved",
+      "ready": true
+    },
+    {
+      "item": "Story estimated",
+      "ready": true
+    },
+    {
+      "item": "Deal pipeline data available",
+      "ready": true
+    }
+  ],
+  "assignee": "emily.wong",
+  "storyPoints": 8,
+  "priority": "high",
+  "metadata": {
+    "createdAt": "2025-03-06T10:00:00Z",
+    "updatedAt": "2025-03-06T10:00:00Z",
+    "createdBy": "robert.kim",
+    "tags": ["deals", "forecasting", "dashboard", "analytics"]
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "id": "FEAT-0003",
+  "name": "Contact Profile Management",
+  "description": "Comprehensive contact management with detailed individual profiles and company associations.",
+  "moduleId": "MOD-0002",
+  "status": "in-progress",
+  "prd": {
+    "problemStatement": "Sales and customer success teams need to maintain detailed information about individual contacts, their roles, communication preferences, and relationships to companies, but current tools provide limited context and poor association management.",
+    "goals": [
+      "Create rich contact profiles with all relevant individual information",
+      "Associate contacts with their respective companies",
+      "Track contact roles and decision-making authority",
+      "Maintain communication preferences and engagement history"
+    ],
+    "successMetrics": [
+      {
+        "metric": "Contact profile completeness",
+        "target": "75% of contacts have complete profiles"
+      },
+      {
+        "metric": "Contact-company association accuracy",
+        "target": "95% of contacts correctly linked to companies"
+      }
+    ],
+    "scope": {
+      "inScope": [
+        "Create and edit contact profiles",
+        "Associate contacts with companies",
+        "Track job titles and roles",
+        "Store communication preferences",
+        "Record social media profiles"
+      ],
+      "outOfScope": [
+        "Email validation and verification (separate service)",
+        "Automated contact enrichment (future phase)",
+        "Contact deduplication (tech debt backlog)"
+      ]
+    },
+    "userStories": [
+      "As a sales rep, I want to maintain detailed contact profiles so that I can personalize my outreach",
+      "As a CSM, I want to see a contact's company association so that I understand their organizational context"
+    ],
+    "dependencies": [
+      "Company module must be operational",
+      "Contact entity schema must be approved"
+    ]
+  },
+  "issues": ["STORY-0004", "STORY-0005", "BUG-0002"],
+  "owner": "Jessica Liu",
+  "priority": "high",
+  "metadata": {
+    "createdAt": "2025-02-05T11:00:00Z",
+    "updatedAt": "2025-02-10T16:20:00Z",
+    "createdBy": "jessica.liu",
+    "tags": ["contacts", "profiles", "relationships"]
+  }
+}
