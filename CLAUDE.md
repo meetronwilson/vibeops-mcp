@@ -69,19 +69,20 @@ contracts/
 │   ├── bug.template.json
 │   ├── tech-debt.template.json
 │   └── spike.template.json
-└── validators/        # Validation implementation
-    └── validate.js
+├── validators/        # Validation implementation
+│   └── validate.js
+└── converters/        # Format converters
+    └── json-to-md.js
 ```
 
-### Validation Commands
+### Commands
 
 Install dependencies first:
 ```bash
 npm install
 ```
 
-Validate contracts using the following commands:
-
+**Validation:**
 ```bash
 # Validate a specific contract file
 npm run validate:module path/to/module.json
@@ -95,6 +96,22 @@ npm run validate:spike path/to/spike.json
 cat module.json | npm run validate:module
 ```
 
+**Convert to Markdown:**
+```bash
+# Convert any JSON contract to readable Markdown
+npm run convert path/to/contract.json path/to/output.md
+
+# If output path is omitted, uses same name with .md extension
+npm run convert test/modules/MOD-0001-companies.json
+# Creates: test/modules/MOD-0001-companies.md
+```
+
+The converter automatically detects the contract type (module, feature, story, bug, debt, spike) and formats it appropriately with:
+- Progress indicators (✅/⬜) for checklists
+- Emojis for visual scanning (🐛 bugs, 🔧 tech debt, 🔬 spikes)
+- Minimal, scannable layout
+- All key information preserved
+
 ### Creating New Work Items
 
 When Claude is asked to create a MODULE, FEATURE, or ISSUE:
@@ -102,7 +119,8 @@ When Claude is asked to create a MODULE, FEATURE, or ISSUE:
 1. **Start with the template**: Copy the appropriate template from `contracts/templates/`
 2. **Fill in the details**: Replace placeholder content with actual data
 3. **Validate the contract**: Run the validator to ensure the contract is valid
-4. **Output the JSON**: Return the validated JSON contract to the user
+4. **Convert to Markdown** (optional): Generate readable markdown version
+5. **Output the JSON**: Return the validated JSON contract to the user
 
 Example workflow:
 ```bash
@@ -111,6 +129,8 @@ cp contracts/templates/module.template.json my-new-module.json
 # Edit the file with actual data
 # Validate it
 npm run validate:module my-new-module.json
+# Optionally convert to markdown for easy reading
+npm run convert my-new-module.json
 ```
 
 ### Contract Requirements by Type

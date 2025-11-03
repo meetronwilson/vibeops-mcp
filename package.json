@@ -12,6 +12,7 @@
     "validate:bug": "node contracts/validators/validate.js bug",
     "validate:debt": "node contracts/validators/validate.js tech-debt",
     "validate:spike": "node contracts/validators/validate.js spike",
+    "convert": "node contracts/converters/json-to-md.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": ["product", "contracts", "validation", "schema"],
