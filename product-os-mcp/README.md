@@ -65,10 +65,19 @@ Claude should respond with server health information.
 - ✅ create_feature with auto-linking to parent module
 - ✅ create_issue (user story, bug, tech debt, spike) with auto-linking
 
-## Coming Next (Phase 4)
+### Phase 4 - UPDATE Operations ✅
+- ✅ update_module, update_feature, update_issue
+- ✅ update_status (quick status change for any contract)
+- ✅ update_assignee (quick assignee change for issues)
+- ✅ check_acceptance_criteria (mark AC as verified)
+- ✅ check_definition_of_done (mark DoD items complete)
+- ✅ add_definition_of_done (add new DoD items)
+- ✅ answer_spike_question (answer spike questions)
 
-- UPDATE operations (update fields, check off items, status changes)
-- Smart Import/Parse (Phase 5)
+## Coming Next (Phase 5)
+
+- Smart Import/Parse (parse ChatGPT output and create contracts)
+- DELETE/Archive operations (Phase 6)
 
 ## Development
 

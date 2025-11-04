@@ -29,6 +29,17 @@ import {
   createFeature,
   createIssue,
 } from './tools/create.js';
+import {
+  updateModule,
+  updateFeature,
+  updateIssue,
+  updateStatus,
+  updateAssignee,
+  checkAcceptanceCriteria,
+  checkDefinitionOfDone,
+  addDefinitionOfDone,
+  answerSpikeQuestion,
+} from './tools/update.js';
 import { getContractCounts } from './lib/id-generator.js';
 
 // Create MCP server
@@ -433,6 +444,249 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           required: ['type', 'title', 'featureId', 'description'],
         },
       },
+      {
+        name: 'update_module',
+        description: 'Update an existing module',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'Module ID (e.g., MOD-0001)',
+            },
+            name: { type: 'string', description: 'Updated name' },
+            description: { type: 'string', description: 'Updated description' },
+            type: {
+              type: 'string',
+              enum: ['theme', 'initiative'],
+              description: 'Module type',
+            },
+            status: {
+              type: 'string',
+              enum: ['planning', 'active', 'on-hold', 'completed', 'archived'],
+              description: 'Module status',
+            },
+            owner: { type: 'string', description: 'Module owner' },
+            startDate: { type: 'string', description: 'Start date (ISO 8601)' },
+            targetDate: { type: 'string', description: 'Target date (ISO 8601)' },
+            tags: {
+              type: 'array',
+              items: { type: 'string' },
+              description: 'Tags',
+            },
+          },
+          required: ['id'],
+        },
+      },
+      {
+        name: 'update_feature',
+        description: 'Update an existing feature',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'Feature ID (e.g., FEAT-0001)',
+            },
+            name: { type: 'string', description: 'Updated name' },
+            description: { type: 'string', description: 'Updated description' },
+            status: {
+              type: 'string',
+              enum: ['draft', 'ready', 'in-progress', 'in-review', 'completed', 'cancelled'],
+              description: 'Feature status',
+            },
+            priority: {
+              type: 'string',
+              enum: ['critical', 'high', 'medium', 'low'],
+              description: 'Priority',
+            },
+            owner: { type: 'string', description: 'Owner' },
+            tags: {
+              type: 'array',
+              items: { type: 'string' },
+              description: 'Tags',
+            },
+            prd: {
+              type: 'object',
+              description: 'PRD updates (partial)',
+              properties: {
+                problemStatement: { type: 'string' },
+                goals: { type: 'array', items: { type: 'string' } },
+                successMetrics: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      metric: { type: 'string' },
+                      target: { type: 'string' },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          required: ['id'],
+        },
+      },
+      {
+        name: 'update_issue',
+        description: 'Update an existing issue (any type)',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'Issue ID (e.g., STORY-0001, BUG-0001)',
+            },
+            title: { type: 'string', description: 'Updated title' },
+            description: { type: 'string', description: 'Updated description' },
+            assignee: { type: 'string', description: 'Assignee' },
+            tags: {
+              type: 'array',
+              items: { type: 'string' },
+              description: 'Tags',
+            },
+            status: { type: 'string', description: 'Status (for user stories)' },
+            storyPoints: { type: 'number', description: 'Story points' },
+            priority: {
+              type: 'string',
+              enum: ['critical', 'high', 'medium', 'low'],
+              description: 'Priority',
+            },
+            bugStatus: { type: 'string', description: 'Status (for bugs)' },
+            severity: {
+              type: 'string',
+              enum: ['critical', 'high', 'medium', 'low'],
+              description: 'Severity (for bugs)',
+            },
+            rootCause: { type: 'string', description: 'Root cause (for bugs)' },
+            techDebtStatus: { type: 'string', description: 'Status (for tech debt)' },
+            proposedSolution: { type: 'string', description: 'Proposed solution (for tech debt)' },
+            techDebtPriority: {
+              type: 'string',
+              enum: ['critical', 'high', 'medium', 'low'],
+              description: 'Priority (for tech debt)',
+            },
+            spikeStatus: { type: 'string', description: 'Status (for spikes)' },
+          },
+          required: ['id'],
+        },
+      },
+      {
+        name: 'update_status',
+        description: 'Quick status update for any contract',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'Contract ID (any type)',
+            },
+            status: {
+              type: 'string',
+              description: 'New status',
+            },
+          },
+          required: ['id', 'status'],
+        },
+      },
+      {
+        name: 'update_assignee',
+        description: 'Quick assignee update for issues',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'Issue ID',
+            },
+            assignee: {
+              type: 'string',
+              description: 'New assignee',
+            },
+          },
+          required: ['id', 'assignee'],
+        },
+      },
+      {
+        name: 'check_acceptance_criteria',
+        description: 'Mark acceptance criteria as verified for user stories',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'User story ID (e.g., STORY-0001)',
+            },
+            indices: {
+              type: 'array',
+              items: { type: 'number' },
+              description: 'Zero-based indices of criteria to mark verified',
+            },
+          },
+          required: ['id', 'indices'],
+        },
+      },
+      {
+        name: 'check_definition_of_done',
+        description: 'Mark definition of done items as completed for user stories',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'User story ID (e.g., STORY-0001)',
+            },
+            indices: {
+              type: 'array',
+              items: { type: 'number' },
+              description: 'Zero-based indices of DoD items to mark completed',
+            },
+          },
+          required: ['id', 'indices'],
+        },
+      },
+      {
+        name: 'add_definition_of_done',
+        description: 'Add new items to definition of done for user stories',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'User story ID (e.g., STORY-0001)',
+            },
+            items: {
+              type: 'array',
+              items: { type: 'string' },
+              description: 'DoD items to add',
+            },
+          },
+          required: ['id', 'items'],
+        },
+      },
+      {
+        name: 'answer_spike_question',
+        description: 'Answer a spike question',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'Spike ID (e.g., SPIKE-0001)',
+            },
+            questionIndex: {
+              type: 'number',
+              description: 'Zero-based index of question to answer',
+            },
+            answer: {
+              type: 'string',
+              description: 'Answer to the question',
+            },
+          },
+          required: ['id', 'questionIndex', 'answer'],
+        },
+      },
     ],
   };
 });
@@ -617,6 +871,177 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                 {
                   message: 'Issue created successfully',
                   issue,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'update_module': {
+        const module = updateModule(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Module updated successfully',
+                  module,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'update_feature': {
+        const feature = updateFeature(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Feature updated successfully',
+                  feature,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'update_issue': {
+        const issue = updateIssue(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Issue updated successfully',
+                  issue,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'update_status': {
+        const contract = updateStatus((args as any).id, (args as any).status);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Status updated successfully',
+                  contract,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'update_assignee': {
+        const issue = updateAssignee((args as any).id, (args as any).assignee);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Assignee updated successfully',
+                  issue,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'check_acceptance_criteria': {
+        const story = checkAcceptanceCriteria(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Acceptance criteria marked as verified',
+                  story,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'check_definition_of_done': {
+        const story = checkDefinitionOfDone(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Definition of done items marked as completed',
+                  story,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'add_definition_of_done': {
+        const story = addDefinitionOfDone((args as any).id, (args as any).items);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Definition of done items added',
+                  story,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'answer_spike_question': {
+        const spike = answerSpikeQuestion(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Spike question answered',
+                  spike,
                 },
                 null,
                 2

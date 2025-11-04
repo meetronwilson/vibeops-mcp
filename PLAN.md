@@ -291,20 +291,21 @@ You: "Create a story for email login in FEAT-0007"
 
 ---
 
-### Phase 4: UPDATE Operations ⬜
+### Phase 4: UPDATE Operations ✅
 **Goal:** Update existing contracts easily
 
 **Tools to Implement:**
-- [ ] 4.1 `update_module(id, changes)` - Update module fields
-- [ ] 4.2 `update_feature(id, changes)` - Update feature/PRD
-- [ ] 4.3 `update_issue(id, changes)` - Update issue fields
-- [ ] 4.4 `update_status(id, status)` - Quick status change
-- [ ] 4.5 `update_assignee(id, assignee)` - Quick assignment
-- [ ] 4.6 `check_acceptance_criteria(id, criteria_indices)` - Mark AC verified
-- [ ] 4.7 `check_definition_of_done(id, dod_indices)` - Mark DoD complete
-- [ ] 4.8 `add_issue_to_feature(featureId, issueId)` - Link issue
-- [ ] 4.9 Update timestamps automatically
-- [ ] 4.10 Regenerate markdown after updates
+- [x] 4.1 `update_module(id, changes)` - Update module fields
+- [x] 4.2 `update_feature(id, changes)` - Update feature/PRD
+- [x] 4.3 `update_issue(id, changes)` - Update issue fields
+- [x] 4.4 `update_status(id, status)` - Quick status change
+- [x] 4.5 `update_assignee(id, assignee)` - Quick assignment
+- [x] 4.6 `check_acceptance_criteria(id, criteria_indices)` - Mark AC verified
+- [x] 4.7 `check_definition_of_done(id, dod_indices)` - Mark DoD complete
+- [x] 4.8 `add_definition_of_done(id, items)` - Add DoD items
+- [x] 4.9 `answer_spike_question(id, questionIndex, answer)` - Answer spike questions
+- [x] 4.10 Update timestamps automatically
+- [ ] 4.11 Regenerate markdown after updates (deferred to Phase 9)
 
 **Test Conversations:**
 ```
@@ -315,12 +316,14 @@ You: "Mark DoD items 1, 2, and 3 as complete"
 ```
 
 **Deliverables:**
-- All update operations work
-- Validation enforced
-- Timestamps auto-updated
-- Markdown regenerated
+- ✅ All update operations work
+- ✅ Timestamps auto-updated
+- ✅ Checklist operations (AC, DoD)
+- ✅ Quick helpers for common updates
+- ⬜ Markdown regenerated (will add in Phase 9)
 
 **Time Estimate:** 3-4 hours
+**Actual Time:** ~2 hours
 
 ---
 
