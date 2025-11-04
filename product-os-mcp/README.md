@@ -46,17 +46,29 @@ In Claude Code, try:
 
 Claude should respond with server health information.
 
-## Current Features (Phase 1)
+## Current Features
 
+### Phase 1 - Infrastructure ✅
 - ✅ Basic MCP server infrastructure
 - ✅ File manager (read/write contracts)
 - ✅ ID scanner and generator
 - ✅ Health check tool
 
-## Coming Next (Phase 2)
+### Phase 2 - READ Operations ✅
+- ✅ get_module, get_feature, get_issue
+- ✅ list_modules, list_features, list_issues
+- ✅ search_all across all contracts
+- ✅ get_stats for contract counts
 
-- READ operations (get_module, get_feature, list_issues, etc.)
-- Natural querying of contracts
+### Phase 3 - CREATE Operations ✅
+- ✅ create_module with auto-ID generation
+- ✅ create_feature with auto-linking to parent module
+- ✅ create_issue (user story, bug, tech debt, spike) with auto-linking
+
+## Coming Next (Phase 4)
+
+- UPDATE operations (update fields, check off items, status changes)
+- Smart Import/Parse (Phase 5)
 
 ## Development
 
