@@ -1,21 +1,55 @@
 {
   "name": "@vibeops/product-os-mcp",
-  "version": "0.1.0",
-  "description": "MCP server for Product OS contract management",
+  "version": "1.0.0",
+  "description": "Model Context Protocol server for managing Product OS contracts through natural conversation with Claude Code",
   "type": "module",
   "main": "build/index.js",
   "bin": {
     "product-os-mcp": "build/index.js"
   },
+  "files": [
+    "build/**/*",
+    "README.md",
+    "LICENSE",
+    "INSTALLATION.md",
+    "WORKFLOW.md",
+    "CONTRIBUTING.md",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
     "start": "node build/index.js",
+    "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["mcp", "product", "contracts", "management"],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "product-management",
+    "contracts",
+    "project-management",
+    "agile",
+    "user-stories",
+    "features",
+    "modules",
+    "claude-code",
+    "ai-assistant"
+  ],
+  "author": "VibeOps",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vibeops/product-os.git",
+    "directory": "product-os-mcp"
+  },
+  "bugs": {
+    "url": "https://github.com/vibeops/product-os/issues"
+  },
+  "homepage": "https://github.com/vibeops/product-os#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.5.0",
     "ajv": "^8.12.0",

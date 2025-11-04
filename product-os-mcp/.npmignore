@@ -1,0 +1,38 @@
+# Source files (only publish compiled build/)
+src/
+*.ts
+!*.d.ts
+
+# Development files
+node_modules/
+.git/
+.gitignore
+*.log
+*.tmp
+
+# Development configs
+tsconfig.json
+.vscode/
+.idea/
+
+# Testing and examples
+test/
+examples/
+*.test.js
+*.spec.js
+
+# Documentation source (keep README.md, LICENSE, *.md in root)
+docs/
+
+# Environment files
+.env
+.env.*
+
+# Build artifacts (keep build/ directory)
+*.tsbuildinfo
+
+# macOS
+.DS_Store
+
+# Unnecessary config examples
+claude_desktop_config.example.json
