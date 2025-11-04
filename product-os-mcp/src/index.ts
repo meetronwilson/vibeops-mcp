@@ -41,6 +41,9 @@ import {
   answerSpikeQuestion,
 } from './tools/update.js';
 import { parseAndImport } from './tools/parse.js';
+import { deleteModule, deleteFeature, deleteIssue, archiveItem } from './tools/delete.js';
+import { addImplementationFiles, addCommitReference, addPRReference } from './tools/implementation.js';
+import { getMyWork, getBlockers, getReadyToStart, getNeedsReview, getInProgress, getHighPriority } from './tools/queries.js';
 import { getContractCounts } from './lib/id-generator.js';
 
 // Create MCP server
@@ -707,6 +710,191 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           required: ['text'],
         },
       },
+      {
+        name: 'delete_module',
+        description: 'Delete a module (with safety checks for features)',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'Module ID (e.g., MOD-0001)',
+            },
+            force: {
+              type: 'boolean',
+              description: 'If true, delete even if module has features (leaves them orphaned)',
+              default: false,
+            },
+            cascade: {
+              type: 'boolean',
+              description: 'If true, also delete all features and their issues',
+              default: false,
+            },
+          },
+          required: ['id'],
+        },
+      },
+      {
+        name: 'delete_feature',
+        description: 'Delete a feature (with safety checks for issues)',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'Feature ID (e.g., FEAT-0001)',
+            },
+            force: {
+              type: 'boolean',
+              description: 'If true, delete even if feature has issues (leaves them orphaned)',
+              default: false,
+            },
+            cascade: {
+              type: 'boolean',
+              description: 'If true, also delete all issues',
+              default: false,
+            },
+          },
+          required: ['id'],
+        },
+      },
+      {
+        name: 'delete_issue',
+        description: 'Delete an issue',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'Issue ID (e.g., STORY-0001, BUG-0001)',
+            },
+          },
+          required: ['id'],
+        },
+      },
+      {
+        name: 'archive_item',
+        description: 'Archive a contract (soft delete by changing status to archived/cancelled/closed)',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'Contract ID (any type)',
+            },
+          },
+          required: ['id'],
+        },
+      },
+      {
+        name: 'add_implementation_files',
+        description: 'Link code files to an issue (tracks which files implement this issue)',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            issueId: {
+              type: 'string',
+              description: 'Issue ID (e.g., STORY-0001)',
+            },
+            files: {
+              type: 'array',
+              items: { type: 'string' },
+              description: 'File paths (e.g., ["src/components/Login.tsx", "src/api/auth.ts"])',
+            },
+          },
+          required: ['issueId', 'files'],
+        },
+      },
+      {
+        name: 'add_commit_reference',
+        description: 'Link a git commit to an issue',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            issueId: {
+              type: 'string',
+              description: 'Issue ID (e.g., STORY-0001)',
+            },
+            commitHash: {
+              type: 'string',
+              description: 'Git commit hash (e.g., "abc123def")',
+            },
+          },
+          required: ['issueId', 'commitHash'],
+        },
+      },
+      {
+        name: 'add_pr_reference',
+        description: 'Link a pull request to an issue',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            issueId: {
+              type: 'string',
+              description: 'Issue ID (e.g., STORY-0001)',
+            },
+            prNumber: {
+              type: 'string',
+              description: 'PR number (e.g., "#123" or "123")',
+            },
+          },
+          required: ['issueId', 'prNumber'],
+        },
+      },
+      {
+        name: 'get_my_work',
+        description: 'Get all issues assigned to a specific person',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            assignee: {
+              type: 'string',
+              description: 'Assignee name',
+            },
+          },
+          required: ['assignee'],
+        },
+      },
+      {
+        name: 'get_blockers',
+        description: 'Get all blocked issues',
+        inputSchema: {
+          type: 'object',
+          properties: {},
+        },
+      },
+      {
+        name: 'get_ready_to_start',
+        description: 'Get all user stories that are ready to start',
+        inputSchema: {
+          type: 'object',
+          properties: {},
+        },
+      },
+      {
+        name: 'get_needs_review',
+        description: 'Get all items that need review',
+        inputSchema: {
+          type: 'object',
+          properties: {},
+        },
+      },
+      {
+        name: 'get_in_progress',
+        description: 'Get all in-progress items',
+        inputSchema: {
+          type: 'object',
+          properties: {},
+        },
+      },
+      {
+        name: 'get_high_priority',
+        description: 'Get all high priority or critical items',
+        inputSchema: {
+          type: 'object',
+          properties: {},
+        },
+      },
     ],
   };
 });
@@ -1125,6 +1313,261 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             ],
           };
         }
+      }
+
+      case 'delete_module': {
+        const result = deleteModule(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Module deleted',
+                  deleted: result.deleted,
+                  warnings: result.warnings,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'delete_feature': {
+        const result = deleteFeature(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Feature deleted',
+                  deleted: result.deleted,
+                  warnings: result.warnings,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'delete_issue': {
+        const result = deleteIssue(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Issue deleted',
+                  deleted: result.deleted,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'archive_item': {
+        const contract = archiveItem((args as any).id);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Contract archived',
+                  contract,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'add_implementation_files': {
+        const issue = addImplementationFiles((args as any).issueId, (args as any).files);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Implementation files added',
+                  issue,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'add_commit_reference': {
+        const issue = addCommitReference((args as any).issueId, (args as any).commitHash);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Commit reference added',
+                  issue,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'add_pr_reference': {
+        const issue = addPRReference((args as any).issueId, (args as any).prNumber);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'PR reference added',
+                  issue,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'get_my_work': {
+        const issues = getMyWork((args as any).assignee);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  assignee: (args as any).assignee,
+                  count: issues.length,
+                  issues,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'get_blockers': {
+        const issues = getBlockers();
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Blocked issues',
+                  count: issues.length,
+                  issues,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'get_ready_to_start': {
+        const issues = getReadyToStart();
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Issues ready to start',
+                  count: issues.length,
+                  issues,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'get_needs_review': {
+        const issues = getNeedsReview();
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Issues needing review',
+                  count: issues.length,
+                  issues,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'get_in_progress': {
+        const issues = getInProgress();
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'In-progress issues',
+                  count: issues.length,
+                  issues,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'get_high_priority': {
+        const issues = getHighPriority();
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'High priority issues',
+                  count: issues.length,
+                  issues,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
       }
 
       default:

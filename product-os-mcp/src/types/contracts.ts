@@ -66,6 +66,12 @@ export interface ReadyItem {
   ready: boolean;
 }
 
+export interface Implementation {
+  files?: string[];
+  commits?: string[];
+  prs?: string[];
+}
+
 export interface UserStory {
   id: string;
   title: string;
@@ -78,6 +84,7 @@ export interface UserStory {
   assignee?: string;
   storyPoints?: number;
   priority?: 'critical' | 'high' | 'medium' | 'low';
+  implementation?: Implementation;
   metadata: Metadata;
 }
 
@@ -110,6 +117,7 @@ export interface Bug {
   }>;
   assignee?: string;
   rootCause?: string;
+  implementation?: Implementation;
   metadata: Metadata;
 }
 
@@ -142,6 +150,7 @@ export interface TechDebt {
   proposedSolution?: string;
   assignee?: string;
   priority?: 'critical' | 'high' | 'medium' | 'low';
+  implementation?: Implementation;
   metadata: Metadata;
 }
 
@@ -182,6 +191,7 @@ export interface Spike {
     url?: string;
     description?: string;
   }>;
+  implementation?: Implementation;
   metadata: Metadata;
 }
 
