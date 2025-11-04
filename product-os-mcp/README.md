@@ -74,10 +74,18 @@ Claude should respond with server health information.
 - ✅ add_definition_of_done (add new DoD items)
 - ✅ answer_spike_question (answer spike questions)
 
-## Coming Next (Phase 5)
+### Phase 5 - Smart Import/Parse ✅
+- ✅ parse_and_import (parse text and create contracts)
+- ✅ Module/Feature/Issue detection from text
+- ✅ PRD extraction (problem, goals, scope)
+- ✅ Acceptance criteria extraction
+- ✅ Dry-run preview mode
+- ✅ Automatic hierarchy creation and linking
 
-- Smart Import/Parse (parse ChatGPT output and create contracts)
-- DELETE/Archive operations (Phase 6)
+## Coming Next (Phase 6)
+
+- DELETE/Archive operations
+- Development Integration (Phase 7)
 
 ## Development
 

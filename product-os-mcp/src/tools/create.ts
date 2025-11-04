@@ -179,7 +179,7 @@ export interface CreateIssueInput {
   // Spike specific
   spikeStatus?: Spike['status'];
   questions?: string[]; // Will be converted to Question[]
-  timebox: { duration: number; unit: 'hours' | 'days' | 'weeks'; startDate?: string; endDate?: string };
+  timebox?: { duration: number; unit: 'hours' | 'days' | 'weeks'; startDate?: string; endDate?: string };
   objectives?: string[];
 }
 
@@ -271,7 +271,7 @@ export function createIssue(input: CreateIssueInput): Issue {
           question,
           answered: false,
         })),
-        timebox: input.timebox,
+        timebox: input.timebox || { duration: 3, unit: 'days' },
         objectives: input.objectives || [],
         assignee: input.assignee,
         metadata: generateMetadata(input.createdBy, input.tags),

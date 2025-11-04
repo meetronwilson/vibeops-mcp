@@ -40,6 +40,7 @@ import {
   addDefinitionOfDone,
   answerSpikeQuestion,
 } from './tools/update.js';
+import { parseAndImport } from './tools/parse.js';
 import { getContractCounts } from './lib/id-generator.js';
 
 // Create MCP server
@@ -687,6 +688,25 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           required: ['id', 'questionIndex', 'answer'],
         },
       },
+      {
+        name: 'parse_and_import',
+        description: 'Parse text (e.g., from ChatGPT) and create contracts. Supports modules, features, and issues.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            text: {
+              type: 'string',
+              description: 'Text to parse (can include modules, features, user stories, bugs, etc.)',
+            },
+            dryRun: {
+              type: 'boolean',
+              description: 'If true, only preview what would be created without actually creating contracts',
+              default: false,
+            },
+          },
+          required: ['text'],
+        },
+      },
     ],
   };
 });
@@ -1049,6 +1069,62 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             },
           ],
         };
+      }
+
+      case 'parse_and_import': {
+        const result = parseAndImport((args as any).text, {
+          dryRun: (args as any).dryRun,
+        });
+
+        if ((args as any).dryRun) {
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(
+                  {
+                    message: 'Preview: These contracts would be created',
+                    preview: result.preview,
+                    summary: {
+                      modules: result.preview?.modules.length || 0,
+                      features:
+                        (result.preview?.modules.reduce((sum, m) => sum + m.features.length, 0) || 0) +
+                        (result.preview?.orphanedFeatures.length || 0),
+                      issues:
+                        (result.preview?.modules.reduce(
+                          (sum, m) => sum + m.features.reduce((s, f) => s + f.issues.length, 0),
+                          0
+                        ) || 0) + (result.preview?.orphanedIssues.length || 0),
+                    },
+                  },
+                  null,
+                  2
+                ),
+              },
+            ],
+          };
+        } else {
+          return {
+            content: [
+              {
+                type: 'text',
+                text: JSON.stringify(
+                  {
+                    message: 'Contracts created successfully',
+                    created: result.created,
+                    summary: {
+                      modules: result.created.modules.length,
+                      features: result.created.features.length,
+                      issues: result.created.issues.length,
+                    },
+                  },
+                  null,
+                  2
+                ),
+              },
+            ],
+          };
+        }
       }
 
       default:
