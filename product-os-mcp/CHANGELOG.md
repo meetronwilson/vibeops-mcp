@@ -102,6 +102,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.2] - 2025-11-04
+
+### Added
+- **Auto-initialization**: MCP server now automatically creates contract directory structure on first run
+- **Better UX**: No manual directory setup required - just install and start using
+- **Startup messages**: Clear feedback when directories are being initialized
+
+### Changed
+- Directory structure is now created automatically when `getContractsDir()` is first called
+- Enhanced startup logging with version number and status indicators
+
+### Fixed
+- Fixed "Contracts directory not found" error on first use
+- Users no longer need to manually run `mkdir -p` commands
+
+## [1.0.1] - 2025-11-04
+
+### Changed
+- **Documentation**: Updated INSTALLATION.md to clearly distinguish between Claude Desktop and Claude Code CLI
+- **Documentation**: Enhanced README.md with platform-specific quick start instructions
+- **Documentation**: Improved QUICK_START.md with separate sections for CLI vs Desktop users
+- **Configuration**: Added `claude mcp add` CLI wizard instructions for easier setup
+- **Clarity**: Made it explicit that Claude Code CLI uses `~/.claude.json` while Claude Desktop uses `claude_desktop_config.json`
+
+### Fixed
+- Clarified that Claude Code CLI doesn't require restart, only new terminal session
+- Fixed confusion about config file locations for different platforms
+
 ## [Unreleased]
 
 ### Planned Features
@@ -117,4 +145,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version History
 
+- **1.0.2** (2025-11-04) - Auto-initialization of directory structure
+- **1.0.1** (2025-11-04) - Documentation improvements for platform clarity
 - **1.0.0** (2025-11-04) - Initial release with 35 tools across 8 phases

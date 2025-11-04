@@ -13,13 +13,28 @@ import type { Contract, ContractType, ContractFile } from '../types/contracts.js
 /**
  * Get the base contracts directory
  * Looks for contracts/ in current working directory
+ * Auto-creates the directory structure if it doesn't exist
  */
 export function getContractsDir(): string {
   const cwd = process.cwd();
   const contractsDir = join(cwd, 'contracts');
 
+  // Auto-create contracts directory if it doesn't exist
   if (!existsSync(contractsDir)) {
-    throw new Error(`Contracts directory not found at: ${contractsDir}`);
+    console.error(`📦 Product OS: Initializing contract directory structure...`);
+    mkdirSync(contractsDir, { recursive: true });
+
+    // Also create the schema and template directories
+    mkdirSync(join(contractsDir, 'schemas'), { recursive: true });
+    mkdirSync(join(contractsDir, 'templates'), { recursive: true });
+    mkdirSync(join(contractsDir, 'validators'), { recursive: true });
+
+    // Create test directories for contracts
+    mkdirSync(join(cwd, 'test/modules'), { recursive: true });
+    mkdirSync(join(cwd, 'test/features'), { recursive: true });
+    mkdirSync(join(cwd, 'test/issues'), { recursive: true });
+
+    console.error(`✅ Created contract directory structure at: ${contractsDir}`);
   }
 
   return contractsDir;

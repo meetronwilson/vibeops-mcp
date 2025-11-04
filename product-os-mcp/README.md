@@ -6,41 +6,59 @@ Turn your product ideas into structured contracts that track implementation, lin
 
 ## Installation
 
-### 1. Install Dependencies
+### Quick Start
 
+**For Claude Code CLI users:**
 ```bash
-cd product-os-mcp
-npm install
-npm run build
-```
+# Install the package
+npm install -g product-os-mcp
 
-### 2. Configure Claude Code
+# Configure (choose one):
+# Option 1: Use the CLI wizard
+claude mcp add product-os --scope user
 
-Add this to your Claude Code MCP settings (usually in `~/Library/Application Support/Claude/claude_desktop_config.json` on Mac):
-
-```json
+# Option 2: Manually add to ~/.claude.json
 {
   "mcpServers": {
     "product-os": {
       "command": "node",
-      "args": [
-        "/Users/ronwilson/Desktop/cursor-projects/3-anckr-internal/vibeops/product-os/product-os-mcp/build/index.js"
-      ],
-      "cwd": "/Users/ronwilson/Desktop/cursor-projects/3-anckr-internal/vibeops/product-os"
+      "args": ["/path/to/product-os-mcp/build/index.js"],
+      "cwd": "/your/project/root"
     }
   }
 }
+
+# Start using it
+claude
 ```
 
-**Important:** Update the paths to match your actual installation location.
+**For Claude Desktop (GUI) users:**
+```bash
+# Install the package
+npm install -g product-os-mcp
 
-### 3. Restart Claude Code
+# Configure ~/Library/Application Support/Claude/claude_desktop_config.json
+{
+  "mcpServers": {
+    "product-os": {
+      "command": "node",
+      "args": ["/path/to/product-os-mcp/build/index.js"],
+      "cwd": "/your/project/root"
+    }
+  }
+}
 
-After adding the configuration, restart Claude Code to load the MCP server.
+# Restart Claude Desktop
+```
 
-### 4. Test the Connection
+**Important:**
+- Claude Desktop and Claude Code CLI use **different config files**
+- See [INSTALLATION.md](./INSTALLATION.md) for complete platform-specific instructions
+- Update paths to match your actual installation location
 
-In Claude Code, try:
+### Test the Connection
+
+In Claude (Desktop or CLI), try:
 
 ```
 "Test the product-os health check"

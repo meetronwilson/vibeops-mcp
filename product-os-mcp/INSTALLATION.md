@@ -5,8 +5,17 @@ Complete guide to installing and configuring Product OS MCP Server.
 ## Prerequisites
 
 - **Node.js**: Version 18.0.0 or higher
-- **Claude Code**: Latest version with MCP support
+- **Claude Desktop OR Claude Code CLI**: Latest version with MCP support
 - **npm**: Comes with Node.js
+
+## Important: Choose Your Platform
+
+This MCP server works with **both Claude Desktop (GUI) and Claude Code (CLI)**, but they use **different configuration files**:
+
+- **Claude Desktop**: GUI application, config at `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Claude Code CLI**: Terminal tool, config at `~/.claude.json` or project `.mcp.json`
+
+Follow the configuration steps for YOUR platform below.
 
 ## Installation Methods
 
@@ -43,16 +52,44 @@ npm run build
 
 ## Configuration
 
-### Step 1: Configure Claude Code
+### Option A: Claude Code CLI Configuration
 
-Add the MCP server to your Claude Code configuration file.
+If you're using **Claude Code CLI** (the `claude` terminal command):
+
+**Configuration file locations:**
+- **User scope (recommended)**: `~/.claude.json`
+- **Project scope**: `.mcp.json` in your project root
+- **Enterprise**: System-level managed config files
+
+**Add MCP Server Entry to `~/.claude.json`:**
+
+```json
+{
+  "mcpServers": {
+    "product-os": {
+      "command": "node",
+      "args": ["/full/path/to/product-os-mcp/build/index.js"],
+      "cwd": "/path/to/your/project/root"
+    }
+  }
+}
+```
+
+**Or use the CLI wizard:**
+```bash
+claude mcp add product-os --scope user
+```
+
+### Option B: Claude Desktop (GUI) Configuration
+
+If you're using **Claude Desktop** (the GUI application):
 
 **Configuration file location:**
 - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
 - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
 - **Linux**: `~/.config/Claude/claude_desktop_config.json`
 
-### Step 2: Add MCP Server Entry
+**Add MCP Server Entry to config file:**
 
 **If installed globally via npm:**
 
@@ -108,12 +145,15 @@ mkdir -p test/modules test/features test/issues
 
 Or let Claude Code create them when you create your first contract.
 
-### Step 4: Restart Claude Code
+### Step 3: Restart Your Application
 
-After updating the configuration:
+**For Claude Code CLI:**
+- No restart needed! Start a new terminal session with `claude`
+- Or run `claude mcp list` to verify the server is configured
 
-1. Quit Claude Code completely
-2. Restart Claude Code
+**For Claude Desktop:**
+1. Quit Claude Desktop completely
+2. Restart Claude Desktop
 3. The MCP server will load automatically
 
 ## Verify Installation

@@ -2,23 +2,30 @@
 
 Get started with Product OS MCP Server in 5 minutes.
 
-## Install
+## Choose Your Platform
+
+This guide covers **both Claude Code CLI and Claude Desktop**. Pick the section for your platform.
+
+---
+
+## For Claude Code CLI Users
+
+### 1. Install
 
 ```bash
-npm install -g @vibeops/product-os-mcp
+npm install -g product-os-mcp
 ```
 
-Or in your project:
+### 2. Configure
 
+**Option A - Use the CLI wizard (easiest):**
 ```bash
-npm install --save-dev @vibeops/product-os-mcp
+claude mcp add product-os --scope user
 ```
 
-## Configure Claude Code
+**Option B - Edit config file manually:**
 
-Edit your Claude Code config file:
-
-**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+Edit `~/.claude.json`:
 
 ```json
 {
@@ -31,16 +38,62 @@ Edit your Claude Code config file:
 }
 ```
 
-## Create Project Structure
+### 3. Create Project Structure
 
 ```bash
 cd /path/to/your/project
 mkdir -p test/modules test/features test/issues
 ```
 
-## Restart Claude Code
+### 4. Start Claude Code
 
-Quit and restart Claude Code to load the MCP server.
+```bash
+claude
+```
+
+No restart needed - just start a new session!
+
+---
+
+## For Claude Desktop (GUI) Users
+
+### 1. Install
+
+```bash
+npm install -g product-os-mcp
+```
+
+### 2. Configure
+
+Edit your Claude Desktop config file:
+
+**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+**Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+**Linux**: `~/.config/Claude/claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "product-os": {
+      "command": "product-os-mcp",
+      "cwd": "/path/to/your/project"
+    }
+  }
+}
+```
+
+### 3. Create Project Structure
+
+```bash
+cd /path/to/your/project
+mkdir -p test/modules test/features test/issues
+```
+
+### 4. Restart Claude Desktop
+
+Quit and restart Claude Desktop to load the MCP server.
+
+---
 
 ## Test It
 

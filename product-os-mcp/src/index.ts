@@ -1603,8 +1603,17 @@ async function main() {
   await server.connect(transport);
 
   // Log to stderr (stdout is used for MCP communication)
-  console.error('Product OS MCP server started');
+  console.error('📦 Product OS MCP Server v1.0.2');
   console.error('Working directory:', process.cwd());
+
+  // Initialize directory structure (auto-creates if needed)
+  try {
+    const { getContractsDir } = await import('./lib/file-manager.js');
+    getContractsDir();
+    console.error('✅ Contract directory structure ready');
+  } catch (error) {
+    console.error('⚠️  Warning: Could not initialize directory structure:', error);
+  }
 }
 
 main().catch((error) => {
