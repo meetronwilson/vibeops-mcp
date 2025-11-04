@@ -1,5 +1,5 @@
 {
-  "name": "@vibeops/product-os-mcp",
+  "name": "product-os-mcp",
   "version": "1.0.0",
   "description": "Model Context Protocol server for managing Product OS contracts through natural conversation with Claude Code",
   "type": "module",
