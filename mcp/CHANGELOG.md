@@ -5,6 +5,85 @@ All notable changes to the VibeOps MCP Server will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2025-01-20
+
+### Added - Feature Overlap Detection System 🎉
+
+**Major new capabilities to prevent duplicate functionality and maintain healthy feature dependencies:**
+
+#### New Schema Fields
+- **`capabilityTags`**: 50+ predefined tags for categorizing feature capabilities (ai-scheduling, task-management, etc.)
+- **`targetUsers`**: Explicit user targeting to detect overlap (Superintendents, Project Managers, etc.)
+- **`relatedFeatures`**: Structured relationships between features with 10 relationship types:
+  - `depends-on`, `provides-data-to`, `consumes-data-from`, `overlaps-with`, `complements`, `supersedes`, `blocks`, `integrates-with`, `extends`, `replaced-by`
+- **`dataContract`**: Explicit data inputs/outputs with consumers and producers tracking
+- **`relatedModules`**: Cross-module relationships and integration points at module level
+
+#### New MCP Tools (3)
+- **`check_feature_overlap`**: Detect overlaps before creating/updating features
+  - Analyzes capability tag overlap (3+ = HIGH, 2+ = MEDIUM severity)
+  - Semantic similarity detection in problem statements
+  - Scope conflict identification (inScope vs outOfScope)
+  - Target user overlap checking
+  - Returns severity-ranked results with actionable recommendations
+
+- **`validate_feature_graph`**: Complete dependency graph validation
+  - Circular dependency detection using DFS algorithm
+  - Missing feature reference checks
+  - Orphaned feature identification (no relationships)
+  - Data contract consistency validation
+  - Module boundary violation detection
+  - Asymmetric relationship detection
+  - Comprehensive validation report with statistics
+
+- **`search_similar_features`**: Semantic search for similar features
+  - Problem statement similarity analysis
+  - Scope overlap detection
+  - Goal matching
+  - Keyword search with stop-word filtering
+  - Jaccard similarity scoring
+
+#### Enhanced Templates & Examples
+- **Enhanced Feature Template**: Updated with all new fields and inline documentation
+- **FEAT-002-enhanced.json**: Proactive Scheduling example with full relationships and data contracts
+- **FEAT-0055-enhanced.json**: Course Area Task Management showing proper separation of concerns
+
+#### Comprehensive Documentation
+- **OVERLAP-DETECTION-GUIDE.md**: 15,000+ word complete guide with usage examples, workflows, best practices
+- **MCP-INTEGRATION-GUIDE.md**: Step-by-step integration instructions, CI/CD setup, testing procedures
+- **IMPLEMENTATION-SUMMARY.md**: Detailed overview of all changes and next steps
+
+### Changed - Complete Rebranding
+
+**All references updated from "product-os" to "vibeops":**
+- Folder structure: `product-os/product-os-mcp/` → `vibeops-mcp/mcp/`
+- Package maintained as `@anckr/vibeops`
+- Repository: https://github.com/meetronwilson/vibeops-mcp (updated from product-os)
+- All documentation files updated (17 files)
+- All package.json and config files updated
+
+### Benefits
+- ✅ Prevents accidental feature duplication
+- ✅ Makes dependencies explicit and trackable
+- ✅ Ensures clear feature boundaries
+- ✅ Validates data flow consistency
+- ✅ Supports CI/CD integration for automatic validation
+- ✅ Enables better architecture decisions
+
+### Breaking Changes
+- **Schema Changes**: Features now require `capabilityTags` and `targetUsers` fields (use enhanced templates)
+- **Folder Structure**: Changed from `product-os-mcp/` to `mcp/` (update paths in configs)
+- Migration guide available in OVERLAP-DETECTION-GUIDE.md
+
+### Migration Guide
+See OVERLAP-DETECTION-GUIDE.md for complete migration instructions. Quick steps:
+1. Add `capabilityTags` to existing features (minimum 1 tag)
+2. Add `targetUsers` array (who uses this feature)
+3. Add `relatedFeatures` for known dependencies
+4. Optionally add `dataContract` for integration clarity
+
+---
+
 ## [1.2.6] - 2025-11-04
 
 ### Fixed
