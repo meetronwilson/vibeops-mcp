@@ -1,0 +1,309 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "memory.schema.json",
+  "title": "Claude Session Memory",
+  "description": "Stores Claude Code CLI agent memory before compaction or restart",
+  "type": "object",
+  "required": ["id", "sessionId", "timestamp", "context", "metadata"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the memory entry",
+      "pattern": "^MEM-[0-9]{4}$"
+    },
+    "sessionId": {
+      "type": "string",
+      "description": "Unique session identifier to group related memories"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this memory was stored"
+    },
+    "context": {
+      "type": "object",
+      "required": ["summary", "keyDecisions"],
+      "description": "Core memory content",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "High-level summary of the session",
+          "minLength": 20
+        },
+        "keyDecisions": {
+          "type": "array",
+          "description": "Important decisions made during the session",
+          "items": {
+            "type": "object",
+            "required": ["decision", "reasoning"],
+            "properties": {
+              "decision": {
+                "type": "string",
+                "description": "What was decided"
+              },
+              "reasoning": {
+                "type": "string",
+                "description": "Why this decision was made"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        },
+        "workCompleted": {
+          "type": "array",
+          "description": "List of completed tasks or work items",
+          "items": {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "description": "What was completed"
+              },
+              "relatedContracts": {
+                "type": "array",
+                "description": "Contract IDs related to this work",
+                "items": {
+                  "type": "string",
+                  "pattern": "^(MOD|FEAT|STORY|BUG|DEBT|SPIKE)-[0-9]{4}$"
+                }
+              },
+              "filesModified": {
+                "type": "array",
+                "description": "Files created or modified",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "pendingTasks": {
+          "type": "array",
+          "description": "Tasks that were in progress or planned but not completed",
+          "items": {
+            "type": "object",
+            "properties": {
+              "task": {
+                "type": "string",
+                "description": "What needs to be done"
+              },
+              "priority": {
+                "type": "string",
+                "enum": ["critical", "high", "medium", "low"]
+              },
+              "blockers": {
+                "type": "array",
+                "description": "What's blocking this task",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "context": {
+                "type": "string",
+                "description": "Additional context needed to resume this task"
+              }
+            }
+          }
+        },
+        "learnings": {
+          "type": "array",
+          "description": "Important learnings or discoveries from this session",
+          "items": {
+            "type": "object",
+            "properties": {
+              "topic": {
+                "type": "string",
+                "description": "What was learned"
+              },
+              "insight": {
+                "type": "string",
+                "description": "The actual learning or discovery"
+              },
+              "applicationArea": {
+                "type": "string",
+                "description": "Where this learning applies"
+              }
+            }
+          }
+        },
+        "codePatterns": {
+          "type": "array",
+          "description": "Code patterns or conventions established",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pattern": {
+                "type": "string",
+                "description": "Name of the pattern"
+              },
+              "description": {
+                "type": "string",
+                "description": "How and when to use this pattern"
+              },
+              "example": {
+                "type": "string",
+                "description": "Code example"
+              }
+            }
+          }
+        },
+        "problems": {
+          "type": "array",
+          "description": "Problems encountered and their solutions",
+          "items": {
+            "type": "object",
+            "properties": {
+              "problem": {
+                "type": "string",
+                "description": "What problem was encountered"
+              },
+              "solution": {
+                "type": "string",
+                "description": "How it was solved"
+              },
+              "preventionStrategy": {
+                "type": "string",
+                "description": "How to prevent this in the future"
+              }
+            }
+          }
+        },
+        "conversationHighlights": {
+          "type": "array",
+          "description": "Important exchanges or clarifications from the conversation",
+          "items": {
+            "type": "object",
+            "properties": {
+              "topic": {
+                "type": "string"
+              },
+              "userIntent": {
+                "type": "string",
+                "description": "What the user wanted"
+              },
+              "outcome": {
+                "type": "string",
+                "description": "What was delivered"
+              }
+            }
+          }
+        }
+      }
+    },
+    "projectContext": {
+      "type": "object",
+      "description": "Project-specific context",
+      "properties": {
+        "workingDirectory": {
+          "type": "string",
+          "description": "Working directory for this session"
+        },
+        "branch": {
+          "type": "string",
+          "description": "Git branch if applicable"
+        },
+        "environment": {
+          "type": "string",
+          "description": "Development environment (local, staging, etc.)"
+        },
+        "relatedModules": {
+          "type": "array",
+          "description": "Modules being worked on",
+          "items": {
+            "type": "string",
+            "pattern": "^MOD-[0-9]{4}$"
+          }
+        },
+        "relatedFeatures": {
+          "type": "array",
+          "description": "Features being worked on",
+          "items": {
+            "type": "string",
+            "pattern": "^FEAT-[0-9]{4}$"
+          }
+        }
+      }
+    },
+    "continuityNotes": {
+      "type": "object",
+      "description": "Notes specifically for continuing work in next session",
+      "properties": {
+        "nextSteps": {
+          "type": "array",
+          "description": "Recommended next steps",
+          "items": {
+            "type": "string"
+          }
+        },
+        "importantContext": {
+          "type": "string",
+          "description": "Critical context that must be remembered"
+        },
+        "warnings": {
+          "type": "array",
+          "description": "Things to be careful about",
+          "items": {
+            "type": "string"
+          }
+        },
+        "openQuestions": {
+          "type": "array",
+          "description": "Questions that need answering",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "description": "Session metrics",
+      "properties": {
+        "duration": {
+          "type": "number",
+          "description": "Session duration in minutes"
+        },
+        "contractsCreated": {
+          "type": "number",
+          "description": "Number of contracts created"
+        },
+        "contractsModified": {
+          "type": "number",
+          "description": "Number of contracts modified"
+        },
+        "filesModified": {
+          "type": "number",
+          "description": "Number of files modified"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["createdAt"],
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdBy": {
+          "type": "string",
+          "description": "User who created this memory"
+        },
+        "sessionType": {
+          "type": "string",
+          "enum": ["planning", "development", "debugging", "review", "research", "refactoring"],
+          "description": "Type of session"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

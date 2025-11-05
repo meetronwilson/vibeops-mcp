@@ -4,7 +4,7 @@
   "title": "User Story",
   "description": "A user story with acceptance criteria, DoD, and DoR",
   "type": "object",
-  "required": ["id", "title", "description", "featureId", "status", "acceptanceCriteria", "definitionOfDone", "definitionOfReady", "metadata"],
+  "required": ["id", "title", "description", "featureId", "status", "acceptanceCriteria", "definitionOfDone", "metadata"],
   "properties": {
     "id": {
       "type": "string",
@@ -97,6 +97,76 @@
     "priority": {
       "type": "string",
       "enum": ["critical", "high", "medium", "low"]
+    },
+    "testing": {
+      "type": "object",
+      "description": "Testing requirements and status for AI-driven development",
+      "properties": {
+        "unit": {
+          "type": "object",
+          "properties": {
+            "required": {
+              "type": "boolean",
+              "description": "Whether unit tests are required"
+            },
+            "coverage": {
+              "type": "number",
+              "description": "Target coverage percentage",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "status": {
+              "type": "string",
+              "enum": ["not-started", "in-progress", "passing", "failing"],
+              "description": "Current status of unit tests"
+            }
+          }
+        },
+        "integration": {
+          "type": "object",
+          "properties": {
+            "required": {
+              "type": "boolean",
+              "description": "Whether integration tests are required"
+            },
+            "status": {
+              "type": "string",
+              "enum": ["not-started", "in-progress", "passing", "failing"],
+              "description": "Current status of integration tests"
+            }
+          }
+        },
+        "e2e": {
+          "type": "object",
+          "properties": {
+            "required": {
+              "type": "boolean",
+              "description": "Whether end-to-end tests are required"
+            },
+            "status": {
+              "type": "string",
+              "enum": ["not-started", "in-progress", "passing", "failing"],
+              "description": "Current status of e2e tests"
+            }
+          }
+        },
+        "performance": {
+          "type": "object",
+          "properties": {
+            "required": {
+              "type": "boolean",
+              "description": "Whether performance tests are required"
+            },
+            "benchmarks": {
+              "type": "array",
+              "description": "Performance benchmarks that must be met",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
     },
     "metadata": {
       "type": "object",

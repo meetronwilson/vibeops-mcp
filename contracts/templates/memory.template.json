@@ -1,0 +1,93 @@
+{
+  "id": "MEM-0001",
+  "sessionId": "session-2025-01-01-abc123",
+  "timestamp": "2025-01-01T00:00:00Z",
+  "context": {
+    "summary": "Session focused on implementing user authentication feature. Completed login UI and API integration. Started work on password reset flow.",
+    "keyDecisions": [
+      {
+        "decision": "Use JWT tokens with 24-hour expiration",
+        "reasoning": "Balance between security and user convenience. Refresh tokens will be implemented in next sprint.",
+        "timestamp": "2025-01-01T10:30:00Z"
+      }
+    ],
+    "workCompleted": [
+      {
+        "task": "Implemented login UI component",
+        "relatedContracts": ["STORY-0001"],
+        "filesModified": ["src/components/Login.tsx", "src/api/auth.ts"]
+      }
+    ],
+    "pendingTasks": [
+      {
+        "task": "Complete password reset email flow",
+        "priority": "high",
+        "blockers": ["Need SMTP configuration for staging environment"],
+        "context": "Email template is ready in src/templates/reset-password.html. Backend endpoint is implemented but untested."
+      }
+    ],
+    "learnings": [
+      {
+        "topic": "React state management",
+        "insight": "Using Zustand instead of Redux significantly reduced boilerplate for auth state",
+        "applicationArea": "Consider Zustand for all future state management needs"
+      }
+    ],
+    "codePatterns": [
+      {
+        "pattern": "API error handling",
+        "description": "All API calls should use the custom useApiCall hook that handles loading states and errors uniformly",
+        "example": "const { data, loading, error } = useApiCall(authApi.login, { email, password });"
+      }
+    ],
+    "problems": [
+      {
+        "problem": "CORS errors when calling auth API from localhost",
+        "solution": "Added development proxy in vite.config.ts to route /api/* to backend",
+        "preventionStrategy": "Document proxy setup in README for new developers"
+      }
+    ],
+    "conversationHighlights": [
+      {
+        "topic": "Testing strategy",
+        "userIntent": "Wanted unit tests with >80% coverage",
+        "outcome": "Agreed to focus on integration tests for auth flows, unit tests for utility functions"
+      }
+    ]
+  },
+  "projectContext": {
+    "workingDirectory": "/Users/username/projects/myapp",
+    "branch": "feature/user-auth",
+    "environment": "development",
+    "relatedModules": ["MOD-0001"],
+    "relatedFeatures": ["FEAT-0001"]
+  },
+  "continuityNotes": {
+    "nextSteps": [
+      "Complete password reset flow",
+      "Add unit tests for auth utilities",
+      "Update user story STORY-0001 status to in-review"
+    ],
+    "importantContext": "Password reset backend is ready but needs SMTP config. Ask DevOps team for staging credentials.",
+    "warnings": [
+      "Don't merge to main until security review is complete",
+      "JWT secret is currently hardcoded - needs to be moved to environment variable before production"
+    ],
+    "openQuestions": [
+      "Should we implement 2FA in this sprint or next?",
+      "What's the password complexity requirement policy?"
+    ]
+  },
+  "metrics": {
+    "duration": 120,
+    "contractsCreated": 2,
+    "contractsModified": 1,
+    "filesModified": 8
+  },
+  "metadata": {
+    "createdAt": "2025-01-01T14:00:00Z",
+    "createdBy": "developer@example.com",
+    "sessionType": "development",
+    "tags": ["authentication", "frontend", "api-integration"]
+  }
+}

@@ -16,15 +16,31 @@
   ],
   "definitionOfDone": [
     {
-      "item": "Code is written and peer reviewed",
+      "item": "All acceptance criteria verified",
       "completed": false
     },
     {
-      "item": "Unit tests written and passing",
+      "item": "Unit tests written and passing (>80% coverage)",
       "completed": false
     },
     {
-      "item": "Integration tests written and passing",
+      "item": "Integration tests passing",
+      "completed": false
+    },
+    {
+      "item": "E2E tests passing (if UI changes)",
+      "completed": false
+    },
+    {
+      "item": "Code reviewed by human",
+      "completed": false
+    },
+    {
+      "item": "Security scan passed",
+      "completed": false
+    },
+    {
+      "item": "Performance benchmarks met",
       "completed": false
     },
     {
@@ -32,7 +48,7 @@
       "completed": false
     },
     {
-      "item": "Acceptance criteria verified",
+      "item": "Deployed to staging",
       "completed": false
     }
   ],
@@ -57,6 +73,25 @@
   "assignee": "",
   "storyPoints": 0,
   "priority": "medium",
+  "testing": {
+    "unit": {
+      "required": true,
+      "coverage": 80,
+      "status": "not-started"
+    },
+    "integration": {
+      "required": true,
+      "status": "not-started"
+    },
+    "e2e": {
+      "required": false,
+      "status": "not-started"
+    },
+    "performance": {
+      "required": false,
+      "benchmarks": []
+    }
+  },
   "metadata": {
     "createdAt": "2025-01-01T00:00:00Z",
     "updatedAt": "2025-01-01T00:00:00Z",

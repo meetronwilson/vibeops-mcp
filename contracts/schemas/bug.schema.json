@@ -111,6 +111,167 @@
       "type": "string",
       "description": "Identified root cause of the bug"
     },
+    "errorDetails": {
+      "type": "object",
+      "description": "Error logs and stack traces for AI-assisted debugging",
+      "properties": {
+        "errorMessage": {
+          "type": "string",
+          "description": "The actual error message displayed"
+        },
+        "stackTrace": {
+          "type": "string",
+          "description": "Full stack trace of the error"
+        },
+        "errorCode": {
+          "type": "string",
+          "description": "Error code if available"
+        },
+        "logs": {
+          "type": "array",
+          "description": "Relevant log entries",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "regression": {
+      "type": "object",
+      "description": "Information about whether this is a regression",
+      "properties": {
+        "isRegression": {
+          "type": "boolean",
+          "description": "Was this working in a previous version?"
+        },
+        "lastWorkingVersion": {
+          "type": "string",
+          "description": "Last version where this worked correctly"
+        },
+        "introducedInCommit": {
+          "type": "string",
+          "description": "Git commit hash that introduced the bug"
+        },
+        "introducedInPR": {
+          "type": "string",
+          "description": "Pull request number that introduced the bug"
+        }
+      }
+    },
+    "impact": {
+      "type": "object",
+      "description": "Business impact assessment",
+      "properties": {
+        "usersAffected": {
+          "type": "string",
+          "enum": ["all", "most", "some", "few", "one"],
+          "description": "How many users are affected"
+        },
+        "frequency": {
+          "type": "string",
+          "enum": ["always", "often", "sometimes", "rarely"],
+          "description": "How often does this bug occur"
+        },
+        "workaround": {
+          "type": "object",
+          "properties": {
+            "exists": {
+              "type": "boolean",
+              "description": "Is there a workaround available?"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the workaround"
+            }
+          }
+        },
+        "affectedFeatures": {
+          "type": "array",
+          "description": "List of feature IDs affected by this bug",
+          "items": {
+            "type": "string",
+            "pattern": "^FEAT-[0-9]{4}$"
+          }
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "description": "Fix verification and testing details",
+      "properties": {
+        "testAdded": {
+          "type": "boolean",
+          "description": "Was a test added to prevent regression?"
+        },
+        "testType": {
+          "type": "string",
+          "enum": ["unit", "integration", "e2e", "manual"],
+          "description": "Type of test added"
+        },
+        "verifiedBy": {
+          "type": "string",
+          "description": "Person who verified the fix"
+        },
+        "verifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the fix was verified"
+        },
+        "relatedTests": {
+          "type": "array",
+          "description": "IDs or paths of related test files",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "relatedIssues": {
+      "type": "array",
+      "description": "Related bugs or issues",
+      "items": {
+        "type": "object",
+        "required": ["id", "relationship"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^(BUG|STORY|DEBT|SPIKE)-[0-9]{4}$",
+            "description": "Related issue ID"
+          },
+          "relationship": {
+            "type": "string",
+            "enum": ["duplicate", "related", "blocks", "blocked-by", "caused-by"],
+            "description": "Type of relationship"
+          }
+        }
+      }
+    },
+    "fixDetails": {
+      "type": "object",
+      "description": "Details about the fix implementation",
+      "properties": {
+        "commitHash": {
+          "type": "string",
+          "description": "Git commit hash of the fix"
+        },
+        "prNumber": {
+          "type": "string",
+          "description": "Pull request number containing the fix"
+        },
+        "timeToFix": {
+          "type": "number",
+          "description": "Time taken to fix (in minutes)",
+          "minimum": 0
+        },
+        "implementationFiles": {
+          "type": "array",
+          "description": "Files modified to fix the bug",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "metadata": {
       "type": "object",
       "required": ["createdAt", "updatedAt"],

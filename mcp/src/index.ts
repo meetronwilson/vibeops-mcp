@@ -44,17 +44,33 @@ import { parseAndImport } from './tools/parse.js';
 import { deleteModule, deleteFeature, deleteIssue, archiveItem } from './tools/delete.js';
 import { addImplementationFiles, addCommitReference, addPRReference } from './tools/implementation.js';
 import { getMyWork, getBlockers, getReadyToStart, getNeedsReview, getInProgress, getHighPriority } from './tools/queries.js';
+import {
+  storeMemory,
+  getMemory,
+  listMemories,
+  getRecentMemories,
+  searchMemories,
+  getMemoriesByContract,
+  getContinuationContext,
+} from './tools/memory.js';
 import { getContractCounts } from './lib/id-generator.js';
 import { readContract, listAllContracts, getContractsDir, getTypeDir } from './lib/file-manager.js';
 import { convertToMarkdown } from './lib/markdown-converter.js';
-import { writeFileSync, mkdirSync, existsSync } from 'fs';
-import { join, basename } from 'path';
+import { writeFileSync, mkdirSync, existsSync, readFileSync } from 'fs';
+import { join, basename, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+// Get version from package.json (single source of truth)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const packageJson = JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf8'));
+const VERSION = packageJson.version;
 
 // Create MCP server
 const server = new Server(
   {
     name: 'vibeops',
-    version: '1.2.6',
+    version: VERSION,
   },
   {
     capabilities: {
@@ -934,6 +950,239 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           },
         },
       },
+      {
+        name: 'store_memory',
+        description: 'Store Claude session memory before compaction or restart. Captures context, decisions, work completed, pending tasks, learnings, and continuity notes.',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            sessionId: {
+              type: 'string',
+              description: 'Optional session ID to group related memories (auto-generated if not provided)',
+            },
+            summary: {
+              type: 'string',
+              description: 'High-level summary of the session',
+            },
+            keyDecisions: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  decision: { type: 'string' },
+                  reasoning: { type: 'string' },
+                  timestamp: { type: 'string' },
+                },
+              },
+              description: 'Important decisions made during the session',
+            },
+            workCompleted: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  task: { type: 'string' },
+                  relatedContracts: { type: 'array', items: { type: 'string' } },
+                  filesModified: { type: 'array', items: { type: 'string' } },
+                },
+              },
+              description: 'Work that was completed',
+            },
+            pendingTasks: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  task: { type: 'string' },
+                  priority: { type: 'string', enum: ['critical', 'high', 'medium', 'low'] },
+                  blockers: { type: 'array', items: { type: 'string' } },
+                  context: { type: 'string' },
+                },
+              },
+              description: 'Tasks that are pending or in progress',
+            },
+            learnings: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  topic: { type: 'string' },
+                  insight: { type: 'string' },
+                  applicationArea: { type: 'string' },
+                },
+              },
+              description: 'Learnings or discoveries from this session',
+            },
+            codePatterns: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  pattern: { type: 'string' },
+                  description: { type: 'string' },
+                  example: { type: 'string' },
+                },
+              },
+              description: 'Code patterns or conventions established',
+            },
+            problems: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  problem: { type: 'string' },
+                  solution: { type: 'string' },
+                  preventionStrategy: { type: 'string' },
+                },
+              },
+              description: 'Problems encountered and their solutions',
+            },
+            projectContext: {
+              type: 'object',
+              properties: {
+                workingDirectory: { type: 'string' },
+                branch: { type: 'string' },
+                environment: { type: 'string' },
+                relatedModules: { type: 'array', items: { type: 'string' } },
+                relatedFeatures: { type: 'array', items: { type: 'string' } },
+              },
+            },
+            continuityNotes: {
+              type: 'object',
+              properties: {
+                nextSteps: { type: 'array', items: { type: 'string' } },
+                importantContext: { type: 'string' },
+                warnings: { type: 'array', items: { type: 'string' } },
+                openQuestions: { type: 'array', items: { type: 'string' } },
+              },
+            },
+            metrics: {
+              type: 'object',
+              properties: {
+                duration: { type: 'number' },
+                contractsCreated: { type: 'number' },
+                contractsModified: { type: 'number' },
+                filesModified: { type: 'number' },
+              },
+            },
+            sessionType: {
+              type: 'string',
+              enum: ['planning', 'development', 'debugging', 'review', 'research', 'refactoring'],
+            },
+            tags: {
+              type: 'array',
+              items: { type: 'string' },
+            },
+          },
+          required: ['summary'],
+        },
+      },
+      {
+        name: 'get_memory',
+        description: 'Retrieve a specific memory by ID',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'Memory ID (e.g., MEM-0001)',
+            },
+          },
+          required: ['id'],
+        },
+      },
+      {
+        name: 'list_memories',
+        description: 'List memories, optionally filtered by session ID, type, or tags',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            sessionId: {
+              type: 'string',
+              description: 'Filter by session ID',
+            },
+            sessionType: {
+              type: 'string',
+              enum: ['planning', 'development', 'debugging', 'review', 'research', 'refactoring'],
+            },
+            tags: {
+              type: 'array',
+              items: { type: 'string' },
+              description: 'Filter by tags',
+            },
+            limit: {
+              type: 'number',
+              description: 'Maximum number of memories to return',
+            },
+          },
+        },
+      },
+      {
+        name: 'get_recent_memories',
+        description: 'Get the N most recent memories (useful for resuming work)',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            limit: {
+              type: 'number',
+              description: 'Number of recent memories to retrieve (default: 5)',
+            },
+          },
+        },
+      },
+      {
+        name: 'search_memories',
+        description: 'Search memories by keyword across different fields',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            query: {
+              type: 'string',
+              description: 'Search query',
+            },
+            searchIn: {
+              type: 'array',
+              items: {
+                type: 'string',
+                enum: ['summary', 'decisions', 'tasks', 'learnings', 'problems', 'all'],
+              },
+              description: 'Which fields to search in (default: all)',
+            },
+            limit: {
+              type: 'number',
+              description: 'Maximum results to return',
+            },
+          },
+          required: ['query'],
+        },
+      },
+      {
+        name: 'get_memories_by_contract',
+        description: 'Find all memories related to a specific contract (module, feature, or issue)',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            contractId: {
+              type: 'string',
+              description: 'Contract ID (e.g., MOD-0001, FEAT-0001, STORY-0001)',
+            },
+          },
+          required: ['contractId'],
+        },
+      },
+      {
+        name: 'get_continuation_context',
+        description: 'Get context for resuming work - returns most recent memory with continuity notes and pending tasks',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            sessionId: {
+              type: 'string',
+              description: 'Optional session ID to get continuation context for a specific session',
+            },
+          },
+        },
+      },
     ],
   };
 });
@@ -954,7 +1203,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
               text: JSON.stringify(
                 {
                   status: 'healthy',
-                  version: '1.2.6',
+                  version: VERSION,
                   message: 'VibeOps MCP server is running!',
                   cwd: process.cwd(),
                   timestamp: new Date().toISOString(),
@@ -1846,6 +2095,135 @@ _Generated: ${new Date().toISOString()}_
         };
       }
 
+      case 'store_memory': {
+        const memory = storeMemory(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Memory stored successfully',
+                  memory,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'get_memory': {
+        const memory = getMemory((args as any).id);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(memory, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'list_memories': {
+        const memories = listMemories(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  count: memories.length,
+                  memories,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'get_recent_memories': {
+        const limit = (args as any).limit || 5;
+        const memories = getRecentMemories(limit);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: `${memories.length} most recent memories`,
+                  memories,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'search_memories': {
+        const memories = searchMemories(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  query: (args as any).query,
+                  count: memories.length,
+                  memories,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'get_memories_by_contract': {
+        const memories = getMemoriesByContract((args as any).contractId);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  contractId: (args as any).contractId,
+                  count: memories.length,
+                  memories,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'get_continuation_context': {
+        const context = getContinuationContext((args as any).sessionId);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: 'Continuation context retrieved',
+                  ...context,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
       default:
         throw new Error(`Unknown tool: ${name}`);
     }
@@ -1879,7 +2257,7 @@ async function main() {
   await server.connect(transport);
 
   // Log to stderr (stdout is used for MCP communication)
-  console.error('📦 VibeOps v1.0.0');
+  console.error(`📦 VibeOps v${VERSION}`);
   console.error('Working directory:', process.cwd());
 
   // Initialize directory structure (auto-creates if needed)

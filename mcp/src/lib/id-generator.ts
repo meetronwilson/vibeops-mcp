@@ -75,6 +75,7 @@ export function validateIdFormat(id: string): boolean {
     'BUG': /^BUG-\d{4}$/,
     'DEBT': /^DEBT-\d{4}$/,
     'SPIKE': /^SPIKE-\d{4}$/,
+    'MEM': /^MEM-\d{4}$/,
   };
 
   for (const [prefix, pattern] of Object.entries(patterns)) {
@@ -107,4 +108,26 @@ export function getContractCounts(): Record<ContractType, number> {
   }
 
   return counts;
+}
+
+/**
+ * Generate ID for memory or other non-contract types
+ * e.g., generateId('MEM') → 'MEM-0001'
+ */
+export function generateId(prefix: string): string {
+  const { listAllContracts } = require('./file-manager.js');
+  const allContracts = listAllContracts();
+
+  // Find all IDs with this prefix
+  const matchingIds = allContracts
+    .filter((c: any) => c.id.startsWith(prefix + '-'))
+    .map((c: any) => extractIdNumber(c.id));
+
+  const highest = matchingIds.length > 0 ? Math.max(...matchingIds) : 0;
+  const next = highest + 1;
+
+  // Format with leading zeros (4 digits)
+  const formatted = next.toString().padStart(4, '0');
+
+  return `${prefix}-${formatted}`;
 }

@@ -34,6 +34,41 @@
   "attachments": [],
   "assignee": "",
   "rootCause": "",
+  "errorDetails": {
+    "errorMessage": "",
+    "stackTrace": "",
+    "errorCode": "",
+    "logs": []
+  },
+  "regression": {
+    "isRegression": false,
+    "lastWorkingVersion": "",
+    "introducedInCommit": "",
+    "introducedInPR": ""
+  },
+  "impact": {
+    "usersAffected": "some",
+    "frequency": "always",
+    "workaround": {
+      "exists": false,
+      "description": ""
+    },
+    "affectedFeatures": []
+  },
+  "verification": {
+    "testAdded": false,
+    "testType": "unit",
+    "verifiedBy": "",
+    "verifiedAt": "",
+    "relatedTests": []
+  },
+  "relatedIssues": [],
+  "fixDetails": {
+    "commitHash": "",
+    "prNumber": "",
+    "timeToFix": 0,
+    "implementationFiles": []
+  },
   "metadata": {
     "createdAt": "2025-01-01T00:00:00Z",
     "updatedAt": "2025-01-01T00:00:00Z",

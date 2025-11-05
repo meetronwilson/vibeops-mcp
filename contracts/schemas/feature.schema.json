@@ -121,6 +121,30 @@
       "enum": ["critical", "high", "medium", "low"],
       "description": "Feature priority"
     },
+    "featureDependencies": {
+      "type": "array",
+      "description": "Other features that must be completed before this feature can start",
+      "items": {
+        "type": "object",
+        "required": ["featureId", "type"],
+        "properties": {
+          "featureId": {
+            "type": "string",
+            "pattern": "^FEAT-[0-9]{4}$",
+            "description": "ID of the feature this depends on"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["blocks", "requires", "related"],
+            "description": "Type of dependency"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Why this dependency exists"
+          }
+        }
+      }
+    },
     "metadata": {
       "type": "object",
       "required": ["createdAt", "updatedAt"],
