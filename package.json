@@ -1,7 +1,7 @@
 {
-  "name": "product-os",
+  "name": "vibeops-mcp",
   "version": "1.0.0",
-  "description": "Product organization system with contract validation",
+  "description": "VibeOps product organization system with contract validation",
   "main": "index.js",
   "type": "module",
   "scripts": {

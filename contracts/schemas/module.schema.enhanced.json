@@ -1,0 +1,181 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "module.schema.json",
+  "title": "Module",
+  "description": "A top-level theme or initiative that groups related features",
+  "type": "object",
+  "required": ["id", "name", "description", "type", "status", "features", "metadata"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the module",
+      "pattern": "^MOD-[0-9]{4,}$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the module",
+      "minLength": 3,
+      "maxLength": 100
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the module's purpose and scope",
+      "minLength": 10,
+      "maxLength": 1000
+    },
+    "type": {
+      "type": "string",
+      "enum": ["theme", "initiative"],
+      "description": "Type of module"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["planning", "active", "on-hold", "completed", "archived"],
+      "description": "Current status of the module"
+    },
+    "features": {
+      "type": "array",
+      "description": "List of feature IDs belonging to this module",
+      "items": {
+        "type": "string",
+        "pattern": "^FEAT-[0-9]{4,}$"
+      },
+      "uniqueItems": true
+    },
+    "relatedModules": {
+      "type": "array",
+      "description": "Relationships with other modules for cross-module dependency and integration tracking",
+      "items": {
+        "type": "object",
+        "required": ["moduleId", "relationship"],
+        "properties": {
+          "moduleId": {
+            "type": "string",
+            "pattern": "^MOD-[0-9]{4,}$",
+            "description": "The related module ID"
+          },
+          "relationship": {
+            "type": "string",
+            "enum": [
+              "depends-on",
+              "integrates-with",
+              "shares-domain",
+              "orchestrates",
+              "provides-data-to",
+              "consumes-data-from",
+              "complements"
+            ],
+            "description": "Type of relationship between modules"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 10,
+            "description": "How these modules relate"
+          },
+          "sharedCapabilities": {
+            "type": "array",
+            "description": "Capabilities that span both modules",
+            "items": {
+              "type": "string"
+            }
+          },
+          "integrationPoints": {
+            "type": "array",
+            "description": "Specific features that integrate across modules",
+            "items": {
+              "type": "object",
+              "required": ["fromFeature", "toFeature"],
+              "properties": {
+                "fromFeature": {
+                  "type": "string",
+                  "pattern": "^FEAT-[0-9]{4,}$",
+                  "description": "Feature in this module"
+                },
+                "toFeature": {
+                  "type": "string",
+                  "pattern": "^FEAT-[0-9]{4,}$",
+                  "description": "Feature in the related module"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Nature of the integration"
+                },
+                "dataFlow": {
+                  "type": "string",
+                  "enum": ["bidirectional", "one-way-to", "one-way-from"],
+                  "description": "Direction of data flow"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "domainAreas": {
+      "type": "array",
+      "description": "High-level domain areas this module addresses",
+      "items": {
+        "type": "string",
+        "enum": [
+          "scheduling",
+          "workforce-management",
+          "task-management",
+          "communication",
+          "reporting-analytics",
+          "resource-management",
+          "financial-management",
+          "compliance-safety",
+          "customer-management",
+          "operations",
+          "maintenance",
+          "quality-control",
+          "training-development",
+          "equipment-inventory",
+          "project-management",
+          "ai-automation",
+          "mobile-interface",
+          "integration-apis"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "owner": {
+      "type": "string",
+      "description": "Person or team responsible for the module"
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Module start date"
+    },
+    "targetDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Target completion date"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["createdAt", "updatedAt"],
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

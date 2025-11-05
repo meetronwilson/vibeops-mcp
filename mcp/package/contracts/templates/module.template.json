@@ -1,0 +1,17 @@
+{
+  "id": "MOD-0001",
+  "name": "Example Module",
+  "description": "This is an example module that demonstrates the module contract structure. Replace with your module details.",
+  "type": "initiative",
+  "status": "planning",
+  "features": [],
+  "owner": "Product Team",
+  "startDate": "2025-01-01",
+  "targetDate": "2025-12-31",
+  "metadata": {
+    "createdAt": "2025-01-01T00:00:00Z",
+    "updatedAt": "2025-01-01T00:00:00Z",
+    "createdBy": "system",
+    "tags": ["example"]
+  }
+}

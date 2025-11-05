@@ -1,6 +1,6 @@
 # CRM Test Data Summary
 
-This test folder contains a complete example of a CRM system organized using the Product OS contract framework.
+This test folder contains a complete example of a CRM system organized using the VibeOps contract framework.
 
 ## Overview
 

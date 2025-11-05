@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "user-story.schema.json",
+  "title": "User Story",
+  "description": "A user story with acceptance criteria, DoD, and DoR",
+  "type": "object",
+  "required": ["id", "title", "description", "featureId", "status", "acceptanceCriteria", "definitionOfDone", "definitionOfReady", "metadata"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the user story",
+      "pattern": "^STORY-[0-9]{4}$"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title of the user story",
+      "minLength": 5,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "description": "As a [user], I want [goal], so that [benefit]",
+      "minLength": 20
+    },
+    "featureId": {
+      "type": "string",
+      "description": "Parent feature ID",
+      "pattern": "^FEAT-[0-9]{4}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["backlog", "ready", "in-progress", "in-review", "done", "blocked"],
+      "description": "Current status of the user story"
+    },
+    "acceptanceCriteria": {
+      "type": "array",
+      "description": "List of acceptance criteria that must be met",
+      "items": {
+        "type": "object",
+        "required": ["criterion", "verified"],
+        "properties": {
+          "criterion": {
+            "type": "string",
+            "description": "Given [context], when [action], then [outcome]"
+          },
+          "verified": {
+            "type": "boolean",
+            "description": "Whether this criterion has been verified"
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "definitionOfDone": {
+      "type": "array",
+      "description": "Checklist of items that must be completed",
+      "items": {
+        "type": "object",
+        "required": ["item", "completed"],
+        "properties": {
+          "item": {
+            "type": "string"
+          },
+          "completed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "definitionOfReady": {
+      "type": "array",
+      "description": "Checklist of items required before work can start",
+      "items": {
+        "type": "object",
+        "required": ["item", "ready"],
+        "properties": {
+          "item": {
+            "type": "string"
+          },
+          "ready": {
+            "type": "boolean"
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "assignee": {
+      "type": "string",
+      "description": "Person assigned to the story"
+    },
+    "storyPoints": {
+      "type": "number",
+      "description": "Effort estimation in story points",
+      "minimum": 0
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"]
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["createdAt", "updatedAt"],
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

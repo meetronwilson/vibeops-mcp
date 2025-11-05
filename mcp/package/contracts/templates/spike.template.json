@@ -1,0 +1,55 @@
+{
+  "id": "SPIKE-0001",
+  "title": "Investigate real-time collaboration frameworks for document editing",
+  "description": "Research and evaluate different approaches for implementing real-time collaborative document editing. Need to understand the trade-offs between operational transformation, CRDTs, and event sourcing approaches.",
+  "featureId": "FEAT-0001",
+  "status": "planned",
+  "questions": [
+    {
+      "question": "What are the pros and cons of Operational Transformation vs CRDTs for our use case?",
+      "answered": false,
+      "answer": ""
+    },
+    {
+      "question": "Which existing libraries/frameworks best fit our architecture?",
+      "answered": false,
+      "answer": ""
+    },
+    {
+      "question": "What are the performance implications at scale (100+ concurrent users)?",
+      "answered": false,
+      "answer": ""
+    },
+    {
+      "question": "How do we handle conflict resolution in edge cases?",
+      "answered": false,
+      "answer": ""
+    }
+  ],
+  "timebox": {
+    "duration": 3,
+    "unit": "days",
+    "startDate": "",
+    "endDate": ""
+  },
+  "objectives": [
+    "Create POC implementations using at least 2 different approaches",
+    "Document performance characteristics of each approach",
+    "Identify potential risks and challenges",
+    "Provide clear recommendation with justification"
+  ],
+  "findings": {
+    "summary": "",
+    "recommendations": [],
+    "risks": [],
+    "nextSteps": []
+  },
+  "assignee": "",
+  "artifacts": [],
+  "metadata": {
+    "createdAt": "2025-01-01T00:00:00Z",
+    "updatedAt": "2025-01-01T00:00:00Z",
+    "createdBy": "system",
+    "tags": ["research", "real-time"]
+  }
+}

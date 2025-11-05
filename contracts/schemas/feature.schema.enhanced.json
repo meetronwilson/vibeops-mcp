@@ -1,0 +1,364 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "feature.schema.json",
+  "title": "Feature",
+  "description": "A discrete product capability with PRD contract",
+  "type": "object",
+  "required": ["id", "name", "description", "moduleId", "status", "prd", "issues", "metadata"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the feature",
+      "pattern": "^FEAT-[0-9]{4,}$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the feature",
+      "minLength": 3,
+      "maxLength": 100
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the feature",
+      "minLength": 10,
+      "maxLength": 500
+    },
+    "moduleId": {
+      "type": "string",
+      "description": "Parent module ID",
+      "pattern": "^MOD-[0-9]{4,}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "ready", "in-progress", "in-review", "completed", "cancelled"],
+      "description": "Current status of the feature"
+    },
+    "capabilityTags": {
+      "type": "array",
+      "description": "Categorization tags for overlap detection and feature discovery",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "ai-scheduling",
+          "manual-scheduling",
+          "task-definition",
+          "task-execution",
+          "worker-assignment",
+          "approval-workflow",
+          "confirmation-pattern",
+          "notification",
+          "time-tracking",
+          "data-entry",
+          "reporting",
+          "optimization",
+          "real-time-updates",
+          "mobile-interface",
+          "desktop-interface",
+          "chat-interface",
+          "voice-interface",
+          "calendar-integration",
+          "weather-integration",
+          "resource-management",
+          "budget-tracking",
+          "analytics",
+          "forecasting",
+          "collaboration",
+          "communication",
+          "document-management",
+          "photo-management",
+          "geolocation",
+          "mapping",
+          "inventory-management",
+          "equipment-tracking",
+          "compliance-tracking",
+          "certification-management",
+          "training-management",
+          "performance-evaluation",
+          "quality-control",
+          "safety-management",
+          "incident-reporting",
+          "maintenance-scheduling",
+          "billing",
+          "invoicing",
+          "payroll",
+          "hr-management",
+          "customer-management",
+          "vendor-management",
+          "authentication",
+          "authorization",
+          "audit-logging",
+          "data-export",
+          "data-import",
+          "backup-restore",
+          "search",
+          "filtering",
+          "sorting"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "relatedFeatures": {
+      "type": "array",
+      "description": "Explicit relationships with other features for dependency tracking and overlap detection",
+      "items": {
+        "type": "object",
+        "required": ["featureId", "relationship"],
+        "properties": {
+          "featureId": {
+            "type": "string",
+            "pattern": "^FEAT-[0-9]{4,}$",
+            "description": "The related feature ID"
+          },
+          "relationship": {
+            "type": "string",
+            "enum": [
+              "depends-on",
+              "provides-data-to",
+              "consumes-data-from",
+              "overlaps-with",
+              "complements",
+              "supersedes",
+              "blocks",
+              "integrates-with",
+              "extends",
+              "replaced-by"
+            ],
+            "description": "Type of relationship between features"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 10,
+            "description": "Detailed explanation of how the features relate"
+          }
+        }
+      }
+    },
+    "dataContract": {
+      "type": "object",
+      "description": "Explicit data dependencies and outputs for integration clarity",
+      "properties": {
+        "consumes": {
+          "type": "array",
+          "description": "Data inputs this feature depends on",
+          "items": {
+            "type": "object",
+            "required": ["dataType", "description"],
+            "properties": {
+              "sourceFeature": {
+                "type": "string",
+                "pattern": "^FEAT-[0-9]{4,}$",
+                "description": "Feature that provides this data"
+              },
+              "sourceSystem": {
+                "type": "string",
+                "description": "External system that provides this data"
+              },
+              "dataType": {
+                "type": "string",
+                "description": "Type or name of the data entity"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 10,
+                "description": "What this data contains and how it's used"
+              },
+              "required": {
+                "type": "boolean",
+                "default": true,
+                "description": "Whether this data is required for the feature to function"
+              },
+              "format": {
+                "type": "string",
+                "description": "Data format (JSON, CSV, API, etc.)"
+              }
+            }
+          }
+        },
+        "produces": {
+          "type": "array",
+          "description": "Data outputs this feature generates",
+          "items": {
+            "type": "object",
+            "required": ["dataType", "description"],
+            "properties": {
+              "dataType": {
+                "type": "string",
+                "description": "Type or name of the data entity produced"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 10,
+                "description": "What this data contains and its purpose"
+              },
+              "consumers": {
+                "type": "array",
+                "description": "Features that consume this data",
+                "items": {
+                  "type": "string",
+                  "pattern": "^FEAT-[0-9]{4,}$"
+                }
+              },
+              "format": {
+                "type": "string",
+                "description": "Data format (JSON, CSV, API, etc.)"
+              },
+              "updateFrequency": {
+                "type": "string",
+                "enum": ["real-time", "near-real-time", "hourly", "daily", "weekly", "on-demand", "event-driven"],
+                "description": "How often this data is updated"
+              }
+            }
+          }
+        }
+      }
+    },
+    "targetUsers": {
+      "type": "array",
+      "description": "Primary users or personas who will use this feature",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "prd": {
+      "type": "object",
+      "required": ["problemStatement", "goals", "successMetrics", "scope"],
+      "description": "Product Requirements Document contract",
+      "properties": {
+        "problemStatement": {
+          "type": "string",
+          "description": "What problem does this feature solve?",
+          "minLength": 20
+        },
+        "goals": {
+          "type": "array",
+          "description": "List of goals this feature aims to achieve",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "successMetrics": {
+          "type": "array",
+          "description": "Measurable criteria for success",
+          "items": {
+            "type": "object",
+            "required": ["metric", "target"],
+            "properties": {
+              "metric": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              }
+            }
+          },
+          "minItems": 1
+        },
+        "scope": {
+          "type": "object",
+          "required": ["inScope", "outOfScope"],
+          "properties": {
+            "inScope": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "outOfScope": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "userStories": {
+          "type": "array",
+          "description": "High-level user stories",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "description": "External dependencies or prerequisites (prefer using relatedFeatures for internal dependencies)",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "issues": {
+      "type": "array",
+      "description": "List of issue IDs belonging to this feature",
+      "items": {
+        "type": "string",
+        "pattern": "^(STORY|BUG|DEBT|SPIKE)-[0-9]{4,}$"
+      },
+      "uniqueItems": true
+    },
+    "owner": {
+      "type": "string",
+      "description": "Person responsible for the feature"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"],
+      "description": "Feature priority"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["createdAt", "updatedAt"],
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "overlapCheckLastRun": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When overlap detection was last run for this feature"
+        },
+        "overlapWarnings": {
+          "type": "array",
+          "description": "Detected overlaps with other features",
+          "items": {
+            "type": "object",
+            "properties": {
+              "featureId": {
+                "type": "string"
+              },
+              "severity": {
+                "type": "string",
+                "enum": ["high", "medium", "low"]
+              },
+              "reason": {
+                "type": "string"
+              },
+              "detectedAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

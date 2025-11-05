@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "vibeops": {
+      "command": "node",
+      "args": [
+        "/FULL/PATH/TO/vibeops-mcp/mcp/build/index.js"
+      ],
+      "cwd": "/FULL/PATH/TO/vibeops-mcp"
+    }
+  }
+}

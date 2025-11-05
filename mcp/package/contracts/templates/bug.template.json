@@ -1,0 +1,43 @@
+{
+  "id": "BUG-0001",
+  "title": "Login button not responding on mobile devices",
+  "description": "When users attempt to log in on mobile devices, the login button does not respond to taps. This prevents users from accessing their accounts on mobile.",
+  "featureId": "FEAT-0001",
+  "status": "open",
+  "severity": "high",
+  "reproductionSteps": [
+    {
+      "step": "Open the application on a mobile device (iOS or Android)",
+      "expectedResult": "Application loads successfully",
+      "actualResult": "Application loads successfully"
+    },
+    {
+      "step": "Navigate to the login page",
+      "expectedResult": "Login form is displayed with username, password fields and login button",
+      "actualResult": "Login form is displayed correctly"
+    },
+    {
+      "step": "Enter valid credentials and tap the login button",
+      "expectedResult": "User is authenticated and redirected to dashboard",
+      "actualResult": "Button does not respond to tap, no visual feedback, no action occurs"
+    }
+  ],
+  "environment": {
+    "platform": "iOS 17.2 / Android 14",
+    "browser": "Safari Mobile / Chrome Mobile",
+    "version": "v1.2.3",
+    "additionalDetails": {
+      "devicesTested": ["iPhone 14", "Samsung Galaxy S23"],
+      "screenSizes": ["6.1 inch", "6.2 inch"]
+    }
+  },
+  "attachments": [],
+  "assignee": "",
+  "rootCause": "",
+  "metadata": {
+    "createdAt": "2025-01-01T00:00:00Z",
+    "updatedAt": "2025-01-01T00:00:00Z",
+    "createdBy": "system",
+    "tags": ["mobile", "login"]
+  }
+}

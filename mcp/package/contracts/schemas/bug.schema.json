@@ -1,0 +1,138 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "bug.schema.json",
+  "title": "Bug",
+  "description": "A bug report with reproduction steps and environment details",
+  "type": "object",
+  "required": ["id", "title", "description", "featureId", "status", "severity", "reproductionSteps", "environment", "metadata"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the bug",
+      "pattern": "^BUG-[0-9]{4}$"
+    },
+    "title": {
+      "type": "string",
+      "description": "Brief title of the bug",
+      "minLength": 5,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the bug",
+      "minLength": 20
+    },
+    "featureId": {
+      "type": "string",
+      "description": "Parent feature ID",
+      "pattern": "^FEAT-[0-9]{4}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["open", "in-progress", "needs-verification", "verified", "closed", "wont-fix"],
+      "description": "Current status of the bug"
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"],
+      "description": "Severity level of the bug"
+    },
+    "reproductionSteps": {
+      "type": "array",
+      "description": "Step-by-step instructions to reproduce the bug",
+      "items": {
+        "type": "object",
+        "required": ["step", "expectedResult", "actualResult"],
+        "properties": {
+          "step": {
+            "type": "string",
+            "description": "Action to perform"
+          },
+          "expectedResult": {
+            "type": "string",
+            "description": "What should happen"
+          },
+          "actualResult": {
+            "type": "string",
+            "description": "What actually happens"
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "environment": {
+      "type": "object",
+      "required": ["platform"],
+      "description": "Environment details where the bug occurs",
+      "properties": {
+        "platform": {
+          "type": "string",
+          "description": "Platform or OS where bug occurs"
+        },
+        "browser": {
+          "type": "string",
+          "description": "Browser name and version (if applicable)"
+        },
+        "version": {
+          "type": "string",
+          "description": "Application version"
+        },
+        "additionalDetails": {
+          "type": "object",
+          "description": "Any additional environment details"
+        }
+      }
+    },
+    "attachments": {
+      "type": "array",
+      "description": "Screenshots, logs, or other supporting files",
+      "items": {
+        "type": "object",
+        "required": ["filename", "url"],
+        "properties": {
+          "filename": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "assignee": {
+      "type": "string",
+      "description": "Person assigned to fix the bug"
+    },
+    "rootCause": {
+      "type": "string",
+      "description": "Identified root cause of the bug"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["createdAt", "updatedAt"],
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

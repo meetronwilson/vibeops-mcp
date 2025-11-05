@@ -1,0 +1,117 @@
+{
+  "id": "FEAT-0001",
+  "name": "Example Feature",
+  "description": "This is an example feature that demonstrates the enhanced feature contract structure with overlap detection.",
+  "moduleId": "MOD-0001",
+  "status": "draft",
+  "capabilityTags": [
+    "data-entry",
+    "reporting"
+  ],
+  "targetUsers": [
+    "Superintendents",
+    "Project Managers"
+  ],
+  "relatedFeatures": [
+    {
+      "featureId": "FEAT-0002",
+      "relationship": "depends-on",
+      "description": "Requires authentication system to be in place before implementation"
+    },
+    {
+      "featureId": "FEAT-0003",
+      "relationship": "provides-data-to",
+      "description": "Generates task data that is consumed by the scheduling engine"
+    }
+  ],
+  "dataContract": {
+    "consumes": [
+      {
+        "sourceFeature": "FEAT-0002",
+        "dataType": "UserAuthentication",
+        "description": "User identity and permissions needed to control access to feature functionality",
+        "required": true,
+        "format": "JSON"
+      },
+      {
+        "sourceSystem": "Weather API",
+        "dataType": "WeatherForecast",
+        "description": "5-day weather forecast for scheduling optimization",
+        "required": false,
+        "format": "JSON API"
+      }
+    ],
+    "produces": [
+      {
+        "dataType": "TaskDefinition",
+        "description": "Structured task definitions with requirements, estimated duration, and skill requirements",
+        "consumers": ["FEAT-0003", "FEAT-0004"],
+        "format": "JSON",
+        "updateFrequency": "real-time"
+      },
+      {
+        "dataType": "CompletionReport",
+        "description": "Daily summary of completed tasks with quality metrics",
+        "consumers": ["FEAT-0005"],
+        "format": "JSON",
+        "updateFrequency": "daily"
+      }
+    ]
+  },
+  "prd": {
+    "problemStatement": "Users currently face challenges with [specific problem]. This impacts their ability to [describe impact]. Current manual processes take X hours and result in Y% error rate.",
+    "goals": [
+      "Enable users to accomplish [specific goal] in under 5 minutes",
+      "Improve task completion rate by 25%",
+      "Reduce data entry errors by 50%"
+    ],
+    "successMetrics": [
+      {
+        "metric": "User satisfaction score",
+        "target": "4.5/5.0"
+      },
+      {
+        "metric": "Task completion rate",
+        "target": "85%"
+      },
+      {
+        "metric": "Time to complete workflow",
+        "target": "< 5 minutes (down from 20 minutes)"
+      }
+    ],
+    "scope": {
+      "inScope": [
+        "Core functionality for [feature description]",
+        "Integration with [system/component]",
+        "Basic reporting dashboard",
+        "Mobile-responsive UI"
+      ],
+      "outOfScope": [
+        "Advanced customization options (future phase)",
+        "Mobile app version (separate initiative)",
+        "Automated scheduling (handled by FEAT-0003)",
+        "Bulk import from legacy system (FEAT-0010)"
+      ]
+    },
+    "userStories": [
+      "As a superintendent, I want to [action] so that I can [benefit]",
+      "As a project manager, I want to [action] so that I can [benefit]"
+    ],
+    "dependencies": [
+      "Authentication system must be completed",
+      "API endpoints need to be available",
+      "Mobile device testing environment"
+    ]
+  },
+  "issues": [],
+  "owner": "Product Manager",
+  "priority": "high",
+  "metadata": {
+    "createdAt": "2025-01-01T00:00:00Z",
+    "updatedAt": "2025-01-01T00:00:00Z",
+    "createdBy": "system",
+    "tags": ["example", "template"],
+    "overlapCheckLastRun": "2025-01-01T00:00:00Z",
+    "overlapWarnings": []
+  }
+}

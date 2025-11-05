@@ -1,0 +1,176 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "spike.schema.json",
+  "title": "Spike",
+  "description": "Time-boxed investigation or proof-of-concept with research questions",
+  "type": "object",
+  "required": ["id", "title", "description", "featureId", "status", "questions", "timebox", "metadata"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the spike",
+      "pattern": "^SPIKE-[0-9]{4}$"
+    },
+    "title": {
+      "type": "string",
+      "description": "Brief title of the spike",
+      "minLength": 5,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of what needs to be investigated",
+      "minLength": 20
+    },
+    "featureId": {
+      "type": "string",
+      "description": "Parent feature ID",
+      "pattern": "^FEAT-[0-9]{4}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["planned", "in-progress", "completed", "abandoned"],
+      "description": "Current status of the spike"
+    },
+    "questions": {
+      "type": "array",
+      "description": "Research questions to be answered",
+      "items": {
+        "type": "object",
+        "required": ["question", "answered"],
+        "properties": {
+          "question": {
+            "type": "string",
+            "description": "The research question"
+          },
+          "answered": {
+            "type": "boolean",
+            "description": "Whether this question has been answered"
+          },
+          "answer": {
+            "type": "string",
+            "description": "The answer found (when answered)"
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "timebox": {
+      "type": "object",
+      "required": ["duration", "unit"],
+      "description": "Time constraint for the spike",
+      "properties": {
+        "duration": {
+          "type": "number",
+          "description": "Duration amount",
+          "minimum": 1
+        },
+        "unit": {
+          "type": "string",
+          "enum": ["hours", "days", "weeks"],
+          "description": "Time unit"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the spike started"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the spike should end"
+        }
+      }
+    },
+    "objectives": {
+      "type": "array",
+      "description": "Specific objectives to achieve during the spike",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "findings": {
+      "type": "object",
+      "description": "Results and findings from the spike",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "Summary of findings"
+        },
+        "recommendations": {
+          "type": "array",
+          "description": "Recommendations based on findings",
+          "items": {
+            "type": "string"
+          }
+        },
+        "risks": {
+          "type": "array",
+          "description": "Identified risks",
+          "items": {
+            "type": "string"
+          }
+        },
+        "nextSteps": {
+          "type": "array",
+          "description": "Suggested next steps",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "assignee": {
+      "type": "string",
+      "description": "Person assigned to conduct the spike"
+    },
+    "artifacts": {
+      "type": "array",
+      "description": "Artifacts produced during the spike (POCs, docs, etc.)",
+      "items": {
+        "type": "object",
+        "required": ["name", "type"],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["document", "prototype", "code", "diagram", "other"]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["createdAt", "updatedAt"],
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

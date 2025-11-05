@@ -1,0 +1,147 @@
+{
+  "id": "FEAT-002",
+  "name": "Proactive Scheduling",
+  "description": "AI-powered crew assignment proposals with 1-click accept/tweak functionality for superintendents",
+  "moduleId": "MOD-001",
+  "status": "in-progress",
+  "capabilityTags": [
+    "ai-scheduling",
+    "worker-assignment",
+    "approval-workflow",
+    "confirmation-pattern",
+    "optimization",
+    "real-time-updates"
+  ],
+  "targetUsers": [
+    "Superintendents",
+    "Project Managers"
+  ],
+  "relatedFeatures": [
+    {
+      "featureId": "FEAT-005",
+      "relationship": "integrates-with",
+      "description": "Uses confirm-to-execute pattern for all AI-generated schedules. No schedule is activated without explicit superintendent approval."
+    },
+    {
+      "featureId": "FEAT-0055",
+      "relationship": "consumes-data-from",
+      "description": "Consumes task definitions from the Course Area Task Management library to understand what work needs to be scheduled"
+    },
+    {
+      "featureId": "FEAT-014",
+      "relationship": "complements",
+      "description": "Works in parallel - FEAT-002 handles AI proposals, FEAT-014 provides the optimization engine logic"
+    },
+    {
+      "featureId": "FEAT-0062",
+      "relationship": "provides-data-to",
+      "description": "Once schedules are confirmed, they are pushed to Worker Schedule Management for worker visibility"
+    }
+  ],
+  "dataContract": {
+    "consumes": [
+      {
+        "sourceFeature": "FEAT-0055",
+        "dataType": "TaskDefinition",
+        "description": "Task library with requirements, estimated duration, skill requirements, and course area assignments",
+        "required": true,
+        "format": "JSON"
+      },
+      {
+        "sourceFeature": "FEAT-0062",
+        "dataType": "WorkerAvailability",
+        "description": "Current worker schedules, skills, certifications, and availability constraints",
+        "required": true,
+        "format": "JSON"
+      },
+      {
+        "sourceSystem": "Weather API",
+        "dataType": "WeatherForecast",
+        "description": "5-day weather forecast for intelligent scheduling adjustments",
+        "required": false,
+        "format": "JSON API"
+      }
+    ],
+    "produces": [
+      {
+        "dataType": "ProposedSchedule",
+        "description": "AI-generated crew assignments with optimization rationale, awaiting superintendent confirmation",
+        "consumers": ["FEAT-005", "FEAT-0062"],
+        "format": "JSON",
+        "updateFrequency": "real-time"
+      },
+      {
+        "dataType": "ScheduleOptimizationMetrics",
+        "description": "Efficiency scores, travel time savings, skill utilization metrics",
+        "consumers": ["FEAT-014"],
+        "format": "JSON",
+        "updateFrequency": "daily"
+      }
+    ]
+  },
+  "prd": {
+    "problemStatement": "Superintendents spend 2-3 hours each morning manually creating crew assignments, often resulting in suboptimal schedules due to complexity of considering weather, worker skills, travel time, and course priorities simultaneously.",
+    "goals": [
+      "Reduce schedule creation time from 2-3 hours to under 10 minutes",
+      "Improve crew utilization efficiency by 20%",
+      "Minimize travel time between tasks by 30%",
+      "Ensure proper skill matching for all assigned tasks"
+    ],
+    "successMetrics": [
+      {
+        "metric": "Time to create daily schedule",
+        "target": "< 10 minutes (down from 2-3 hours)"
+      },
+      {
+        "metric": "Crew utilization rate",
+        "target": "> 85%"
+      },
+      {
+        "metric": "Superintendent satisfaction with AI proposals",
+        "target": "Accept rate > 70% with minimal tweaks"
+      }
+    ],
+    "scope": {
+      "inScope": [
+        "AI-powered analysis of tasks, workers, and constraints",
+        "Generation of optimized crew assignment proposals",
+        "1-click accept functionality",
+        "Manual tweak interface before confirmation",
+        "Weather-aware scheduling adjustments",
+        "Skill and certification matching",
+        "Travel time optimization"
+      ],
+      "outOfScope": [
+        "Automated execution without confirmation (handled by FEAT-005)",
+        "Task definition and library management (FEAT-0055)",
+        "Worker schedule viewing interface (FEAT-0062)",
+        "Historical analytics and reporting (future phase)"
+      ]
+    },
+    "userStories": [
+      "As a superintendent, I want AI to propose optimized crew assignments so I can spend more time on the course instead of in the office",
+      "As a superintendent, I want to see why the AI made specific assignments so I can trust and understand the recommendations",
+      "As a superintendent, I want to quickly tweak AI proposals when I know something the system doesn't so I maintain control"
+    ],
+    "dependencies": [
+      "Real-time weather data integration",
+      "Worker skills and certification database",
+      "Historical task completion time data"
+    ]
+  },
+  "issues": [
+    "STORY-0012",
+    "STORY-0013",
+    "STORY-0014"
+  ],
+  "owner": "AI/ML Team",
+  "priority": "critical",
+  "metadata": {
+    "createdAt": "2025-01-15T00:00:00Z",
+    "updatedAt": "2025-01-20T00:00:00Z",
+    "createdBy": "product-team",
+    "tags": ["ai", "scheduling", "core-feature"],
+    "overlapCheckLastRun": "2025-01-20T00:00:00Z",
+    "overlapWarnings": []
+  }
+}

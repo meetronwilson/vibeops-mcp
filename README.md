@@ -1,10 +1,10 @@
-# Product OS
+# VibeOps MCP
 
 A contract-based product organization system that enforces structured planning and validation for product development.
 
 ## Overview
 
-Product OS organizes product development work into a clear hierarchy with enforced contracts at each level:
+VibeOps MCP organizes product development work into a clear hierarchy with enforced contracts at each level:
 
 ```
 📦 MODULE (Theme/Initiative)
@@ -68,11 +68,12 @@ See [CLAUDE.md](./CLAUDE.md) for detailed guidance on how Claude Code works with
 ## Directory Structure
 
 ```
-product-os/
+vibeops-mcp/
 ├── contracts/
 │   ├── schemas/           # JSON Schema definitions
 │   ├── templates/         # Template files for each type
 │   └── validators/        # Contract validation logic
+├── mcp/                   # MCP server implementation
 ├── CLAUDE.md              # Guidance for Claude Code
 ├── README.md              # This file
 └── package.json           # Project dependencies and scripts

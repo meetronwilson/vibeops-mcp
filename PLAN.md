@@ -1,4 +1,4 @@
-# Product OS MCP Server - Implementation Plan
+# VibeOps MCP Server - Implementation Plan
 
 ## Vision
 
@@ -53,13 +53,13 @@ Build an MCP (Model Context Protocol) server that allows Claude Code to naturall
 **Answer:** Absolutely! 100% reuse:
 
 ```
-product-os-mcp/
+vibeops-mcp/
 ├── src/
 │   └── tools/
 │       ├── create.ts        # Uses existing templates
 │       ├── validate.ts      # Uses existing validator
 │       └── update.ts        # Uses existing schemas
-└── contracts/               # SYMLINK or COPY from product-os
+└── contracts/               # SYMLINK or COPY from vibeops
     ├── schemas/             # ← Same JSON schemas
     ├── templates/           # ← Same templates
     ├── validators/          # ← Same validation logic
@@ -84,11 +84,11 @@ The MCP server is a **thin wrapper** that:
 **Option A: NPM Package (Recommended)**
 ```bash
 # In your new project
-npm install --save-dev @vibeops/product-os-mcp
+npm install --save-dev @vibeops/vibeops-mcp
 
 # Initialize
-npx product-os init
-# Creates: contracts/, .product-os-config.json, updates package.json
+npx vibeops init
+# Creates: contracts/, .vibeops-config.json, updates package.json
 
 # Configure Claude Code to use MCP
 # (MCP config goes in Claude Code settings, points to this package)
@@ -97,14 +97,14 @@ npx product-os init
 **Option B: Copy Repo (Simpler for now)**
 ```bash
 # Copy this repo into your project
-cp -r product-os/ my-project/.product-os/
+cp -r vibeops/ my-project/.vibeops/
 
 # Configure MCP server path in Claude Code settings
 ```
 
 **Making Claude Code Aware:**
 1. Claude Code has MCP server settings
-2. Add entry pointing to product-os-mcp
+2. Add entry pointing to vibeops-mcp
 3. Restart Claude Code
 4. Tools automatically available in conversation
 
@@ -112,9 +112,9 @@ cp -r product-os/ my-project/.product-os/
 ```json
 {
   "mcpServers": {
-    "product-os": {
+    "vibeops": {
       "command": "node",
-      "args": ["/path/to/product-os-mcp/build/index.js"],
+      "args": ["/path/to/vibeops-mcp/build/index.js"],
       "cwd": "/path/to/your-project"
     }
   }
@@ -125,9 +125,9 @@ Or if installed via npm:
 ```json
 {
   "mcpServers": {
-    "product-os": {
+    "vibeops": {
       "command": "npx",
-      "args": ["-y", "@vibeops/product-os-mcp"]
+      "args": ["-y", "@vibeops/vibeops-mcp"]
     }
   }
 }
@@ -574,7 +574,7 @@ When starting work on an issue:
 
 ### Repository Structure
 ```
-product-os-mcp/
+vibeops-mcp/
 ├── src/
 │   ├── index.ts                 # MCP server entry
 │   ├── server.ts                # MCP server setup
@@ -592,7 +592,7 @@ product-os-mcp/
 │   │   ├── linker.ts            # Parent-child linking
 │   │   ├── parser.ts            # Text parsing logic
 │   │   └── timestamp.ts         # ISO timestamp helpers
-│   ├── contracts/               # Symlink to product-os contracts
+│   ├── contracts/               # Symlink to vibeops contracts
 │   │   ├── schemas/
 │   │   ├── templates/
 │   │   ├── validators/
@@ -631,7 +631,7 @@ product-os-mcp/
 ## Open Questions
 
 1. **MCP Server Location**:
-   - Separate repo or subdirectory of product-os?
+   - Separate repo or subdirectory of vibeops?
    - Recommendation: Separate repo, easier to version/publish
 
 2. **Contract Storage**:

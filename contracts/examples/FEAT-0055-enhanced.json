@@ -1,0 +1,128 @@
+{
+  "id": "FEAT-0055",
+  "name": "Course Area Task Management",
+  "description": "Comprehensive task definition and library management system for all course maintenance activities",
+  "moduleId": "MOD-0012",
+  "status": "in-progress",
+  "capabilityTags": [
+    "task-definition",
+    "data-entry",
+    "task-management",
+    "geolocation",
+    "mapping",
+    "filtering",
+    "search"
+  ],
+  "targetUsers": [
+    "Superintendents",
+    "Assistant Superintendents"
+  ],
+  "relatedFeatures": [
+    {
+      "featureId": "FEAT-002",
+      "relationship": "provides-data-to",
+      "description": "Provides comprehensive task library that AI scheduling engine uses to create optimal assignments"
+    },
+    {
+      "featureId": "FEAT-014",
+      "relationship": "provides-data-to",
+      "description": "Task definitions feed into the assignment engine for optimization calculations"
+    }
+  ],
+  "dataContract": {
+    "consumes": [],
+    "produces": [
+      {
+        "dataType": "TaskDefinition",
+        "description": "Structured task definitions including name, description, course area, estimated duration, required skills, required certifications, equipment needs, priority level, and seasonal considerations",
+        "consumers": ["FEAT-002", "FEAT-014"],
+        "format": "JSON",
+        "updateFrequency": "on-demand"
+      },
+      {
+        "dataType": "CourseAreaMap",
+        "description": "Geospatial data for all course areas with boundaries and key features",
+        "consumers": ["FEAT-002"],
+        "format": "GeoJSON",
+        "updateFrequency": "weekly"
+      },
+      {
+        "dataType": "TaskLibraryMetadata",
+        "description": "Statistics about task library completeness, most common tasks, seasonal patterns",
+        "consumers": [],
+        "format": "JSON",
+        "updateFrequency": "daily"
+      }
+    ]
+  },
+  "prd": {
+    "problemStatement": "Currently, there is no centralized library of golf course maintenance tasks. Each superintendent maintains their own informal list, leading to inconsistent task definitions, missing skill requirements, and poor estimates. When AI scheduling needs to assign work, it has no authoritative source of what tasks exist and what they require.",
+    "goals": [
+      "Create centralized, searchable library of all course maintenance tasks",
+      "Standardize task definitions with required skills and estimated durations",
+      "Enable easy task discovery and filtering by course area, priority, season",
+      "Provide reliable data foundation for AI scheduling systems"
+    ],
+    "successMetrics": [
+      {
+        "metric": "Task library completeness",
+        "target": "> 95% of common tasks documented"
+      },
+      {
+        "metric": "Time to find/add a task",
+        "target": "< 2 minutes"
+      },
+      {
+        "metric": "Task definition consistency",
+        "target": "100% of tasks have required fields populated"
+      }
+    ],
+    "scope": {
+      "inScope": [
+        "Task creation and editing interface",
+        "Task library browsing and search",
+        "Course area mapping and assignment",
+        "Required skills and certifications specification",
+        "Estimated duration tracking",
+        "Priority level assignment",
+        "Seasonal applicability tags",
+        "Equipment requirements",
+        "Task templates for common activities"
+      ],
+      "outOfScope": [
+        "Actual scheduling of tasks (handled by FEAT-002, FEAT-014)",
+        "Worker assignment (handled by FEAT-002, FEAT-014)",
+        "Schedule confirmation workflow (handled by FEAT-005)",
+        "Worker view of assigned tasks (handled by FEAT-0062)",
+        "Task completion tracking and time logging (separate feature)",
+        "Automated schedule generation/AI optimization (handled by FEAT-002, FEAT-014)"
+      ]
+    },
+    "userStories": [
+      "As a superintendent, I want to define all my course tasks in one place so everyone knows what work needs to be done",
+      "As a superintendent, I want to specify which skills each task requires so AI scheduling can match the right workers",
+      "As an assistant superintendent, I want to search tasks by course area so I can quickly find relevant work",
+      "As a superintendent, I want to clone common tasks so I don't have to recreate similar activities from scratch"
+    ],
+    "dependencies": [
+      "Course area geospatial data",
+      "Worker skills/certification taxonomy",
+      "Equipment inventory system"
+    ]
+  },
+  "issues": [
+    "STORY-0087",
+    "STORY-0088",
+    "STORY-0089"
+  ],
+  "owner": "Task Management Team",
+  "priority": "high",
+  "metadata": {
+    "createdAt": "2025-01-10T00:00:00Z",
+    "updatedAt": "2025-01-20T00:00:00Z",
+    "createdBy": "product-team",
+    "tags": ["task-management", "data-foundation"],
+    "overlapCheckLastRun": "2025-01-20T00:00:00Z",
+    "overlapWarnings": []
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "feature.schema.json",
+  "title": "Feature",
+  "description": "A discrete product capability with PRD contract",
+  "type": "object",
+  "required": ["id", "name", "description", "moduleId", "status", "prd", "issues", "metadata"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the feature",
+      "pattern": "^FEAT-[0-9]{4}$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the feature",
+      "minLength": 3,
+      "maxLength": 100
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the feature",
+      "minLength": 10,
+      "maxLength": 500
+    },
+    "moduleId": {
+      "type": "string",
+      "description": "Parent module ID",
+      "pattern": "^MOD-[0-9]{4}$"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "ready", "in-progress", "in-review", "completed", "cancelled"],
+      "description": "Current status of the feature"
+    },
+    "prd": {
+      "type": "object",
+      "required": ["problemStatement", "goals", "successMetrics", "scope"],
+      "description": "Product Requirements Document contract",
+      "properties": {
+        "problemStatement": {
+          "type": "string",
+          "description": "What problem does this feature solve?",
+          "minLength": 20
+        },
+        "goals": {
+          "type": "array",
+          "description": "List of goals this feature aims to achieve",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "successMetrics": {
+          "type": "array",
+          "description": "Measurable criteria for success",
+          "items": {
+            "type": "object",
+            "required": ["metric", "target"],
+            "properties": {
+              "metric": {
+                "type": "string"
+              },
+              "target": {
+                "type": "string"
+              }
+            }
+          },
+          "minItems": 1
+        },
+        "scope": {
+          "type": "object",
+          "required": ["inScope", "outOfScope"],
+          "properties": {
+            "inScope": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "minItems": 1
+            },
+            "outOfScope": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "userStories": {
+          "type": "array",
+          "description": "High-level user stories",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "description": "External dependencies or prerequisites",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "issues": {
+      "type": "array",
+      "description": "List of issue IDs belonging to this feature",
+      "items": {
+        "type": "string",
+        "pattern": "^(STORY|BUG|DEBT|SPIKE)-[0-9]{4}$"
+      },
+      "uniqueItems": true
+    },
+    "owner": {
+      "type": "string",
+      "description": "Person responsible for the feature"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"],
+      "description": "Feature priority"
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["createdAt", "updatedAt"],
+      "properties": {
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
