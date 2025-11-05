@@ -6,7 +6,7 @@
 
 import { writeContract, listAllContracts } from '../lib/file-manager.js';
 import { generateId } from '../lib/id-generator.js';
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'fs';
 import { join } from 'path';
 import { getContractsDir } from '../lib/file-manager.js';
 

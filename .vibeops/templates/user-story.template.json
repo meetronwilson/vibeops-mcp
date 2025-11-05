@@ -1,0 +1,66 @@
+{
+  "id": "US0001",
+  "title": "User can view their profile information",
+  "description": "As a logged-in user, I want to view my profile information, so that I can verify my account details are correct.",
+  "featureId": "FEAT-0001",
+  "status": "backlog",
+  "acceptanceCriteria": [
+    {
+      "criterion": "Given I am logged in, when I navigate to the profile page, then I see my username, email, and registration date",
+      "verified": false
+    },
+    {
+      "criterion": "Given I am on the profile page, when the page loads, then all information is displayed within 2 seconds",
+      "verified": false
+    }
+  ],
+  "definitionOfDone": [
+    {
+      "item": "Code is written and peer reviewed",
+      "completed": false
+    },
+    {
+      "item": "Unit tests written and passing",
+      "completed": false
+    },
+    {
+      "item": "Integration tests written and passing",
+      "completed": false
+    },
+    {
+      "item": "Documentation updated",
+      "completed": false
+    },
+    {
+      "item": "Acceptance criteria verified",
+      "completed": false
+    }
+  ],
+  "definitionOfReady": [
+    {
+      "item": "User story is clearly defined",
+      "ready": true
+    },
+    {
+      "item": "Acceptance criteria are documented",
+      "ready": true
+    },
+    {
+      "item": "Dependencies are identified",
+      "ready": true
+    },
+    {
+      "item": "Story is estimated",
+      "ready": false
+    }
+  ],
+  "assignee": "",
+  "storyPoints": 0,
+  "priority": "medium",
+  "metadata": {
+    "createdAt": "2025-01-01T00:00:00Z",
+    "updatedAt": "2025-01-01T00:00:00Z",
+    "createdBy": "system",
+    "tags": ["example"]
+  }
+}

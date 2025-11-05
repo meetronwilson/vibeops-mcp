@@ -1,0 +1,42 @@
+{
+  "id": "DEBT-0001",
+  "title": "Refactor authentication service to use dependency injection",
+  "description": "The authentication service currently has tight coupling with the database layer and external API clients. This makes testing difficult and reduces code maintainability. We should refactor to use dependency injection pattern.",
+  "featureId": "FEAT-0001",
+  "status": "identified",
+  "impact": {
+    "severity": "medium",
+    "areas": ["maintainability", "developer-experience"],
+    "description": "Current implementation makes unit testing difficult, requiring extensive mocking. New developers struggle to understand the code flow due to hidden dependencies. Future changes to the authentication flow will be more error-prone.",
+    "metrics": [
+      {
+        "metric": "Test coverage",
+        "currentValue": "45%",
+        "targetValue": "80%"
+      },
+      {
+        "metric": "Time to add new auth provider",
+        "currentValue": "2 days",
+        "targetValue": "4 hours"
+      }
+    ]
+  },
+  "effort": {
+    "estimate": "medium",
+    "complexity": "medium",
+    "storyPoints": 8,
+    "dependencies": [
+      "Ensure all existing tests pass",
+      "Document current authentication flow"
+    ]
+  },
+  "proposedSolution": "Implement dependency injection using a DI container (e.g., InversifyJS or TSyringe). Refactor AuthService to accept dependencies through constructor. Create interfaces for all external dependencies. Update tests to use mock implementations.",
+  "assignee": "",
+  "priority": "medium",
+  "metadata": {
+    "createdAt": "2025-01-01T00:00:00Z",
+    "updatedAt": "2025-01-01T00:00:00Z",
+    "createdBy": "system",
+    "tags": ["refactoring", "architecture"]
+  }
+}
