@@ -5,7 +5,7 @@
  * Ensures unique IDs across the system.
  */
 
-import { listContracts } from './file-manager.js';
+import { listContracts, listAllContracts } from './file-manager.js';
 import type { ContractType } from '../types/contracts.js';
 
 /**
@@ -115,7 +115,7 @@ export function getContractCounts(): Record<ContractType, number> {
  * e.g., generateId('MEM') → 'MEM-0001'
  */
 export function generateId(prefix: string): string {
-  const { listAllContracts } = require('./file-manager.js');
+  // Get all contracts to find the highest ID with this prefix
   const allContracts = listAllContracts();
 
   // Find all IDs with this prefix

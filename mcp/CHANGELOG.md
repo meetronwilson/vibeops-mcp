@@ -5,6 +5,15 @@ All notable changes to the VibeOps MCP Server will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.1] - 2025-01-05
+
+### Fixed
+- **Memory Storage ESM Compatibility**: Removed CommonJS `require()` statements that were causing "require is not defined" errors in memory storage operations
+  - Fixed `src/lib/id-generator.ts`: Changed `require('./file-manager.js')` to proper ESM import of `listAllContracts`
+  - Fixed `src/lib/file-manager.ts`: Changed `require('fs')` to import `unlinkSync` at top of file
+  - All MCP tools now properly support ESM module syntax
+  - Memory storage (`store_memory`, `get_memory`, etc.) now works correctly
+
 ## [2.0.0] - 2025-01-20
 
 ### Added - Feature Overlap Detection System 🎉

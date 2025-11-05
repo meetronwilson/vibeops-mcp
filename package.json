@@ -15,7 +15,12 @@
     "convert": "node contracts/converters/json-to-md.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["product", "contracts", "validation", "schema"],
+  "keywords": [
+    "product",
+    "contracts",
+    "validation",
+    "schema"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {

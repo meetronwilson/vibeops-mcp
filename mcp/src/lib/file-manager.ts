@@ -5,7 +5,7 @@
  * Works with the existing contract directory structure.
  */
 
-import { readFileSync, writeFileSync, existsSync, readdirSync, statSync, copyFileSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, readdirSync, statSync, copyFileSync, unlinkSync } from 'fs';
 import { join, dirname, basename } from 'path';
 import { mkdirSync } from 'fs';
 import { fileURLToPath } from 'url';
@@ -278,8 +278,7 @@ export function deleteContract(id: string): void {
   }
 
   const filePath = join(dir, file);
-  const fs = require('fs');
-  fs.unlinkSync(filePath);
+  unlinkSync(filePath);
 }
 
 /**
