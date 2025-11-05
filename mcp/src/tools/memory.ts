@@ -137,11 +137,9 @@ export function storeMemory(input: StoreMemoryInput): Memory {
   const filePath = join(memoryDir, `${id}.json`);
 
   // Ensure directory exists
-  const { mkdirSync } = require('fs');
   mkdirSync(memoryDir, { recursive: true });
 
   // Write file
-  const { writeFileSync } = require('fs');
   writeFileSync(filePath, JSON.stringify(memory, null, 2), 'utf-8');
 
   return memory;
@@ -174,7 +172,6 @@ export function listMemories(input: ListMemoriesInput = {}): Memory[] {
   const memoryDir = join(contractsDir, 'memories');
 
   // Read all memory files
-  const { readdirSync, existsSync } = require('fs');
   if (!existsSync(memoryDir)) {
     return [];
   }
