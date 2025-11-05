@@ -1,8 +1,8 @@
 {
-  "id": "FEAT-0001",
+  "id": "MOD-001-FEAT-001",
   "name": "Example Feature",
   "description": "This is an example feature that demonstrates the enhanced feature contract structure with overlap detection.",
-  "moduleId": "MOD-0001",
+  "moduleId": "MOD-001",
   "status": "draft",
   "capabilityTags": [
     "data-entry",
@@ -14,12 +14,12 @@
   ],
   "relatedFeatures": [
     {
-      "featureId": "FEAT-0002",
+      "featureId": "MOD-001-FEAT-002",
       "relationship": "depends-on",
       "description": "Requires authentication system to be in place before implementation"
     },
     {
-      "featureId": "FEAT-0003",
+      "featureId": "MOD-001-FEAT-003",
       "relationship": "provides-data-to",
       "description": "Generates task data that is consumed by the scheduling engine"
     }
@@ -27,7 +27,7 @@
   "dataContract": {
     "consumes": [
       {
-        "sourceFeature": "FEAT-0002",
+        "sourceFeature": "MOD-001-FEAT-002",
         "dataType": "UserAuthentication",
         "description": "User identity and permissions needed to control access to feature functionality",
         "required": true,
@@ -45,14 +45,14 @@
       {
         "dataType": "TaskDefinition",
         "description": "Structured task definitions with requirements, estimated duration, and skill requirements",
-        "consumers": ["FEAT-0003", "FEAT-0004"],
+        "consumers": ["MOD-001-FEAT-003", "MOD-001-FEAT-004"],
         "format": "JSON",
         "updateFrequency": "real-time"
       },
       {
         "dataType": "CompletionReport",
         "description": "Daily summary of completed tasks with quality metrics",
-        "consumers": ["FEAT-0005"],
+        "consumers": ["MOD-001-FEAT-005"],
         "format": "JSON",
         "updateFrequency": "daily"
       }
@@ -89,8 +89,8 @@
       "outOfScope": [
         "Advanced customization options (future phase)",
         "Mobile app version (separate initiative)",
-        "Automated scheduling (handled by FEAT-0003)",
-        "Bulk import from legacy system (FEAT-0010)"
+        "Automated scheduling (handled by MOD-001-FEAT-003)",
+        "Bulk import from legacy system (MOD-001-FEAT-010)"
       ]
     },
     "userStories": [

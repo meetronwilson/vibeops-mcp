@@ -1,8 +1,8 @@
 {
-  "id": "SPIKE-0001",
+  "id": "MOD-001-FEAT-001-SPIKE-001",
   "title": "Investigate real-time collaboration frameworks for document editing",
   "description": "Research and evaluate different approaches for implementing real-time collaborative document editing. Need to understand the trade-offs between operational transformation, CRDTs, and event sourcing approaches.",
-  "featureId": "FEAT-0001",
+  "featureId": "MOD-001-FEAT-001",
   "status": "planned",
   "questions": [
     {
@@ -28,9 +28,7 @@
   ],
   "timebox": {
     "duration": 3,
-    "unit": "days",
-    "startDate": "",
-    "endDate": ""
+    "unit": "days"
   },
   "objectives": [
     "Create POC implementations using at least 2 different approaches",

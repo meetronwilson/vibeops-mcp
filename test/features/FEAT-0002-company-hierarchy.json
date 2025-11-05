@@ -1,8 +1,8 @@
 {
-  "id": "FEAT-0002",
+  "id": "MOD-001-FEAT-002",
   "name": "Company Hierarchy Visualization",
   "description": "Display parent-subsidiary relationships and organizational structures for enterprise accounts.",
-  "moduleId": "MOD-0001",
+  "moduleId": "MOD-001",
   "status": "ready",
   "prd": {
     "problemStatement": "Enterprise sales teams struggle to understand complex organizational structures when dealing with large corporations that have multiple subsidiaries, divisions, and regional offices, leading to missed opportunities and account conflicts.",
@@ -43,13 +43,20 @@
       "Graph visualization library selection"
     ]
   },
-  "issues": ["STORY-0003", "DEBT-0001"],
+  "issues": [
+    "MOD-001-FEAT-002-STORY-003",
+    "MOD-001-FEAT-002-DEBT-001"
+  ],
   "owner": "Michael Torres",
   "priority": "medium",
   "metadata": {
     "createdAt": "2025-01-22T09:00:00Z",
     "updatedAt": "2025-01-28T15:45:00Z",
     "createdBy": "michael.torres",
-    "tags": ["companies", "hierarchy", "enterprise"]
+    "tags": [
+      "companies",
+      "hierarchy",
+      "enterprise"
+    ]
   }
 }

@@ -1,8 +1,8 @@
 {
-  "id": "BUG-0003",
+  "id": "MOD-003-FEAT-005-BUG-003",
   "title": "Pipeline board becomes unresponsive with more than 200 deals",
   "description": "When a sales team has more than 200 active deals in the pipeline, the kanban board view becomes extremely slow and unresponsive. Dragging deals takes 3-5 seconds, and scrolling is janky. This impacts large sales teams and makes the feature unusable for enterprise customers.",
-  "featureId": "FEAT-0005",
+  "featureId": "MOD-003-FEAT-005",
   "status": "in-progress",
   "severity": "critical",
   "reproductionSteps": [
@@ -44,6 +44,12 @@
     "createdAt": "2025-03-03T14:30:00Z",
     "updatedAt": "2025-03-05T10:00:00Z",
     "createdBy": "enterprise-customer",
-    "tags": ["deals", "pipeline", "performance", "critical", "enterprise"]
+    "tags": [
+      "deals",
+      "pipeline",
+      "performance",
+      "critical",
+      "enterprise"
+    ]
   }
 }

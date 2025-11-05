@@ -13,6 +13,7 @@
     "validate:debt": "node contracts/validators/validate.js tech-debt",
     "validate:spike": "node contracts/validators/validate.js spike",
     "convert": "node contracts/converters/json-to-md.js",
+    "migrate": "node contracts/migration/migrate-ids.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

@@ -4,17 +4,30 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Product Organization Framework
 
-This repository follows a hierarchical structure for organizing product development work:
+This repository follows a hierarchical structure for organizing product development work with **hierarchical IDs** that show parent-child relationships:
 
 ```
-📦 MODULE (Theme/Initiative)
-   └─ 📋 FEATURE (with PRD contract)
-       └─ 📝 ISSUES (with type-specific contracts)
-           ├─ User Story (acceptance criteria, DoD, DoR)
-           ├─ Bug (repro steps, environment)
-           ├─ Tech Debt (impact, effort)
-           └─ Spike (questions, timebox)
+📦 MOD-001 (Module: Theme/Initiative)
+   ├─ 📋 MOD-001-FEAT-001 (Feature with PRD contract)
+   │   ├─ 📝 MOD-001-FEAT-001-STORY-001 (User Story)
+   │   ├─ 🐛 MOD-001-FEAT-001-BUG-001 (Bug)
+   │   ├─ 🔧 MOD-001-FEAT-001-DEBT-001 (Tech Debt)
+   │   └─ 🔬 MOD-001-FEAT-001-SPIKE-001 (Spike)
+   └─ 📋 MOD-001-FEAT-002 (Another Feature)
+       └─ 📝 MOD-001-FEAT-002-STORY-001 (User Story)
 ```
+
+### Hierarchical ID System
+
+All IDs follow a **parent-child naming convention** that provides instant traceability:
+- **Module IDs**: `MOD-###` (e.g., MOD-001, MOD-002)
+- **Feature IDs**: `MOD-###-FEAT-###` (e.g., MOD-001-FEAT-001)
+- **Issue IDs**: `MOD-###-FEAT-###-TYPE-###` (e.g., MOD-001-FEAT-001-STORY-001)
+
+**Key Benefits:**
+- **Instant traceability**: Looking at an ID tells you exactly where it belongs
+- **Sequential tracking**: Numbering starts at 001 for each parent, showing order of creation
+- **No conflicts**: Each hierarchical path is unique
 
 ### Hierarchy Levels
 
@@ -102,8 +115,8 @@ cat module.json | npm run validate:module
 npm run convert path/to/contract.json path/to/output.md
 
 # If output path is omitted, uses same name with .md extension
-npm run convert test/modules/MOD-0001-companies.json
-# Creates: test/modules/MOD-0001-companies.md
+npm run convert test/modules/MOD-001-companies.json
+# Creates: test/modules/MOD-001-companies.md
 ```
 
 The converter automatically detects the contract type (module, feature, story, bug, debt, spike) and formats it appropriately with:
@@ -136,28 +149,28 @@ npm run convert my-new-module.json
 ### Contract Requirements by Type
 
 **MODULE Contract Requirements:**
-- Unique ID matching pattern `MOD-####`
+- **Unique ID**: `MOD-###` (e.g., MOD-001, MOD-002)
 - Name (3-100 characters)
 - Description (10-1000 characters)
 - Type: "theme" or "initiative"
 - Status: planning, active, on-hold, completed, archived
-- Array of feature IDs
+- Array of feature IDs (format: `MOD-###-FEAT-###`)
 - Metadata with timestamps
 
 **FEATURE Contract Requirements:**
-- Unique ID matching pattern `FEAT-####`
-- Parent module ID
+- **Unique ID**: `MOD-###-FEAT-###` (e.g., MOD-001-FEAT-001)
+- **Parent module ID**: `MOD-###` (must match the module prefix in the feature ID)
 - Complete PRD contract including:
   - Problem statement (minimum 20 characters)
   - Goals (at least 1)
   - Success metrics with targets (at least 1)
   - In-scope and out-of-scope items
-- Array of issue IDs
+- Array of issue IDs (format: `MOD-###-FEAT-###-TYPE-###`)
 - Metadata with timestamps
 
 **USER STORY Contract Requirements:**
-- Unique ID matching pattern `STORY-####`
-- Parent feature ID
+- **Unique ID**: `MOD-###-FEAT-###-STORY-###` (e.g., MOD-001-FEAT-001-STORY-001)
+- **Parent feature ID**: `MOD-###-FEAT-###` (must match the module and feature prefix)
 - User story format: "As a [user], I want [goal], so that [benefit]"
 - Acceptance criteria (at least 1) in Given/When/Then format
 - Definition of Done checklist (at least 1 item)
@@ -165,16 +178,16 @@ npm run convert my-new-module.json
 - Metadata with timestamps
 
 **BUG Contract Requirements:**
-- Unique ID matching pattern `BUG-####`
-- Parent feature ID
+- **Unique ID**: `MOD-###-FEAT-###-BUG-###` (e.g., MOD-001-FEAT-001-BUG-001)
+- **Parent feature ID**: `MOD-###-FEAT-###` (must match the module and feature prefix)
 - Severity: critical, high, medium, low
 - Reproduction steps (at least 1) with expected vs actual results
 - Environment details including platform
 - Metadata with timestamps
 
 **TECH DEBT Contract Requirements:**
-- Unique ID matching pattern `DEBT-####`
-- Parent feature ID
+- **Unique ID**: `MOD-###-FEAT-###-DEBT-###` (e.g., MOD-001-FEAT-001-DEBT-001)
+- **Parent feature ID**: `MOD-###-FEAT-###` (must match the module and feature prefix)
 - Impact assessment including:
   - Severity level
   - Affected areas (performance, maintainability, etc.)
@@ -185,8 +198,8 @@ npm run convert my-new-module.json
 - Metadata with timestamps
 
 **SPIKE Contract Requirements:**
-- Unique ID matching pattern `SPIKE-####`
-- Parent feature ID
+- **Unique ID**: `MOD-###-FEAT-###-SPIKE-###` (e.g., MOD-001-FEAT-001-SPIKE-001)
+- **Parent feature ID**: `MOD-###-FEAT-###` (must match the module and feature prefix)
 - Research questions (at least 1)
 - Timebox with duration and unit (hours, days, weeks)
 - Objectives (at least 1)
@@ -196,8 +209,21 @@ npm run convert my-new-module.json
 
 When creating new work items:
 - Always identify which MODULE the work belongs to
+- **Use hierarchical IDs** that include the parent IDs (e.g., MOD-001-FEAT-001-STORY-001)
+- **Start numbering at 001** for each new child level (first feature is FEAT-001, first story is STORY-001)
 - Ensure FEATUREs have complete PRD contracts before creating issues
 - Select the appropriate issue type and complete its required contract fields
-- Link issues to their parent feature and module for traceability
+- Link issues to their parent feature and module for traceability through the ID structure
 - **ALWAYS validate the contract** using the validation commands before finalizing
 - Use templates as starting points to ensure all required fields are included
+
+**ID Examples:**
+```
+Module: MOD-001
+  First feature: MOD-001-FEAT-001
+    First story: MOD-001-FEAT-001-STORY-001
+    Second story: MOD-001-FEAT-001-STORY-002
+    First bug: MOD-001-FEAT-001-BUG-001
+  Second feature: MOD-001-FEAT-002
+    First story: MOD-001-FEAT-002-STORY-001
+```

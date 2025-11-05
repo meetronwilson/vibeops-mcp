@@ -8,8 +8,8 @@
   "properties": {
     "id": {
       "type": "string",
-      "description": "Unique identifier for the feature",
-      "pattern": "^FEAT-[0-9]{4}$"
+      "description": "Unique identifier for the feature (e.g., MOD-001-FEAT-001)",
+      "pattern": "^MOD-[0-9]{3}-FEAT-[0-9]{3}$"
     },
     "name": {
       "type": "string",
@@ -25,8 +25,8 @@
     },
     "moduleId": {
       "type": "string",
-      "description": "Parent module ID",
-      "pattern": "^MOD-[0-9]{4}$"
+      "description": "Parent module ID (e.g., MOD-001)",
+      "pattern": "^MOD-[0-9]{3}$"
     },
     "status": {
       "type": "string",
@@ -105,10 +105,10 @@
     },
     "issues": {
       "type": "array",
-      "description": "List of issue IDs belonging to this feature",
+      "description": "List of issue IDs belonging to this feature (e.g., MOD-001-FEAT-001-STORY-001)",
       "items": {
         "type": "string",
-        "pattern": "^(STORY|BUG|DEBT|SPIKE)-[0-9]{4}$"
+        "pattern": "^MOD-[0-9]{3}-FEAT-[0-9]{3}-(STORY|BUG|DEBT|SPIKE)-[0-9]{3}$"
       },
       "uniqueItems": true
     },
@@ -130,7 +130,7 @@
         "properties": {
           "featureId": {
             "type": "string",
-            "pattern": "^FEAT-[0-9]{4}$",
+            "pattern": "^MOD-[0-9]{3}-FEAT-[0-9]{3}$",
             "description": "ID of the feature this depends on"
           },
           "type": {

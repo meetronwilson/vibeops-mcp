@@ -1,8 +1,8 @@
 {
-  "id": "STORY-0002",
+  "id": "MOD-001-FEAT-001-STORY-002",
   "title": "Edit existing company profile information",
   "description": "As a sales representative, I want to edit company profile information, so that I can keep company records up-to-date as businesses evolve.",
-  "featureId": "FEAT-0001",
+  "featureId": "MOD-001-FEAT-001",
   "status": "ready",
   "acceptanceCriteria": [
     {
@@ -81,6 +81,10 @@
     "createdAt": "2025-01-26T10:30:00Z",
     "updatedAt": "2025-01-26T10:30:00Z",
     "createdBy": "sarah.chen",
-    "tags": ["companies", "edit", "update"]
+    "tags": [
+      "companies",
+      "edit",
+      "update"
+    ]
   }
 }

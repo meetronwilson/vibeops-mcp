@@ -1,8 +1,8 @@
 {
-  "id": "FEAT-0001",
+  "id": "MOD-001-FEAT-001",
   "name": "Example Feature",
   "description": "This is an example feature that demonstrates the feature contract structure.",
-  "moduleId": "MOD-0001",
+  "moduleId": "MOD-001",
   "status": "draft",
   "prd": {
     "problemStatement": "Users currently face challenges with [specific problem]. This impacts their ability to [describe impact].",

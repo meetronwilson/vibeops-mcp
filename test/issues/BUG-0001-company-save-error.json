@@ -1,8 +1,8 @@
 {
-  "id": "BUG-0001",
+  "id": "MOD-001-FEAT-001-BUG-001",
   "title": "Company profile fails to save with special characters in name",
   "description": "When creating or editing a company profile with special characters (e.g., &, ®, ™) in the company name, the save operation fails with a 400 error. This prevents users from accurately recording company names that include these legal characters.",
-  "featureId": "FEAT-0001",
+  "featureId": "MOD-001-FEAT-001",
   "status": "open",
   "severity": "high",
   "reproductionSteps": [
@@ -33,7 +33,13 @@
     "version": "v1.2.0",
     "additionalDetails": {
       "apiVersion": "v2.1",
-      "affectedCharacters": ["&", "®", "™", "©", "–"],
+      "affectedCharacters": [
+        "&",
+        "®",
+        "™",
+        "©",
+        "–"
+      ],
       "serverEnvironment": "Production and Staging"
     }
   },
@@ -44,6 +50,11 @@
     "createdAt": "2025-02-03T16:45:00Z",
     "updatedAt": "2025-02-04T09:20:00Z",
     "createdBy": "qa.team",
-    "tags": ["companies", "validation", "special-characters", "api"]
+    "tags": [
+      "companies",
+      "validation",
+      "special-characters",
+      "api"
+    ]
   }
 }

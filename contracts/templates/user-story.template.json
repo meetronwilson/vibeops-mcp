@@ -1,8 +1,8 @@
 {
-  "id": "US0001",
+  "id": "MOD-001-FEAT-001-STORY-001",
   "title": "User can view their profile information",
   "description": "As a logged-in user, I want to view my profile information, so that I can verify my account details are correct.",
-  "featureId": "FEAT-0001",
+  "featureId": "MOD-001-FEAT-001",
   "status": "backlog",
   "acceptanceCriteria": [
     {

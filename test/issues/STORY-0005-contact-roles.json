@@ -1,8 +1,8 @@
 {
-  "id": "STORY-0005",
+  "id": "MOD-002-FEAT-003-STORY-005",
   "title": "Assign roles and decision authority to contacts",
   "description": "As a sales representative, I want to assign roles and decision-making authority levels to contacts, so that I can identify key stakeholders and decision makers in the sales process.",
-  "featureId": "FEAT-0003",
+  "featureId": "MOD-002-FEAT-003",
   "status": "ready",
   "acceptanceCriteria": [
     {
@@ -77,6 +77,10 @@
     "createdAt": "2025-02-11T14:30:00Z",
     "updatedAt": "2025-02-11T14:30:00Z",
     "createdBy": "jessica.liu",
-    "tags": ["contacts", "roles", "stakeholders"]
+    "tags": [
+      "contacts",
+      "roles",
+      "stakeholders"
+    ]
   }
 }

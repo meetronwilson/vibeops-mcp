@@ -1,8 +1,8 @@
 {
-  "id": "DEBT-0001",
+  "id": "MOD-001-FEAT-001-DEBT-001",
   "title": "Refactor authentication service to use dependency injection",
   "description": "The authentication service currently has tight coupling with the database layer and external API clients. This makes testing difficult and reduces code maintainability. We should refactor to use dependency injection pattern.",
-  "featureId": "FEAT-0001",
+  "featureId": "MOD-001-FEAT-001",
   "status": "identified",
   "impact": {
     "severity": "medium",

@@ -1,8 +1,8 @@
 {
-  "id": "STORY-0007",
+  "id": "MOD-003-FEAT-005-STORY-007",
   "title": "Filter pipeline view by owner, value, and date range",
   "description": "As a sales manager, I want to filter the pipeline view by deal owner, deal value, and date ranges, so that I can focus on specific segments of the pipeline for analysis and coaching.",
-  "featureId": "FEAT-0005",
+  "featureId": "MOD-003-FEAT-005",
   "status": "ready",
   "acceptanceCriteria": [
     {
@@ -77,6 +77,11 @@
     "createdAt": "2025-03-01T13:00:00Z",
     "updatedAt": "2025-03-01T13:00:00Z",
     "createdBy": "amanda.rodriguez",
-    "tags": ["deals", "pipeline", "filters", "search"]
+    "tags": [
+      "deals",
+      "pipeline",
+      "filters",
+      "search"
+    ]
   }
 }

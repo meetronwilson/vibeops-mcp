@@ -1,12 +1,16 @@
 {
-  "id": "DEBT-0002",
+  "id": "MOD-003-FEAT-005-DEBT-002",
   "title": "Refactor pipeline state management to use centralized state with proper caching",
   "description": "The current pipeline feature uses local component state with prop drilling across 5+ component levels, making it difficult to maintain and causing unnecessary re-renders. We need to refactor to a centralized state management solution (Redux/Zustand) with proper caching and optimistic updates.",
-  "featureId": "FEAT-0005",
+  "featureId": "MOD-003-FEAT-005",
   "status": "prioritized",
   "impact": {
     "severity": "high",
-    "areas": ["performance", "maintainability", "developer-experience"],
+    "areas": [
+      "performance",
+      "maintainability",
+      "developer-experience"
+    ],
     "description": "Current state management architecture causes excessive re-renders impacting performance with large deal counts. Prop drilling makes the code fragile and difficult to modify. New features require touching 5+ files to add simple functionality. Developer onboarding is slowed by 2-3 days due to complex state flow. Performance issues are directly contributing to BUG-0003.",
     "metrics": [
       {
@@ -43,6 +47,12 @@
     "createdAt": "2025-03-04T11:00:00Z",
     "updatedAt": "2025-03-05T09:30:00Z",
     "createdBy": "tech-lead",
-    "tags": ["deals", "pipeline", "state-management", "refactoring", "performance"]
+    "tags": [
+      "deals",
+      "pipeline",
+      "state-management",
+      "refactoring",
+      "performance"
+    ]
   }
 }

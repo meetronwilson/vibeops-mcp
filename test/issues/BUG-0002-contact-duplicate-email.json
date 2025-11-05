@@ -1,8 +1,8 @@
 {
-  "id": "BUG-0002",
+  "id": "MOD-002-FEAT-003-BUG-002",
   "title": "System allows duplicate contact emails across different companies",
   "description": "The CRM currently allows creating multiple contact records with the same email address when associated with different companies. While this may be intentional in some cases (person works at multiple companies), it often leads to data fragmentation where the same person has multiple disconnected contact records.",
-  "featureId": "FEAT-0003",
+  "featureId": "MOD-002-FEAT-003",
   "status": "open",
   "severity": "medium",
   "reproductionSteps": [
@@ -38,6 +38,11 @@
     "createdAt": "2025-02-12T11:20:00Z",
     "updatedAt": "2025-02-13T09:15:00Z",
     "createdBy": "sales.team",
-    "tags": ["contacts", "duplicates", "data-quality", "email"]
+    "tags": [
+      "contacts",
+      "duplicates",
+      "data-quality",
+      "email"
+    ]
   }
 }

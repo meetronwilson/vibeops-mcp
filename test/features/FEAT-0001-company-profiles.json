@@ -1,8 +1,8 @@
 {
-  "id": "FEAT-0001",
+  "id": "MOD-001-FEAT-001",
   "name": "Company Profile Management",
   "description": "Enable users to create, view, and edit detailed company profiles with comprehensive business information.",
-  "moduleId": "MOD-0001",
+  "moduleId": "MOD-001",
   "status": "in-progress",
   "prd": {
     "problemStatement": "Sales teams currently lack a centralized location to store and access comprehensive company information, leading to scattered data across multiple systems and inefficient prospect research.",
@@ -43,13 +43,21 @@
       "Database schema for company entities must be finalized"
     ]
   },
-  "issues": ["STORY-0001", "STORY-0002", "BUG-0001"],
+  "issues": [
+    "MOD-001-FEAT-001-STORY-001",
+    "MOD-001-FEAT-001-STORY-002",
+    "MOD-001-FEAT-001-BUG-001"
+  ],
   "owner": "Sarah Chen",
   "priority": "high",
   "metadata": {
     "createdAt": "2025-01-20T14:00:00Z",
     "updatedAt": "2025-01-25T10:30:00Z",
     "createdBy": "sarah.chen",
-    "tags": ["companies", "profiles", "data-management"]
+    "tags": [
+      "companies",
+      "profiles",
+      "data-management"
+    ]
   }
 }

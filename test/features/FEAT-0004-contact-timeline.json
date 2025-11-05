@@ -1,8 +1,8 @@
 {
-  "id": "FEAT-0004",
+  "id": "MOD-002-FEAT-004",
   "name": "Contact Activity Timeline",
   "description": "Chronological timeline of all interactions and activities with a contact.",
-  "moduleId": "MOD-0002",
+  "moduleId": "MOD-002",
   "status": "draft",
   "prd": {
     "problemStatement": "Team members cannot easily see the complete history of interactions with a contact, making it difficult to maintain context in conversations and coordinate team efforts effectively.",
@@ -42,13 +42,19 @@
       "Activity logging service must be available"
     ]
   },
-  "issues": ["SPIKE-0001"],
+  "issues": [
+    "MOD-002-FEAT-004-SPIKE-001"
+  ],
   "owner": "David Park",
   "priority": "medium",
   "metadata": {
     "createdAt": "2025-02-08T13:30:00Z",
     "updatedAt": "2025-02-08T13:30:00Z",
     "createdBy": "david.park",
-    "tags": ["contacts", "timeline", "activities"]
+    "tags": [
+      "contacts",
+      "timeline",
+      "activities"
+    ]
   }
 }

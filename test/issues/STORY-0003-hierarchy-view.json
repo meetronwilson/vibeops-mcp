@@ -1,8 +1,8 @@
 {
-  "id": "STORY-0003",
+  "id": "MOD-001-FEAT-002-STORY-003",
   "title": "View company hierarchy in tree visualization",
   "description": "As an enterprise sales representative, I want to view company hierarchies in a visual tree structure, so that I can understand parent-subsidiary relationships at a glance.",
-  "featureId": "FEAT-0002",
+  "featureId": "MOD-001-FEAT-002",
   "status": "backlog",
   "acceptanceCriteria": [
     {
@@ -77,6 +77,10 @@
     "createdAt": "2025-01-28T11:00:00Z",
     "updatedAt": "2025-01-28T11:00:00Z",
     "createdBy": "michael.torres",
-    "tags": ["companies", "hierarchy", "visualization"]
+    "tags": [
+      "companies",
+      "hierarchy",
+      "visualization"
+    ]
   }
 }

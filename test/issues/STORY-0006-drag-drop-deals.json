@@ -1,8 +1,8 @@
 {
-  "id": "STORY-0006",
+  "id": "MOD-003-FEAT-005-STORY-006",
   "title": "Drag and drop deals between pipeline stages",
   "description": "As a sales representative, I want to drag and drop deal cards between pipeline stages, so that I can quickly update deal progress without opening detail views.",
-  "featureId": "FEAT-0005",
+  "featureId": "MOD-003-FEAT-005",
   "status": "in-progress",
   "acceptanceCriteria": [
     {
@@ -77,6 +77,11 @@
     "createdAt": "2025-02-28T09:30:00Z",
     "updatedAt": "2025-03-02T11:15:00Z",
     "createdBy": "amanda.rodriguez",
-    "tags": ["deals", "pipeline", "drag-drop", "ux"]
+    "tags": [
+      "deals",
+      "pipeline",
+      "drag-drop",
+      "ux"
+    ]
   }
 }

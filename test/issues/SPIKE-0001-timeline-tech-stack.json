@@ -1,8 +1,8 @@
 {
-  "id": "SPIKE-0001",
+  "id": "MOD-002-FEAT-004-SPIKE-001",
   "title": "Research timeline visualization libraries and activity aggregation patterns",
   "description": "Investigate technical approaches for building a scalable contact activity timeline that can handle high-volume activity data (emails, calls, meetings, notes) and provide real-time updates. Need to evaluate visualization libraries, data aggregation strategies, and caching approaches.",
-  "featureId": "FEAT-0004",
+  "featureId": "MOD-002-FEAT-004",
   "status": "planned",
   "questions": [
     {
@@ -51,6 +51,11 @@
     "createdAt": "2025-02-14T10:00:00Z",
     "updatedAt": "2025-02-14T10:00:00Z",
     "createdBy": "david.park",
-    "tags": ["contacts", "timeline", "research", "technical-spike"]
+    "tags": [
+      "contacts",
+      "timeline",
+      "research",
+      "technical-spike"
+    ]
   }
 }

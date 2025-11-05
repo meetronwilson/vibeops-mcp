@@ -1,8 +1,8 @@
 {
-  "id": "STORY-0001",
+  "id": "MOD-001-FEAT-001-STORY-001",
   "title": "Create new company profile with essential business information",
   "description": "As a sales representative, I want to create a new company profile with essential business details, so that I can start tracking potential customers in the CRM.",
-  "featureId": "FEAT-0001",
+  "featureId": "MOD-001-FEAT-001",
   "status": "in-progress",
   "acceptanceCriteria": [
     {
@@ -81,6 +81,10 @@
     "createdAt": "2025-01-25T09:00:00Z",
     "updatedAt": "2025-02-01T14:30:00Z",
     "createdBy": "sarah.chen",
-    "tags": ["companies", "create", "form"]
+    "tags": [
+      "companies",
+      "create",
+      "form"
+    ]
   }
 }

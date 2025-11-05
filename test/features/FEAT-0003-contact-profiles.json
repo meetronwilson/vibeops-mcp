@@ -1,8 +1,8 @@
 {
-  "id": "FEAT-0003",
+  "id": "MOD-002-FEAT-003",
   "name": "Contact Profile Management",
   "description": "Comprehensive contact management with detailed individual profiles and company associations.",
-  "moduleId": "MOD-0002",
+  "moduleId": "MOD-002",
   "status": "in-progress",
   "prd": {
     "problemStatement": "Sales and customer success teams need to maintain detailed information about individual contacts, their roles, communication preferences, and relationships to companies, but current tools provide limited context and poor association management.",
@@ -45,13 +45,21 @@
       "Contact entity schema must be approved"
     ]
   },
-  "issues": ["STORY-0004", "STORY-0005", "BUG-0002"],
+  "issues": [
+    "MOD-002-FEAT-003-STORY-004",
+    "MOD-002-FEAT-003-STORY-005",
+    "MOD-002-FEAT-003-BUG-002"
+  ],
   "owner": "Jessica Liu",
   "priority": "high",
   "metadata": {
     "createdAt": "2025-02-05T11:00:00Z",
     "updatedAt": "2025-02-10T16:20:00Z",
     "createdBy": "jessica.liu",
-    "tags": ["contacts", "profiles", "relationships"]
+    "tags": [
+      "contacts",
+      "profiles",
+      "relationships"
+    ]
   }
 }

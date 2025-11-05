@@ -8,8 +8,8 @@
   "properties": {
     "id": {
       "type": "string",
-      "description": "Unique identifier for the spike",
-      "pattern": "^SPIKE-[0-9]{4}$"
+      "description": "Unique identifier for the spike (e.g., MOD-001-FEAT-001-SPIKE-001)",
+      "pattern": "^MOD-[0-9]{3}-FEAT-[0-9]{3}-SPIKE-[0-9]{3}$"
     },
     "title": {
       "type": "string",
@@ -24,8 +24,8 @@
     },
     "featureId": {
       "type": "string",
-      "description": "Parent feature ID",
-      "pattern": "^FEAT-[0-9]{4}$"
+      "description": "Parent feature ID (e.g., MOD-001-FEAT-001)",
+      "pattern": "^MOD-[0-9]{3}-FEAT-[0-9]{3}$"
     },
     "status": {
       "type": "string",

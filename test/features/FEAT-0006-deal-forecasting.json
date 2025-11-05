@@ -1,8 +1,8 @@
 {
-  "id": "FEAT-0006",
+  "id": "MOD-003-FEAT-006",
   "name": "Revenue Forecasting Dashboard",
   "description": "Analytics dashboard for revenue forecasting based on pipeline data and historical close rates.",
-  "moduleId": "MOD-0003",
+  "moduleId": "MOD-003",
   "status": "ready",
   "prd": {
     "problemStatement": "Sales leadership lacks accurate revenue forecasting tools, relying on manual spreadsheet calculations that are time-consuming, error-prone, and provide limited insight into forecast reliability and trends.",
@@ -50,13 +50,21 @@
       "Analytics platform must be operational"
     ]
   },
-  "issues": ["STORY-0008", "SPIKE-0002"],
+  "issues": [
+    "MOD-003-FEAT-006-STORY-008",
+    "MOD-003-FEAT-006-SPIKE-002"
+  ],
   "owner": "Robert Kim",
   "priority": "high",
   "metadata": {
     "createdAt": "2025-02-25T09:30:00Z",
     "updatedAt": "2025-03-01T11:00:00Z",
     "createdBy": "robert.kim",
-    "tags": ["deals", "forecasting", "analytics", "revenue"]
+    "tags": [
+      "deals",
+      "forecasting",
+      "analytics",
+      "revenue"
+    ]
   }
 }

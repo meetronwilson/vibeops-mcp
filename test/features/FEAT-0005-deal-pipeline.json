@@ -1,8 +1,8 @@
 {
-  "id": "FEAT-0005",
+  "id": "MOD-003-FEAT-005",
   "name": "Visual Deal Pipeline",
   "description": "Kanban-style visual pipeline for managing deals through sales stages with drag-and-drop functionality.",
-  "moduleId": "MOD-0003",
+  "moduleId": "MOD-003",
   "status": "in-progress",
   "prd": {
     "problemStatement": "Sales teams struggle with managing multiple deals across different stages, lacking visual clarity on pipeline health and deal progression, which impacts forecasting accuracy and deal velocity.",
@@ -50,13 +50,23 @@
       "Drag-and-drop UI library selection"
     ]
   },
-  "issues": ["STORY-0006", "STORY-0007", "BUG-0003", "DEBT-0002"],
+  "issues": [
+    "MOD-003-FEAT-005-STORY-006",
+    "MOD-003-FEAT-005-STORY-007",
+    "MOD-003-FEAT-005-BUG-003",
+    "MOD-003-FEAT-005-DEBT-002"
+  ],
   "owner": "Amanda Rodriguez",
   "priority": "critical",
   "metadata": {
     "createdAt": "2025-02-20T10:00:00Z",
     "updatedAt": "2025-02-28T14:15:00Z",
     "createdBy": "amanda.rodriguez",
-    "tags": ["deals", "pipeline", "sales", "kanban"]
+    "tags": [
+      "deals",
+      "pipeline",
+      "sales",
+      "kanban"
+    ]
   }
 }

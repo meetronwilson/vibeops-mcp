@@ -1,10 +1,13 @@
 {
-  "id": "MOD-0003",
+  "id": "MOD-003",
   "name": "Deal Pipeline",
   "description": "Sales pipeline management module for tracking deals, stages, forecasting, and revenue opportunities across the sales cycle.",
   "type": "initiative",
   "status": "active",
-  "features": ["FEAT-0005", "FEAT-0006"],
+  "features": [
+    "MOD-003-FEAT-005",
+    "MOD-003-FEAT-006"
+  ],
   "owner": "Sales Platform Team",
   "startDate": "2025-02-15",
   "targetDate": "2025-08-30",
@@ -12,6 +15,11 @@
     "createdAt": "2025-02-15T11:00:00Z",
     "updatedAt": "2025-02-15T11:00:00Z",
     "createdBy": "sales-director",
-    "tags": ["crm", "deals", "pipeline", "revenue"]
+    "tags": [
+      "crm",
+      "deals",
+      "pipeline",
+      "revenue"
+    ]
   }
 }

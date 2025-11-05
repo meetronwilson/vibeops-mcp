@@ -1,12 +1,15 @@
 {
-  "id": "DEBT-0001",
+  "id": "MOD-001-FEAT-002-DEBT-001",
   "title": "Refactor company hierarchy to use adjacency list instead of nested set model",
   "description": "Current company hierarchy implementation uses a nested set model which is efficient for reads but extremely slow for write operations (adding/moving companies in hierarchy). This is causing performance issues and complicating the codebase. Need to refactor to adjacency list model with materialized path for better write performance.",
-  "featureId": "FEAT-0002",
+  "featureId": "MOD-001-FEAT-002",
   "status": "identified",
   "impact": {
     "severity": "medium",
-    "areas": ["performance", "maintainability"],
+    "areas": [
+      "performance",
+      "maintainability"
+    ],
     "description": "Write operations on company hierarchies take 3-5 seconds for medium-sized trees (50+ nodes), causing poor user experience. The nested set model also requires complex transaction logic that makes the code difficult to maintain and extend. This technical debt is blocking future features like bulk hierarchy imports and real-time collaboration.",
     "metrics": [
       {
@@ -38,6 +41,11 @@
     "createdAt": "2025-01-30T14:00:00Z",
     "updatedAt": "2025-01-30T14:00:00Z",
     "createdBy": "tech-lead",
-    "tags": ["companies", "hierarchy", "database", "performance"]
+    "tags": [
+      "companies",
+      "hierarchy",
+      "database",
+      "performance"
+    ]
   }
 }

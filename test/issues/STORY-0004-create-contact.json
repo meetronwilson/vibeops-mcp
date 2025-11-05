@@ -1,8 +1,8 @@
 {
-  "id": "STORY-0004",
+  "id": "MOD-002-FEAT-003-STORY-004",
   "title": "Create contact profile and associate with company",
   "description": "As a sales representative, I want to create a contact profile and link it to a company, so that I can track the people I interact with at customer organizations.",
-  "featureId": "FEAT-0003",
+  "featureId": "MOD-002-FEAT-003",
   "status": "in-progress",
   "acceptanceCriteria": [
     {
@@ -81,6 +81,10 @@
     "createdAt": "2025-02-10T10:00:00Z",
     "updatedAt": "2025-02-15T13:45:00Z",
     "createdBy": "jessica.liu",
-    "tags": ["contacts", "create", "associations"]
+    "tags": [
+      "contacts",
+      "create",
+      "associations"
+    ]
   }
 }

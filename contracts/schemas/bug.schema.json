@@ -8,8 +8,8 @@
   "properties": {
     "id": {
       "type": "string",
-      "description": "Unique identifier for the bug",
-      "pattern": "^BUG-[0-9]{4}$"
+      "description": "Unique identifier for the bug (e.g., MOD-001-FEAT-001-BUG-001)",
+      "pattern": "^MOD-[0-9]{3}-FEAT-[0-9]{3}-BUG-[0-9]{3}$"
     },
     "title": {
       "type": "string",
@@ -24,8 +24,8 @@
     },
     "featureId": {
       "type": "string",
-      "description": "Parent feature ID",
-      "pattern": "^FEAT-[0-9]{4}$"
+      "description": "Parent feature ID (e.g., MOD-001-FEAT-001)",
+      "pattern": "^MOD-[0-9]{3}-FEAT-[0-9]{3}$"
     },
     "status": {
       "type": "string",
@@ -190,7 +190,7 @@
           "description": "List of feature IDs affected by this bug",
           "items": {
             "type": "string",
-            "pattern": "^FEAT-[0-9]{4}$"
+            "pattern": "^MOD-[0-9]{3}-FEAT-[0-9]{3}$"
           }
         }
       }
@@ -235,7 +235,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^(BUG|STORY|DEBT|SPIKE)-[0-9]{4}$",
+            "pattern": "^MOD-[0-9]{3}-FEAT-[0-9]{3}-(BUG|STORY|DEBT|SPIKE)-[0-9]{3}$",
             "description": "Related issue ID"
           },
           "relationship": {
