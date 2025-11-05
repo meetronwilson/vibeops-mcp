@@ -53,6 +53,18 @@ import {
   getMemoriesByContract,
   getContinuationContext,
 } from './tools/memory.js';
+import {
+  calculateCriticalPath,
+  getNextFeature,
+  validateDependencies,
+  getDependencyGraph,
+} from './tools/critical-path.js';
+import {
+  addFeatureDependency,
+  removeFeatureDependency,
+  updateFeatureDependencies,
+  getFeatureDependencies,
+} from './tools/dependencies.js';
 import { getContractCounts } from './lib/id-generator.js';
 import { readContract, listAllContracts, getContractsDir, getTypeDir } from './lib/file-manager.js';
 import { convertToMarkdown } from './lib/markdown-converter.js';
@@ -1183,6 +1195,187 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           },
         },
       },
+      {
+        name: 'calculate_critical_path',
+        description: 'Calculate the critical path to reach a target feature, identifying all blocking dependencies and parallel work opportunities',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            targetFeatureId: {
+              type: 'string',
+              description: 'The feature ID to calculate critical path for (e.g., FEAT-0005)',
+              pattern: '^FEAT-[0-9]{4}$',
+            },
+          },
+          required: ['targetFeatureId'],
+        },
+      },
+      {
+        name: 'get_next_feature',
+        description: 'Get recommendations for what feature to work on next based on dependencies, priorities, and what will unblock the most work',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            moduleId: {
+              type: 'string',
+              description: 'Optional: Filter to a specific module (e.g., MOD-0001)',
+              pattern: '^MOD-[0-9]{4}$',
+            },
+            priority: {
+              type: 'string',
+              enum: ['critical', 'high', 'medium', 'low'],
+              description: 'Optional: Filter by priority level',
+            },
+            maxResults: {
+              type: 'number',
+              description: 'Maximum number of recommendations to return (default: 5)',
+              minimum: 1,
+              maximum: 20,
+            },
+          },
+        },
+      },
+      {
+        name: 'validate_dependencies',
+        description: 'Validate feature dependencies, checking for circular dependencies, invalid references, and other structural issues',
+        inputSchema: {
+          type: 'object',
+          properties: {},
+        },
+      },
+      {
+        name: 'get_dependency_graph',
+        description: 'Generate a dependency graph visualization showing how features depend on each other, with optional critical path highlighting',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            moduleId: {
+              type: 'string',
+              description: 'Optional: Show only features from this module',
+              pattern: '^MOD-[0-9]{4}$',
+            },
+            highlightCriticalPath: {
+              type: 'string',
+              description: 'Optional: Highlight critical path to this feature',
+              pattern: '^FEAT-[0-9]{4}$',
+            },
+            includeCompleted: {
+              type: 'boolean',
+              description: 'Include completed features in the graph (default: true)',
+            },
+            format: {
+              type: 'string',
+              enum: ['mermaid', 'json'],
+              description: 'Output format (default: mermaid)',
+            },
+          },
+        },
+      },
+      {
+        name: 'add_feature_dependency',
+        description: 'Add a dependency to a feature - makes it easy to say "Feature X depends on Feature Y"',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            featureId: {
+              type: 'string',
+              description: 'The feature that has the dependency (e.g., FEAT-0003)',
+              pattern: '^FEAT-[0-9]{4}$',
+            },
+            dependsOnFeatureId: {
+              type: 'string',
+              description: 'The feature that is depended on (e.g., FEAT-0001)',
+              pattern: '^FEAT-[0-9]{4}$',
+            },
+            type: {
+              type: 'string',
+              enum: ['blocks', 'requires', 'related'],
+              description: 'Type of dependency: blocks (hard blocker), requires (soft dependency), related (informational)',
+            },
+            reason: {
+              type: 'string',
+              description: 'Optional reason explaining why this dependency exists',
+            },
+          },
+          required: ['featureId', 'dependsOnFeatureId', 'type'],
+        },
+      },
+      {
+        name: 'remove_feature_dependency',
+        description: 'Remove a dependency from a feature',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            featureId: {
+              type: 'string',
+              description: 'The feature to remove the dependency from',
+              pattern: '^FEAT-[0-9]{4}$',
+            },
+            dependsOnFeatureId: {
+              type: 'string',
+              description: 'The dependency to remove',
+              pattern: '^FEAT-[0-9]{4}$',
+            },
+          },
+          required: ['featureId', 'dependsOnFeatureId'],
+        },
+      },
+      {
+        name: 'update_feature_dependencies',
+        description: 'Update all dependencies for a feature at once (replace or append mode)',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            featureId: {
+              type: 'string',
+              description: 'The feature to update dependencies for',
+              pattern: '^FEAT-[0-9]{4}$',
+            },
+            dependencies: {
+              type: 'array',
+              description: 'Array of dependencies',
+              items: {
+                type: 'object',
+                properties: {
+                  featureId: {
+                    type: 'string',
+                    pattern: '^FEAT-[0-9]{4}$',
+                  },
+                  type: {
+                    type: 'string',
+                    enum: ['blocks', 'requires', 'related'],
+                  },
+                  reason: {
+                    type: 'string',
+                  },
+                },
+                required: ['featureId', 'type'],
+              },
+            },
+            mode: {
+              type: 'string',
+              enum: ['replace', 'append'],
+              description: 'replace: Replace all dependencies, append: Add to existing (default: replace)',
+            },
+          },
+          required: ['featureId', 'dependencies'],
+        },
+      },
+      {
+        name: 'get_feature_dependencies',
+        description: 'Get all dependencies for a specific feature',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            featureId: {
+              type: 'string',
+              description: 'The feature to get dependencies for',
+              pattern: '^FEAT-[0-9]{4}$',
+            },
+          },
+          required: ['featureId'],
+        },
+      },
     ],
   };
 });
@@ -2219,6 +2412,132 @@ _Generated: ${new Date().toISOString()}_
                 null,
                 2
               ),
+            },
+          ],
+        };
+      }
+
+      case 'calculate_critical_path': {
+        const result = calculateCriticalPath(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'get_next_feature': {
+        const result = getNextFeature(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'validate_dependencies': {
+        const result = validateDependencies();
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
+            },
+          ],
+        };
+      }
+
+      case 'get_dependency_graph': {
+        const result = getDependencyGraph(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: result.content,
+            },
+          ],
+        };
+      }
+
+      case 'add_feature_dependency': {
+        const result = addFeatureDependency(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: `Dependency added successfully`,
+                  featureId: result.id,
+                  featureName: result.name,
+                  dependencies: result.featureDependencies || [],
+                  dependencyCount: (result.featureDependencies || []).length,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'remove_feature_dependency': {
+        const result = removeFeatureDependency(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: `Dependency removed successfully`,
+                  featureId: result.id,
+                  featureName: result.name,
+                  dependencies: result.featureDependencies || [],
+                  dependencyCount: (result.featureDependencies || []).length,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'update_feature_dependencies': {
+        const result = updateFeatureDependencies(args as any);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(
+                {
+                  message: `Dependencies updated successfully`,
+                  featureId: result.id,
+                  featureName: result.name,
+                  dependencies: result.featureDependencies || [],
+                  dependencyCount: (result.featureDependencies || []).length,
+                },
+                null,
+                2
+              ),
+            },
+          ],
+        };
+      }
+
+      case 'get_feature_dependencies': {
+        const result = getFeatureDependencies((args as any).featureId);
+        return {
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify(result, null, 2),
             },
           ],
         };

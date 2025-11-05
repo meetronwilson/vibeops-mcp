@@ -48,6 +48,11 @@ export interface Feature {
   issues: string[];
   owner?: string;
   priority?: 'critical' | 'high' | 'medium' | 'low';
+  featureDependencies?: Array<{
+    featureId: string;
+    type: 'blocks' | 'requires' | 'related';
+    reason?: string;
+  }>;
   metadata: Metadata;
 }
 

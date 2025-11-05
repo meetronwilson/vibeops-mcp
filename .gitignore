@@ -27,3 +27,6 @@ coverage/
 # Build outputs
 dist/
 build/
+
+# Project Management
+.pm/

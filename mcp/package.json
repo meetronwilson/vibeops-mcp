@@ -1,6 +1,6 @@
 {
   "name": "@anckr/vibeops",
-  "version": "2.2.4",
+  "version": "2.3.0",
   "description": "Model Context Protocol server for managing VibeOps contracts through natural conversation with Claude Code",
   "type": "module",
   "main": "build/index.js",
